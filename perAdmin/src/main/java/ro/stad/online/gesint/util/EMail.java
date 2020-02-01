@@ -7,7 +7,7 @@ import java.util.Map;
 import com.mitchellbosecke.pebble.error.PebbleException;
 
 import ro.stad.online.gesint.persistence.entities.Alerta;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.Utilizator;
 
 /**
@@ -28,6 +28,6 @@ public interface EMail {
 	 * @param utilizatoriSelectionati Utilizator
 	 * @return Date
 	 */
-	Date send(final Alerta alerta, List<Utilizator> utilizatoriSelectionati, List<Documentul> documenteIncarcate,
+	Date send(final Alerta alerta, List<Utilizator> utilizatoriSelectionati, List<Documente> documenteIncarcate,
 			String plantilla, Map<String, String> paramPlantilla) throws PebbleException;
 }

@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import ro.stad.online.gesint.constante.Constante;
 import ro.stad.online.gesint.model.filters.FiltruAlerta;
 import ro.stad.online.gesint.persistence.entities.Alerta;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.Utilizator;
 import ro.stad.online.gesint.persistence.repositories.AlertaRepository;
 import ro.stad.online.gesint.services.AlertaService;
@@ -156,7 +156,7 @@ public class AlertaServiceImpl implements AlertaService, Serializable {
          * @throws PebbleException
          */
         @Override
-        public void sendAlert(Alerta alerta, List<Utilizator> utilizatoriSelectionati, List<Documentul> documenteIncarcate,
+        public void sendAlert(Alerta alerta, List<Utilizator> utilizatoriSelectionati, List<Documente> documenteIncarcate,
                         String plantilla, Map<String, String> paramPlantilla) throws PebbleException {
                 Alerta alertaLocal;
                 alertaLocal = new Alerta();

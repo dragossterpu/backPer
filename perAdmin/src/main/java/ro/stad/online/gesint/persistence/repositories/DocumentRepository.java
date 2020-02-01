@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.stad.online.gesint.persistence.entities.Alerta;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 
 /**
  * Repository de operațiuni de bază de date pentru entitatea documentului.
@@ -16,15 +16,15 @@ import ro.stad.online.gesint.persistence.entities.Documentul;
  * @author STAD
  *
  */
-public interface DocumentRepository extends CrudRepository<Documentul, Long> {
+public interface DocumentRepository extends CrudRepository<Documente, Long> {
 
         /**
          * Returnează documentele care corespund tipului de document.
          * @param tipo Numele tipului de document
          * @return Lista documentelor
          */
-        @Query("select a from Documentul a, TipDocument b where a.tipDocument=b.id and b.nume=?1")
-        List<Documentul> cautaNumeTipDocument(String tip);
+        @Query("select a from Documente a, TipDocument b where a.tipDocument=b.id and b.nume=?1")
+        List<Documente> cautaNumeTipDocument(String tip);
 
         /**
          * Eliminați toate înregistrările a căror dată de eliminare nu este nulă.
@@ -36,21 +36,21 @@ public interface DocumentRepository extends CrudRepository<Documentul, Long> {
          * Căutați toate documentele care nu au fost eliminate logic.
          * @return Lista documentelor selectate
          */
-        List<Documentul> findByDateDeletedIsNotNull();
+        List<Documente> findByDateDeletedIsNotNull();
 
         /**
          * Căutați toate documentele care au fost eliminate logic.
          * @return Lista documentelor selectate
          */
-        List<Documentul> findByDateDeletedIsNull();
+        List<Documente> findByDateDeletedIsNull();
 
         /**
          * Returnează un document localizat după id-ul său.
          * @param id Long Identificatorul documentului
-         * @return Documentul Documentul
+         * @return Documente Documente
          */
-        @EntityGraph(value = "Documentul.fichero", type = EntityGraph.EntityGraphType.LOAD)
-        Documentul findById(Long id);
+        @EntityGraph(value = "Documente.fichero", type = EntityGraph.EntityGraphType.LOAD)
+        Documente findById(Long id);
 
         /**
          * Returneaza lista cu documentele anexate alertei
@@ -58,6 +58,6 @@ public interface DocumentRepository extends CrudRepository<Documentul, Long> {
          * @return
          *
          */
-        List<Documentul> findByAlerta(Alerta alerta);
+        List<Documente> findByAlerta(Alerta alerta);
 
 }

@@ -30,7 +30,7 @@ import lombok.Getter;
 import ro.stad.online.gesint.constante.Constante;
 import ro.stad.online.gesint.exceptions.EMailException;
 import ro.stad.online.gesint.persistence.entities.Alerta;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.Utilizator;
 
 /**
@@ -62,7 +62,7 @@ public class EMailImpl implements EMail {
          * @throws EMailException excepción al enviar el correo
          */
         private void enviarCorreo(final String destino, final String titlu, final String cuerpo,
-                        final List<Documentul> adjuntos, final String plantilla,
+                        final List<Documente> adjuntos, final String plantilla,
                         final Map<String, String> paramPlantilla) throws IOException, PebbleException {
                 try {
 
@@ -92,7 +92,7 @@ public class EMailImpl implements EMail {
                         final List<File> listfila = new ArrayList<>();
                         File tempFile = null;
                         if (!adjuntos.isEmpty()) {
-                                for (final Documentul doc : adjuntos) {
+                                for (final Documente doc : adjuntos) {
                                         tempFile = File.createTempFile(doc.getNume(), null);
                                         listfila.add(tempFile);
                                 }
@@ -156,7 +156,7 @@ public class EMailImpl implements EMail {
          */
         @Override
         public Date send(final Alerta alerta, final List<Utilizator> utilizatoriSelectionati,
-                        final List<Documentul> documenteIncarcate, final String plantilla,
+                        final List<Documente> documenteIncarcate, final String plantilla,
                         final Map<String, String> paramPlantilla) throws PebbleException {
                 final Date fechaEnvio = null;
                 final String titlu = alerta.getTipAlerta().getDescription().concat(". ").concat(alerta.getTitlu());

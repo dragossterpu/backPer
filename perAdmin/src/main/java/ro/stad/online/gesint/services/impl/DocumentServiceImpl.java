@@ -29,7 +29,7 @@ import ro.stad.online.gesint.constante.Constante;
 import ro.stad.online.gesint.exceptions.GesintException;
 import ro.stad.online.gesint.persistence.entities.Alerta;
 import ro.stad.online.gesint.persistence.entities.DocumentBlob;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.TipDocument;
 import ro.stad.online.gesint.persistence.entities.Utilizator;
 import ro.stad.online.gesint.persistence.repositories.DocumentRepository;
@@ -73,7 +73,7 @@ public class DocumentServiceImpl implements DocumentService {
          * @return Listado de documentos
          */
         @Override
-        public List<Documentul> cautaNumeTipDocument(final String tipoDocumento) {
+        public List<Documente> cautaNumeTipDocument(final String tipoDocumento) {
                 return documentoRepository.cautaNumeTipDocument(tipoDocumento);
         }
 
@@ -89,10 +89,10 @@ public class DocumentServiceImpl implements DocumentService {
          *
          */
         @Override
-        public List<Documentul> cautareDocumentCriteria(final int first, final int pageSize, final String sortField,
+        public List<Documente> cautareDocumentCriteria(final int first, final int pageSize, final String sortField,
                         final SortOrder sortOrder, final FiltruDocument busquedaDocumento) {
                 final Session session = sessionFactory.openSession();
-                final Criteria criteriaDocumento = session.createCriteria(Documentul.class, "documento");
+                final Criteria criteriaDocumento = session.createCriteria(Documente.class, "documento");
                 creaCriteria(busquedaDocumento, criteriaDocumento);
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 if (busquedaDocumento.getUsuario() != null) {
@@ -102,7 +102,7 @@ public class DocumentServiceImpl implements DocumentService {
                 }
                 pregatestePaginacreOrdenCriteria(criteriaDocumento, first, pageSize, sortField, sortOrder, "id");
                 @SuppressWarnings("unchecked")
-                final List<Documentul> listado = criteriaDocumento.list();
+                final List<Documente> listado = criteriaDocumento.list();
                 session.close();
                 return listado;
         }
@@ -127,13 +127,13 @@ public class DocumentServiceImpl implements DocumentService {
          *
          */
         @Override
-        public Documentul cargaDocumento(final UploadedFile file, final TipDocument tip, final Utilizator utilizator)
+        public Documente cargaDocumento(final UploadedFile file, final TipDocument tip, final Utilizator utilizator)
                         throws GesintException {
                 try {
-                        final Documentul documentul = documentoRepository.save(creareDocument(file, tip, utilizator));
-                        documentul.getNume();
+                        final Documente documente = documentoRepository.save(creareDocument(file, tip, utilizator));
+                        documente.getNume();
                         utilizator.getUsername();
-                        return documentul;
+                        return documente;
                 }
                 catch (DataAccessException | IOException ex) {
                         throw new GesintException(ex);
@@ -141,7 +141,7 @@ public class DocumentServiceImpl implements DocumentService {
         }
 
         /**
-         * Recibe un archivo UploadedFile y los datos necesarios para general un Documentul pero no lo almacena en base
+         * Recibe un archivo UploadedFile y los datos necesarios para general un Documente pero no lo almacena en base
          * de datos. Sólo deja el objeto preparado para guardarlo.
          *
          * @param file fichero a cargar en BDD
@@ -151,7 +151,7 @@ public class DocumentServiceImpl implements DocumentService {
          * @throws ProgesinException excepción lanzada
          */
         @Override
-        public Documentul incarcareDocumentFaraSalvare(final UploadedFile file, final TipDocument tip,
+        public Documente incarcareDocumentFaraSalvare(final UploadedFile file, final TipDocument tip,
                         final Utilizator utilizator) throws GesintException {
                 try {
                         return creareDocument(file, tip, utilizator);
@@ -200,13 +200,13 @@ public class DocumentServiceImpl implements DocumentService {
          * @param file Fichero subido por el usuario.
          * @param tipo Tipo de documento.
          * @param inspeccion Inspección a la que se asocia.
-         * @return Documentul generado
+         * @return Documente generado
          * @throws DataAccessException Excepción SQL
          * @throws IOException Excepción entrada/salida
          */
-        private Documentul creareDocument(final UploadedFile file, final TipDocument tip, final Utilizator utilizator)
+        private Documente creareDocument(final UploadedFile file, final TipDocument tip, final Utilizator utilizator)
                         throws IOException {
-                final Documentul docu = new Documentul();
+                final Documente docu = new Documente();
                 docu.setNume(file.getFileName());
                 docu.setTipDocument(tip);
                 final byte[] fileBlob = StreamUtils.copyToByteArray(file.getInputstream());
@@ -234,12 +234,12 @@ public class DocumentServiceImpl implements DocumentService {
         }
 
         /**
-         * Ștergeți o serie de documente din baza de date. Documentul care trebuie șters este trecut ca parametru.
-         * @param entity Documentul care trebuie șters
+         * Ștergeți o serie de documente din baza de date. Documente care trebuie șters este trecut ca parametru.
+         * @param entity Documente care trebuie șters
          *
          */
         @Override
-        public void delete(final Documentul entity) {
+        public void delete(final Documente entity) {
                 documentoRepository.delete(entity);
         }
 
@@ -251,8 +251,8 @@ public class DocumentServiceImpl implements DocumentService {
          * @throws GesintException Excepție posibilă
          */
         @Override
-        public DefaultStreamedContent descarcareDocument(final Documentul entity) throws GesintException {
-                final Documentul docu = documentoRepository.findOne(entity.getId());
+        public DefaultStreamedContent descarcareDocument(final Documente entity) throws GesintException {
+                final Documente docu = documentoRepository.findOne(entity.getId());
                 DefaultStreamedContent streamDocument;
                 if (docu != null) {
                         final InputStream stream = new ByteArrayInputStream(docu.getFisier().getFichero());
@@ -272,7 +272,7 @@ public class DocumentServiceImpl implements DocumentService {
          */
         @Override
         public DefaultStreamedContent descarcareDocument(final Long id) throws GesintException {
-                final Documentul entity = documentoRepository.findById(id);
+                final Documente entity = documentoRepository.findById(id);
                 DefaultStreamedContent streamDocument;
                 if (entity != null) {
                         final InputStream stream = new ByteArrayInputStream(entity.getFisier().getFichero());
@@ -290,7 +290,7 @@ public class DocumentServiceImpl implements DocumentService {
          * @return Lista documentelor selectate
          */
         @Override
-        public List<Documentul> findByFechaBajaIsNotNull() {
+        public List<Documente> findByFechaBajaIsNotNull() {
                 return documentoRepository.findByDateDeletedIsNotNull();
         }
 
@@ -299,17 +299,17 @@ public class DocumentServiceImpl implements DocumentService {
          * @return Lista documentelor selectate
          */
         @Override
-        public List<Documentul> findByFechaBajaIsNull() {
+        public List<Documente> findByFechaBajaIsNull() {
                 return documentoRepository.findByDateDeletedIsNull();
         }
 
         /**
          * Returnează un document localizat după id-ul său.
          * @param id Identificatorul documentului
-         * @return Documentul
+         * @return Documente
          */
         @Override
-        public Documentul findOne(final Long id) {
+        public Documente findOne(final Long id) {
                 return documentoRepository.findOne(id);
         }
 
@@ -321,7 +321,7 @@ public class DocumentServiceImpl implements DocumentService {
         @Override
         public int getCounCriteria(final FiltruDocument cautare) {
                 final Session session = sessionFactory.openSession();
-                final Criteria criteria = session.createCriteria(Documentul.class, "document");
+                final Criteria criteria = session.createCriteria(Documente.class, "document");
                 creaCriteria(cautare, criteria);
                 criteria.setProjection(Projections.rowCount());
                 final Long cnt = (Long) criteria.uniqueResult();
@@ -339,13 +339,13 @@ public class DocumentServiceImpl implements DocumentService {
         }
 
         /**
-         * Devuelve el nombre del fichero contenido en el objeto Documentul.
+         * Devuelve el nombre del fichero contenido en el objeto Documente.
          * @param documento del cual quiere extraerse el nombre del fichero contenido
          * @return nombre del fichero
          */
         @Override
-        public String obtieneNumeFisier(final Documentul document) {
-                final Documentul docu = documentoRepository.findById(document.getId());
+        public String obtieneNumeFisier(final Documente document) {
+                final Documente docu = documentoRepository.findById(document.getId());
                 return docu.getNume();
         }
 
@@ -380,7 +380,7 @@ public class DocumentServiceImpl implements DocumentService {
          * @param documento Es el documento a recuperar de la papelera
          */
         @Override
-        public void recupereazaDocument(final Documentul document) {
+        public void recupereazaDocument(final Documente document) {
                 document.setDateDeleted(null);
                 document.setUserDeleted(null);
                 save(document);
@@ -389,12 +389,12 @@ public class DocumentServiceImpl implements DocumentService {
         /**
          * Salvați un document în baza de date. Ca parametru, primește documentul care trebuie salvat și returnează
          * documentul salvat.
-         * @param entity Documentul Document pentru salvare
+         * @param entity Documente Document pentru salvare
          * @return documento documentul salvat
          */
         @Override
         @Transactional(readOnly = false)
-        public Documentul save(final Documentul entity) {
+        public Documente save(final Documente entity) {
                 return documentoRepository.save(entity);
         }
 
@@ -406,7 +406,7 @@ public class DocumentServiceImpl implements DocumentService {
          *
          */
         @Override
-        public Iterable<Documentul> save(final Iterable<Documentul> entities) {
+        public Iterable<Documente> save(final Iterable<Documente> entities) {
                 return documentoRepository.save(entities);
         }
 
@@ -414,8 +414,8 @@ public class DocumentServiceImpl implements DocumentService {
          * Elimina todos los documentos almacenados en la papelera.
          */
         @Override
-        public List<Documentul> golesteCosulGunoi() {
-                final List<Documentul> listaEliminar = documentoRepository.findByDateDeletedIsNotNull();
+        public List<Documente> golesteCosulGunoi() {
+                final List<Documente> listaEliminar = documentoRepository.findByDateDeletedIsNotNull();
                 documentoRepository.delete(listaEliminar);
                 return listaEliminar;
         }
@@ -426,8 +426,8 @@ public class DocumentServiceImpl implements DocumentService {
          * @return Lista documentelor
          */
         @Override
-        public List<Documentul> findByAlerta(final Alerta alerta) {
-                final List<Documentul> listaEliminar = documentoRepository.findByAlerta(alerta);
+        public List<Documente> findByAlerta(final Alerta alerta) {
+                final List<Documente> listaEliminar = documentoRepository.findByAlerta(alerta);
                 documentoRepository.delete(listaEliminar);
                 return listaEliminar;
         }

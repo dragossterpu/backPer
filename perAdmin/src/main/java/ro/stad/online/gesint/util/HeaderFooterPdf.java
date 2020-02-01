@@ -58,7 +58,7 @@ public class HeaderFooterPdf implements IEventHandler {
 
 	/**
 	 * 
-	 * @param document Documentul al que se quiere añadir el header/footer
+	 * @param document Documente al que se quiere añadir el header/footer
 	 * @param imagenUno Ruta de la imagen en la primera posición del header
 	 * @param imagenDos Ruta de la imagen en la segunda posición del header
 	 * @param cabeceraRepetido Ruta de la imagen que se repite en todas las páginas del header (salvo la primera)

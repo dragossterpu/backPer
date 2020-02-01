@@ -29,7 +29,7 @@ import ro.stad.online.gesint.constante.Constante;
 import ro.stad.online.gesint.constante.NumarMagic;
 import ro.stad.online.gesint.exceptions.GesintException;
 import ro.stad.online.gesint.lazydata.LazyDataDocumente;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.TipDocument;
 import ro.stad.online.gesint.persistence.entities.Utilizator;
 import ro.stad.online.gesint.persistence.repositories.TipDocumentRepository;
@@ -60,7 +60,7 @@ public class DocumentManagementBean implements Serializable {
         /**
          * Obiectul de tip Document pentru înregistrarea de noi documente.
          */
-        private Documentul document;
+        private Documente document;
 
         /**
          * Obiect care conține parametrii de căutare pentru documente.
@@ -122,9 +122,9 @@ public class DocumentManagementBean implements Serializable {
 
         /**
          * Elimina un documento definitivamente.
-         * @param doc Documentul a eliminar
+         * @param doc Documente a eliminar
          */
-        public void borrarDocumento(final Documentul doc) {
+        public void borrarDocumento(final Documente doc) {
                 try {
                         doc.setUtilizator(null);
                         this.documentService.delete(doc);
@@ -202,10 +202,10 @@ public class DocumentManagementBean implements Serializable {
 
         /**
          * Inicia la descarga del documento que se recibe como parámetro.
-         * @param document Documentul a descargar
+         * @param document Documente a descargar
          */
-        public void descarcareFisier(final Documentul document) {
-                final Documentul docAux = this.documentService.findOne(document.getId());
+        public void descarcareFisier(final Documente document) {
+                final Documente docAux = this.documentService.findOne(document.getId());
                 this.setFile(null);
                 if (docAux != null) {
                         try {
@@ -225,11 +225,11 @@ public class DocumentManagementBean implements Serializable {
         /**
          * Recupera el documento a modificar e inicia el proceso de modificación.
          *
-         * @param doc Documentul a modificar
+         * @param doc Documente a modificar
          * @return URL de la vista de edición
          */
-        public String editarDocumento(final Documentul doc) {
-                final Documentul docAux = this.documentService.findOne(doc.getId());
+        public String editarDocumento(final Documente doc) {
+                final Documente docAux = this.documentService.findOne(doc.getId());
                 String redireccion = null;
 
                 if (docAux != null) {
@@ -247,9 +247,9 @@ public class DocumentManagementBean implements Serializable {
         /**
          * Realiza la baja lógica del documento que podrá ser recuperado desde la papelera.
          *
-         * @param document Documentul al que se dará de baja lógica
+         * @param document Documente al que se dará de baja lógica
          */
-        public void eliminareDocument(final Documentul document) {
+        public void eliminareDocument(final Documente document) {
                 try {
                         document.setDateDeleted(new Date());
                         document.setUserDeleted(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -289,7 +289,7 @@ public class DocumentManagementBean implements Serializable {
                 try {
                         this.documentService.save(this.document);
                         FacesUtilities.setMensajeConfirmacionDialog(FacesMessage.SEVERITY_INFO, "MODIFCARE",
-                                        "Documentul a fost modificat");
+                                        "Documente a fost modificat");
                         this.reincarcareLista();
                 }
                 catch (final DataAccessException e) {
@@ -303,7 +303,7 @@ public class DocumentManagementBean implements Serializable {
          * @return ruta de la vista
          */
         public String nouDocument() {
-                this.document = new Documentul();
+                this.document = new Documente();
                 this.numeDoc = "";
                 return "/gestorDocumental/nouDocument?faces-redirect=true";
         }
@@ -336,9 +336,9 @@ public class DocumentManagementBean implements Serializable {
 
         /**
          * Recupera un documento desde la papelera.
-         * @param doc Documentul a recuperar
+         * @param doc Documente a recuperar
          */
-        public void recuperareDocument(final Documentul doc) {
+        public void recuperareDocument(final Documente doc) {
                 try {
                         this.documentService.recupereazaDocument(doc);
                         this.cautareDocument();
@@ -379,9 +379,9 @@ public class DocumentManagementBean implements Serializable {
          */
         public void vaciarPapelera() {
                 try {
-                        final List<Documentul> documentosEliminados = this.documentService.golesteCosulGunoi();
+                        final List<Documente> documentosEliminados = this.documentService.golesteCosulGunoi();
                         final StringBuffer nombreFicherosEliminados = new StringBuffer().append("\n\n");
-                        for (final Documentul docu : documentosEliminados) {
+                        for (final Documente docu : documentosEliminados) {
                                 nombreFicherosEliminados.append('-').append(docu.getNume()).append("\n");
                         }
                         this.cautareDocument();

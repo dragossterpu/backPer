@@ -40,7 +40,7 @@ import ro.stad.online.gesint.model.filters.FiltruAlerta;
 import ro.stad.online.gesint.model.filters.FiltruEchipa;
 import ro.stad.online.gesint.model.filters.FiltruUtilizator;
 import ro.stad.online.gesint.persistence.entities.Alerta;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.Echipa;
 import ro.stad.online.gesint.persistence.entities.ParamEchipa;
 import ro.stad.online.gesint.persistence.entities.Provincia;
@@ -210,7 +210,7 @@ public class AlertaBean implements Serializable {
         /**
          * Lista de documente asociate cererii.
          */
-        private List<Documentul> listaDocumente;
+        private List<Documente> listaDocumente;
 
         /**
          * Serviciul de documente.
@@ -243,7 +243,7 @@ public class AlertaBean implements Serializable {
         /**
          * Lista documentelor încărcate.
          */
-        private List<Documentul> documenteIncarcate;
+        private List<Documente> documenteIncarcate;
 
         /**
          * Dias inactividad de un usuario.
@@ -381,7 +381,7 @@ public class AlertaBean implements Serializable {
          * Metoda de încărcare a documentelor.
          */
         public void incarcareDocument() {
-                for (final Documentul doc : this.listaDocumente) {
+                for (final Documente doc : this.listaDocumente) {
                         this.documenteIncarcate.add(doc);
                 }
 
@@ -396,12 +396,12 @@ public class AlertaBean implements Serializable {
 
         /**
          * Descărcați un document încărcat de utilizator.
-         * @param documentul documentul selectat
+         * @param documente documentul selectat
          */
-        public void descarcareFisier(final Documentul documentul) {
+        public void descarcareFisier(final Documente documente) {
                 setFile(null);
                 try {
-                        setFile(documentService.descarcareDocument(documentul));
+                        setFile(documentService.descarcareDocument(documente));
                 }
                 catch (final GesintException e) {
                         FacesUtilities.setMensajeConfirmacionDialog(FacesMessage.SEVERITY_ERROR, Constante.EROAREMESAJ,
@@ -424,9 +424,9 @@ public class AlertaBean implements Serializable {
         public void eliminareAlerta(final Alerta alert) {
                 try {
                         this.alerta = alert;
-                        final List<Documentul> documents = documentService.findByAlerta(alerta);
+                        final List<Documente> documents = documentService.findByAlerta(alerta);
                         if (!documents.isEmpty()) {
-                                for (final Documentul doc : documents) {
+                                for (final Documente doc : documents) {
                                         documentService.delete(doc);
                                 }
                         }
@@ -443,9 +443,9 @@ public class AlertaBean implements Serializable {
 
         /**
          * Realizează eliminarea logică a documentului care poate fi recuperat din coșul de gunoi.
-         * @param document Documentul care o sa fie eliminat logic.
+         * @param document Documente care o sa fie eliminat logic.
          */
-        public void eliminareDocument(final Documentul document) {
+        public void eliminareDocument(final Documente document) {
                 try {
                         this.listaDocumente.remove(document);
                         this.documentService.delete(document);
@@ -456,9 +456,9 @@ public class AlertaBean implements Serializable {
 
         /**
          * Realizează eliminarea logică a documentului care poate fi recuperat din coșul de gunoi.
-         * @param document Documentul care o sa fie eliminat logic.
+         * @param document Documente care o sa fie eliminat logic.
          */
-        public void eliminareDocumentFinal(final Documentul document) {
+        public void eliminareDocumentFinal(final Documente document) {
                 try {
                         this.documenteIncarcate.remove(document);
                         this.documentService.delete(document);
@@ -509,7 +509,7 @@ public class AlertaBean implements Serializable {
                         this.alertaService.save(alerta);
                         // Comprbar que la lista no es vacia
                         if (!documenteIncarcate.isEmpty()) {
-                                for (final Documentul doc : documenteIncarcate) {
+                                for (final Documente doc : documenteIncarcate) {
                                         doc.setAlerta(alerta);
                                         doc.setValidat(true);
                                         doc.setDescriere("Document anexat la trimiterea e-mailului :"
@@ -624,9 +624,9 @@ public class AlertaBean implements Serializable {
                         final Utilizator utilizator = (Utilizator) SecurityContextHolder.getContext()
                                         .getAuthentication().getPrincipal();
                         if (this.esteDocumentatie(fisier)) {
-                                final Documentul documentul = this.documentService.cargaDocumento(fisier, tip,
+                                final Documente documente = this.documentService.cargaDocumento(fisier, tip,
                                                 utilizator);
-                                this.listaDocumente.add(documentul);
+                                this.listaDocumente.add(documente);
                                 FacesUtilities.setMensajeInformativo(FacesMessage.SEVERITY_INFO, Constante.INREGISTRARE,
                                                 "Fișierul/ele încărcat/e cu succes", Constante.MSGS);
                         }
@@ -665,9 +665,9 @@ public class AlertaBean implements Serializable {
                         final Utilizator utilizator = (Utilizator) SecurityContextHolder.getContext()
                                         .getAuthentication().getPrincipal();
                         if (this.esteDocumentatie(fisier)) {
-                                final Documentul documentul = this.documentService.cargaDocumento(fisier, tip,
+                                final Documente documente = this.documentService.cargaDocumento(fisier, tip,
                                                 utilizator);
-                                this.listaDocumente.add(documentul);
+                                this.listaDocumente.add(documente);
                                 FacesUtilities.setMensajeInformativo(FacesMessage.SEVERITY_INFO, Constante.INREGISTRARE,
                                                 "Fișierul/ele încărcat/e cu succes", Constante.MSGS);
                         }
@@ -767,10 +767,10 @@ public class AlertaBean implements Serializable {
                                 }
                                 alertaService.save(alerta);
                                 if (!this.documenteIncarcate.isEmpty()) {
-                                        for (final Documentul documentul : documenteIncarcate) {
-                                                documentul.setAlerta(alerta);
-                                                documentul.setValidat(true);
-                                                documentService.save(documentul);
+                                        for (final Documente documente : documenteIncarcate) {
+                                                documente.setAlerta(alerta);
+                                                documente.setValidat(true);
+                                                documentService.save(documente);
                                         }
                                 }
                                 FacesUtilities.setMensajeConfirmacionDialog(FacesMessage.SEVERITY_INFO,

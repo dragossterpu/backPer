@@ -9,7 +9,7 @@ import com.mitchellbosecke.pebble.error.PebbleException;
 
 import ro.stad.online.gesint.model.filters.FiltruAlerta;
 import ro.stad.online.gesint.persistence.entities.Alerta;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.Utilizator;
 
 /**
@@ -59,7 +59,7 @@ public interface AlertaService {
          * @param alerta Alerta
          * @param utilizatoriSelectionati List<User>
          */
-        void sendAlert(Alerta alerta, List<Utilizator> utilizatoriSelectionati, List<Documentul> documenteIncarcate,
+        void sendAlert(Alerta alerta, List<Utilizator> utilizatoriSelectionati, List<Documente> documenteIncarcate,
                         String plantilla, Map<String, String> paramPlantilla) throws PebbleException;
 
         /**

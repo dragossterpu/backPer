@@ -28,7 +28,7 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 	private ProvincieRepository provincieRepository;
 
 	/**
-	 * Recibe un archivo UploadedFile y los datos necesarios para general un Documentul pero no lo almacena en base de
+	 * Recibe un archivo UploadedFile y los datos necesarios para general un Documente pero no lo almacena en base de
 	 * datos. Sólo deja el objeto preparado para guardarlo.
 	 *
 	 * @param file fichero a cargar en BDD

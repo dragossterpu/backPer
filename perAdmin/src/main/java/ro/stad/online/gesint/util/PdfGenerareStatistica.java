@@ -26,7 +26,7 @@ import ro.stad.online.gesint.constante.Constante;
 import ro.stad.online.gesint.constante.NumarMagic;
 import ro.stad.online.gesint.exceptions.GesintException;
 import ro.stad.online.gesint.persistence.entities.DocumentBlob;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.persistence.entities.Sondaj;
 import ro.stad.online.gesint.persistence.entities.TipDocument;
 import ro.stad.online.gesint.services.DocumentService;
@@ -336,7 +336,7 @@ public class PdfGenerareStatistica extends PdfAbstractGenerator {
         @Override
         public void inregistrareDocumentStatistica(final String numeDocument,
                         final ByteArrayOutputStream outputStreamOr) {
-                final Documentul doc = new Documentul();
+                final Documente doc = new Documente();
                 final DocumentBlob docbl = new DocumentBlob();
                 docbl.setFichero(outputStreamOr.toByteArray());
                 docbl.setNombreFichero(numeDocument);

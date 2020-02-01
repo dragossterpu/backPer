@@ -41,7 +41,7 @@ import lombok.Setter;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "DOCUMENT")
-public class Documentul extends AbstractEntity implements Serializable {
+public class Documente extends AbstractEntity implements Serializable {
 
         private static final long serialVersionUID = 1L;
 

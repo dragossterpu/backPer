@@ -51,7 +51,7 @@ public abstract class PdfAbstractGenerator {
         /**
          * Genera el contenido que se mostrará en el PDF.
          *
-         * @param documento Documentul pdf al que se adjuntará el contenido
+         * @param documento Documente pdf al que se adjuntará el contenido
          * @throws ProgesinException excepción que puede lanzar
          */
         public abstract void creareCorpPdf(Document document) throws GesintException;

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
-import ro.stad.online.gesint.persistence.entities.Documentul;
+import ro.stad.online.gesint.persistence.entities.Documente;
 import ro.stad.online.gesint.services.DocumentService;
 import ro.stad.online.gesint.web.beans.gd.FiltruDocument;
 
@@ -24,7 +24,7 @@ import ro.stad.online.gesint.web.beans.gd.FiltruDocument;
 @Component
 @Setter
 @Getter
-public class LazyDataDocumente extends LazyDataModel<Documentul> implements Serializable {
+public class LazyDataDocumente extends LazyDataModel<Documente> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +41,7 @@ public class LazyDataDocumente extends LazyDataModel<Documentul> implements Seri
 	/**
 	 * Lista que sirve al modelo como fuente de datos.
 	 */
-	private List<Documentul> datasource;
+	private List<Documente> datasource;
 
 	/**
 	 * Constructor.
@@ -57,12 +57,12 @@ public class LazyDataDocumente extends LazyDataModel<Documentul> implements Seri
 	 * Sobreescritura del método getRowData para adaptarlo a nuestro modelo.
 	 * 
 	 * @param rowKey Fila que se ha seleccionado en la vista
-	 * @return Documentul que corresponde a la fila seleccionada
+	 * @return Documente que corresponde a la fila seleccionada
 	 */
 	@Override
-	public Documentul getRowData(String rowKey) {
-		Documentul doc = null;
-		for (Documentul docu : datasource) {
+	public Documente getRowData(String rowKey) {
+		Documente doc = null;
+		for (Documente docu : datasource) {
 			if (docu.getId().toString().equals(rowKey))
 				doc = docu;
 		}
@@ -72,11 +72,11 @@ public class LazyDataDocumente extends LazyDataModel<Documentul> implements Seri
 	/**
 	 * Sobreestritura del método getRowKey para adaptarlo a nuestro modelo.
 	 * 
-	 * @param solicitud Documentul del que se desea recuperar la clave
+	 * @param solicitud Documente del que se desea recuperar la clave
 	 * @return Clave del documento
 	 */
 	@Override
-	public Object getRowKey(Documentul solicitud) {
+	public Object getRowKey(Documente solicitud) {
 		return solicitud.getId();
 	}
 
@@ -91,9 +91,9 @@ public class LazyDataDocumente extends LazyDataModel<Documentul> implements Seri
 	 * @return listado de registros que corresponden a la búsqueda
 	 */
 	@Override
-	public List<Documentul> load(int first, int pageSize, String sortField, SortOrder sortOrder,
+	public List<Documente> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters) {
-		List<Documentul> listado = null;
+		List<Documente> listado = null;
 		if (busqueda != null) {
 			this.setRowCount(servicio.getCounCriteria(busqueda));
 			listado = servicio.cautareDocumentCriteria(first, pageSize, sortField, sortOrder, busqueda);
