@@ -1,0 +1,222 @@
+<ui:composition template="../layouts/layoutInterior2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ui:define name="content">
+ 
+		<h:form id="busquedaRezultateList">
+			<div class="filtro">
+				<div class="blocFormular">
+					<div class="titleFormulario">Căutare rezultate</div>					
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="tip" styleClass="cautator"
+								value="Tip alegeri:" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							  <p:importEnum type="ro.stad.online.gesint.persistence.entities.enums.TipAlegeriEnum" var="tipos" allSuffix="ALL_ENUM_VALUES" />
+			                    <p:selectOneMenu value="#{rezultatBean.rezultatBusqueda.tipAlegeri}" id="tipAlegeri" class="selectFiltro">
+			                        <f:selectItem itemLabel="Alege un tip..." itemValue="" />
+			                        <f:selectItems value="#{tipos.ALL_ENUM_VALUES}" var="tip" itemLabel="#{tip.description}" itemValue="#{tip}" />
+			                    </p:selectOneMenu>
+						</div>
+					</div>	
+					<div class="ui-g campoBusqueda" >
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="partidSelect" value="Partid/Candidat:" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:selectOneMenu value="#{rezultatBean.rezultatBusqueda.idPartid}"
+								id="partidSelect" class="selectFiltro" style="min-width:initial;" >
+								<f:selectItem itemLabel="Alege unul..." itemValue="" />
+								<f:selectItems value="#{rezultatBean.listaPartideJudet}"
+									var="partid"
+									itemLabel="#{partid.name}"
+									itemValue="#{partid.id}" />
+							</p:selectOneMenu>
+						</div>
+					</div>	
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="provinciasSelect" styleClass="cautator" value="Județul:" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">							
+	                    <p:selectOneMenu  value="#{rezultatBean.rezultatBusqueda.idProvincia}"  id="provinciasSelect"
+	                       class="selectFiltro" filter="true" filterMatchMode="startsWith">
+	                        <f:selectItem itemLabel="Alege unul..." itemValue="" />
+	                        <f:selectItems  value="#{rezultatBean.judete}"  var="provincia" itemLabel="#{provincia.name}"  itemValue="#{provincia.indicator}" />                       
+	                    </p:selectOneMenu>						
+						</div>
+					</div>
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="dataAlegeri" value="Anul alegerilor: " />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:selectOneMenu value="#{rezultatBean.rezultatBusqueda.anAlegeri}" id="dataAlegeri" class="selectFiltro">
+                        <f:selectItems value="#{rezultatBean.listaAni}" var="an" itemLabel="#{an}" itemValue="#{an}" />
+                    </p:selectOneMenu>
+						</div>
+					</div>
+				</div>
+				<div class="butoaneFormular">
+					<p:commandButton actionListener="#{rezultatBean.cautareRezultate}"
+						value="Căutare" update="@form" icon="fa fa-search"
+						oncomplete="$('.mensajeSinResultados').css('opacity', 1)"
+						onstart="PF('statusDialog').show()" class="right"
+						onsuccess="PF('statusDialog').hide()" />
+						<p:commandButton actionListener="#{rezultatBean.cautareCautare}" class="left"
+						value="Curățați filtrele" update="busquedaRezultateList" icon="fa fa-eraser" />
+				</div>
+							<p:separator />				
+				<div class="ui-g campoBusqueda">
+					<p:dataTable var="resultado" value="#{rezultatBean.listaRezultate}" 
+					rendered="#{not empty rezultatBean.listaRezultate and rezultatBean.rezultatBusqueda.suntGenerale}">				
+				        <f:facet name="header">
+				           #{rezultatBean.numeTabla} 
+				        </f:facet>
+				       <p:column headerText="Nume partid" style="width:80%;">
+					        <h:outputText value="#{resultado.nume}" />
+					    </p:column>
+					    <p:column headerText="Voturi" style="width:20%;">
+					        <h:outputText value="#{resultado.voturiPartid}" />
+					    </p:column>
+				    </p:dataTable>
+				</div>
+							
+						<p:chart type="pie"  model="#{rezultatBean.graficaRezultatePartide}" 
+						 rendered="#{not empty rezultatBean.listaRezultate and rezultatBean.rezultatBusqueda.suntGenerale}" />					
+				
+			</div>
+
+				
+			<div class="rezultateFiltru">
+				<p:outputPanel layout="block" id="panelRezultate">
+					<p:dataTable id="tablaRezultate" var="rezultat" rowIndexVar="rowIndex"
+						value="#{rezultatBean.model}" rows="15" sortOrder="descending"
+						draggableColumns="true" lazy="true"
+		                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+		                resizableColumns="true" paginator="true"
+						rowKey="#{rezultat.id}"
+						pageLinks="4" paginatorPosition="bottom"
+						onkeypress="if (event.keyCode == 13) {return false; }" styleClass="modHeaderTable"
+						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
+						<f:facet name="header">
+							<p:outputPanel >
+								<div class="left">
+									<h:commandLink
+										rendered="#{rezultatBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/xls.png" />
+										<p:dataExporter type="xls" target="tablaRezultate"
+											fileName="listaRezultate" />
+									</h:commandLink>
+									<h:commandLink
+										rendered="#{rezultatBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/pdf.png" />
+										<p:dataExporter type="pdf" target="tablaRezultate"
+											fileName="listaRezultate" />
+									</h:commandLink>
+									<h:commandLink
+										rendered="#{rezultatBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/csv.png" />
+										<p:dataExporter type="csv" target="tablaRezultate"
+											fileName="listaRezultate" />
+									</h:commandLink>
+								</div>
+								<span class="titlu">REZULTATE ALEGERI #{rezultatBean.numeTablaPrincipal} #{rezultatBean.dataAlegerilor}</span>
+								 <div class="right">
+								 <p:commandButton id="toggler" type="button" value="Coloane" styleClass="botonToggler" icon="fa fa-th" />
+			                        <p:columnToggler datasource="tablaRezultate" trigger="toggler">
+			                            <p:ajax event="toggle" listener="#{rezultatBean.onToggle}" />
+			                        </p:columnToggler>
+                        </div>
+							</p:outputPanel>
+							
+						</f:facet>                    	
+										
+						<p:column headerText="Județ" sortBy="#{rezultat.judetul.name}"
+							style="width:15%;" visible="#{rezultatBean.list[1]}"
+							exportable="#{rezultatBean.list[1]}">
+							<b><h:outputText value="#{rezultat.judetul.name}" /></b>
+						</p:column>	
+						<p:column headerText="Partid/Candidat" style="width:42%;" sortBy="#{rezultat.partid.name}"
+						 visible="#{rezultatBean.list[2]}"
+							exportable="#{rezultatBean.list[2]}">
+							<b><h:outputText  value="#{rezultat.partid.name}"
+								rendered="#{rezultat.partid.independent eq 'NOT'}" /></b>
+							<b><h:outputText  value=" #{rezultat.partid.name}"
+								rendered="#{rezultat.partid.independent eq 'YES'}" /></b>									
+						</p:column>											
+						<p:column headerText="Votanți" sortBy="#{rezultat.totalVoturiPartid}" style="width:11%;"
+							visible="#{rezultatBean.list[3]}"
+							exportable="#{rezultatBean.list[3]}">
+							<b><h:outputText value="#{rezultat.totalVoturiPartid}" /></b>
+						</p:column>
+						<p:column headerText="% Voturi" sortBy="#{rezultat.procentajTotalVoturi}" style="width:12%;"
+							visible="#{rezultatBean.list[4]}"
+							exportable="#{rezultatBean.list[4]}">
+							<b><h:outputText value="#{rezultat.procentajTotalVoturi} %"  /></b>
+						</p:column>
+						<p:column headerText="Mandate" sortBy="#{rezultat.numarMandate}" style="width:11%;"
+							visible="#{rezultatBean.list[5]}"
+							exportable="#{rezultatBean.list[5]}">
+							<b><h:outputText value="#{rezultat.numarMandate}"  /></b>
+						</p:column>
+						<p:column headerText="% Mandate" sortBy="#{rezultat.procentajMandateJudet}" style="width:13%;"
+							visible="#{rezultatBean.list[6]}"
+							exportable="#{rezultatBean.list[6]}">
+							<b><h:outputText value="#{rezultat.procentajMandateJudet} %"  /></b>
+						</p:column>
+						<p:column  styleClass="botonTabla"
+							exportable="false" style="width:8%;" toggleable="false">
+							<h:commandLink title="Rezultate localităţi"  styleClass="fa fa-fw fa-eye ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
+								action="#{rezultatBean.getFormRezultateLocalitati(rezultat.judetul.indicator)}" />
+						</p:column>
+						<f:facet name="footer">
+       				 		Numărul total de votanti:    
+       				 		<h:outputText value="#{rezultatBean.totalVotanti}">
+	    						<f:convertNumber type="number"
+                                 maxIntegerDigits="11"
+                                 maxFractionDigits="0"/>
+							</h:outputText>
+							Numărul total de mandate:    
+       				 		<h:outputText value="#{rezultatBean.totalMandate}">
+	    						<f:convertNumber type="number"
+                                 maxIntegerDigits="11"
+                                 maxFractionDigits="0"/>
+							</h:outputText>
+    					</f:facet>
+					
+					</p:dataTable>
+				</p:outputPanel>
+				<p:dialog id="dialog" widgetVar="dialogMessage" header="INFO"
+					closable="true">
+					<p:messages for="dialogMessage" autoUpdate="true" showDetail="true"
+						showSummary="true" />
+						 <div class="centrareButoaneDialog">
+                   <p:button value="Închideţi" outcome="/rezultate/rezultate" />
+               </div>
+				</p:dialog>
+				<p:confirmDialog global="true">
+					<div class="centrareButoaneDialog">
+						<p:commandButton value="Acceptați" type="button"
+							styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+						<p:commandButton value="Anulați" type="button"
+							styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+					</div>
+				</p:confirmDialog>
+			</div>
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage value="/images/loading.gif" />
+			</p:dialog>
+			
+		</h:form>
+		
+	</ui:define>
+
+</ui:composition>

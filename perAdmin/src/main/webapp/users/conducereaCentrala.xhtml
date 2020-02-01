@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+		<p:importConstants type="ro.stad.online.gesint.constante.NumarMagic" var="NumeroMagic" />
+		
+			<div class="rezultateFiltruCentral">
+				<p:outputPanel layout="block" id="userPanelCC">
+					<p:dataTable var="user" value="#{userBean.listUsersCentral}"  rows="10" id="userTableCC"  draggableColumns="true" 
+					paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+					rowKey="#{user.username}" rowsPerPageTemplate="5, 15,25,50" pageLinks="4" paginatorPosition="bottom"
+					emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
+						<f:facet name="header">
+							<p:outputPanel>
+								<div class="left">
+									<h:commandLink >
+										<p:graphicImage value="/images/xls.png" />
+										<p:dataExporter type="xls" target="userTableCC" fileName="userList" />
+									</h:commandLink>
+									<h:commandLink >
+										<p:graphicImage value="/images/pdf.png" />
+										<p:dataExporter type="pdf" target="userTableCC" fileName="userList" />
+									</h:commandLink>
+									<h:commandLink >
+										<p:graphicImage value="/images/csv.png" />
+										<p:dataExporter type="csv" target="userTableCC" fileName="userList" />
+									</h:commandLink>
+								</div>
+								<span class="titlu">CONDUCEREA CENTRALĂ</span>
+								<p:menuButton value="Opțiuni modificare membri" styleClass="newActionSelectTable" icon="fa fa-plus">
+							        <p:menuitem value="Pozitie membru"  action="#{userBean.deschideDialogOrdenaMembruCC(userBean.listUsersCentral)}"  icon="fa fa-file-archive-o" styleClass="sentenceText" />
+							    </p:menuButton>
+							</p:outputPanel>
+						</f:facet>
+						<p:column headerText="Nume" sortBy="#{user.nombreCompleto}" style="width:17%;" visible="#{userBean.list[0]}" exportable="#{userBean.list[0]}">
+							<b><h:outputText value="#{user.nombreCompleto}" /></b>
+						</p:column>
+						<p:column headerText="Funcția" sortBy="#{user.team.name}" style="width:28%;text-align:center;" visible="#{userBean.list[1]}" exportable="#{userBean.list[1]}">
+							<b><h:outputText value="#{user.team.name}" /></b>
+						</p:column>
+						<p:column headerText="Email" sortBy="#{user.username}" style="width:22%;" visible="#{userBean.list[2]}" exportable="#{userBean.list[2]}">
+							<b><h:outputText value="#{user.username}" /></b>
+						</p:column>
+						<p:column headerText="Județul"  style="width:14%;" visible="#{userBean.list[3]}" exportable="#{userBean.list[3]}">
+							<b><h:outputText value="#{user.province.name}" /></b>
+						</p:column>
+						<p:column headerText="Rank"  style="width:6%;text-align:center;" visible="#{userBean.list[4]}" exportable="#{userBean.list[4]}">
+							<h:outputText value="#{user.rank}" />
+						</p:column>									
+						<p:column styleClass="botonTabla text-center" exportable="false" style="width:11%;" toggleable="false">
+							<h:commandLink title="Modificare membru"  styleClass="fa fa-fw fa-pencil ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
+								action="#{userBean.getFormModificareUser(user)}" update="userTableCl" />
+							<p:commandButton title="Eliminare membru" icon="fa fa-trash" styleClass="modBtn"  actionListener="#{userBean.eliminarUsuario(user)}" 
+							update="searchListUsers" oncomplete="$('.noResultMessage').css('opacity', 1)" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+								
+								<p:confirm header="Eliminare membru" message="Sunteți sigur că doriți să eliminați DEFINITIV acest membru din conducerea centrală?" icon="fa fa-warning-sign" />
+							</p:commandButton>
+						</p:column>
+						<f:facet name="footer">
+       				 		Numărul total:    
+       				 		<h:outputText value="#{userBean.rowCountLocal}">
+	    						<f:convertNumber type="number"
+                                 maxIntegerDigits="5"
+                                 maxFractionDigits="0"/>
+							</h:outputText>
+							de membrii în conducerea centrală
+    					</f:facet>
+					</p:dataTable>
+				</p:outputPanel>
+ 				
+				<p:confirmDialog global="true">
+					<div class="centrareButoaneDialog">
+						<p:commandButton value="DA" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+						<p:commandButton value="NU" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+					</div>
+				</p:confirmDialog>					   	                
+                  </div>
+                  
+                  <h:form id="formOrdenaUsuariosCC">
+			<p:dialog header="Modifică poziția membrului din conducerea organizației centrale " widgetVar="dlgOrdenaCC" dynamic="true" width="600" height="400">
+				<p:outputPanel layout="block" id="panelTeam" styleClass="containerMargin">
+				<p:orderList
+					value="#{userBean.listUsersCentral}"
+					var="usuario" itemValue="#{usuario}" converter="#{userConverter}" controlsLocation="none"
+					responsive="true" styleClass="modListView">
+			        <p:ajax event="select" listener="#{userBean.onSelect}"  />
+			        <p:ajax event="reorder" listener="#{userBean.onReorderCC}" />
+					<f:facet name="caption">Membrii echipei centrale</f:facet>
+					<p:column style="width:30%">
+			            <h:outputText value="#{usuario.nombreCompleto}" />
+			        </p:column>
+			          <p:column style="width:30%">
+			            <h:outputText value="#{usuario.team.name}" />
+			        </p:column>
+	   		  </p:orderList>
+	   		  </p:outputPanel>
+			 
+			</p:dialog>
+		</h:form>
+			
+</ui:composition>

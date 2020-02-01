@@ -1,0 +1,79 @@
+<ui:composition template="../layouts/layoutInterior2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	 xmlns:my="http://java.sun.com/jsf/composite/composites">
+	<ui:define name="content">
+	   <div class="content_newForm">
+		<div class="titleFormulario">
+			<h3 style="margin-top: 0"><strong>Detalii sondaj</strong></h3>
+		</div>
+	   <div class="container-fluid">
+		<h:form id="form" class="tabsInvert">
+		   <p:growl id="msgs" showDetail="true" />
+		      <p:accordionPanel multiple="true" activeIndex="0,1,2,3">
+		      <p:tab title="">
+		      <div class="aclaratii5"><STRONG>Descrierea sondaj:<br/></STRONG></div>
+		      <div class="aclaratii5">#{sondajBean.sondaj.descriere}"<br/></div>	
+		      <div class="aclaratii5"><STRONG>Întrebarea sondaj:<br/></STRONG></div>
+		      <div class="aclaratii5">#{sondajBean.sondaj.intrebare}<br/></div>
+			<div class="aclaratii5"><STRONG>Tip sondaj:</STRONG> #{sondajBean.sondaj.tipSondaj.descripcion}<br/></div>
+			<div class="aclaratii5"><STRONG>Sondaj: </STRONG>Început la data de <STRONG>#{sondajBean.incepeSondajul}</STRONG> și finalizat în data de <STRONG>#{sondajBean.terminaSondajul}<br/></STRONG></div>	
+			<div class="aclaratii5">Au fost înregistrate un număr total de <strong>#{sondajBean.sondaj.totalVoturi}</strong> voturi. Din care:</div>		
+			<div class="p-grid">	
+			    <div class="p-col-fixed" style="width:60%">
+				 <div class="box"> <p:chart type="pie" id="grafica" model="#{sondajBean.graficaVoturi}" /></div>
+			   </div>
+			   <div class="p-col-fixed" style="width:15%">
+				<div class="box"><h4>Situatie vot</h4>
+					 DA: <strong> #{sondajBean.sondaj.totalVoturiDa} </strong>.<br/>
+					 NU:<strong>  #{sondajBean.sondaj.totalVoturiNu}</strong>.<br/> 
+					 ABTINERI:<strong> #{sondajBean.sondaj.totalVoturiAbt}</strong><br/>
+					din înregistrările totale în <strong>GESINT</strong>														
+				</div>
+			   </div>			
+			<p:dialog id="dialogGrafica" style="width:100%"  widgetVar="dialogG" header="Rezultatul sondajului">
+                             <p:chart type="pie" widgetVar="graficaImagen" model="#{sondajBean.graficaVoturi}" styleClass="graficaEstadisticas"/>
+                             <div class="centrareButoaneDialog">
+                                 <p:commandButton value="Cerrar" onclick="PF('dialogG').hide()" />
+                             </div>
+                        </p:dialog>
+								 									
+					
+			</div>
+				 <p:messages id="message" autoUpdate="true"/>
+				<div class="butoaneFormular">
+             
+                  <p:commandButton  value="Genereaza document PDF"  update="message" ajax="false"  onclick="exportarGrafica()"
+                  actionListener="#{sondajBean.filtreazaPDF(sondajBean.sondaj, graficaExportar)}" icon="fa fa-file-pdf-o" >
+                      <p:fileDownload value="#{sondajBean.file}" />
+                  </p:commandButton>
+              </div>
+		
+                  
+                  
+                 
+            
+					</p:tab>
+					</p:accordionPanel>
+	
+		<h:inputHidden id="b64" value="#{graficaExportar}" />
+              <script type="text/javascript">
+                  
+                  function exportarGrafica() {
+                  // exportAsImage() will return a base64 png encoded string
+                       PF('dialogG').show();
+                         img =  PF('graficaImagen').exportAsImage();
+                         document.getElementById('form:b64').value = img.src;
+                         PF('dialogG').hide();
+                  }	
+                  </script>   	
+		</h:form>
+
+		</div>
+	
+		</div>
+	</ui:define>
+</ui:composition>

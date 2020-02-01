@@ -1,0 +1,12 @@
+{% extends "/static/templates/templateCorreoBase.html" %}
+{% block contenido %}
+<p> Se le ha asignado una nueva contraseña como usuario de la aplicación software, Programa de Gestión de Inspecciones “PROGESIN”, para conectarse deberá:</p>
+
+<p> &#10004; Mediante el enlace de acceso a la aplicación <span style="color:blue">{{ URLPROGESIN }}</span><br/>
+&#10004; Usuario: <span style="color:blue">{{ login }}</span><br/>
+&#10004; Contraseña: <span style="color:blue">{{ password }}</span></p>
+
+<p> Quedamos a su disposición.</p>
+
+<p> Reciba un cordial saludo.</p>
+{% endblock %}

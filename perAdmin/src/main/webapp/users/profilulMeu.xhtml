@@ -1,0 +1,215 @@
+<ui:composition template="../layouts/layoutInterior.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<div class="content_newForm">
+				<div class="titleFormulario">
+					<h3>Profil membru #{miPerfilBean.user.nombreCompleto}</h3>
+				</div>
+		<div class="container-fluid">
+			<h:form id="form" class="tabsInvert">
+				<p:growl id="msgs" showDetail="true" />
+				<p:accordionPanel multiple="true" activeIndex="0">
+					<p:tab title="Date personale / comunicatie">
+						<div class="tabAccordion">
+							<div class="ui-g">
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="fechaAlta"
+											value="Data înregistrării:" /></b>
+									 <b><p:inputText id="fechaAlta" value="#{miPerfilBean.user.dateCreate}" disabled="true">
+                    					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Madrid" />
+                					</p:inputText></b>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="username" value="Nume complet:" /></b>
+									<p:inputText id="username"
+										value="#{miPerfilBean.user.nombreCompleto}" disabled="true"/>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="birthDate"
+											value="Data nașterii:" /></b>
+									 <b><p:inputText id="birthDate" value="#{miPerfilBean.user.birthDate}" disabled="true">
+                    					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Madrid" />
+                					</p:inputText></b>
+								</div>																
+							</div>
+
+							<div class="ui-g">
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="rolSelect" value="Rol:" /></b>
+               						 <p:inputText id="role" value="#{miPerfilBean.user.role.description}" disabled="true" />
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="team" value="Funcţie:" /></b>
+									<p:inputText id="team" value="#{miPerfilBean.user.team.name}" disabled="true"/>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="email" value="E-mail:" /></b>
+									<p:inputText id="email" value="#{miPerfilBean.user.email}" disabled="true"/>
+								</div>
+																							
+							</div>
+							<div class="ui-g">						
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="personalEmail" value="Personal e-mail:" /></b>
+									<p:inputText id="personalEmail"
+										value="#{miPerfilBean.user.personalEmail}" disabled="true"/>
+								</div>		
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="nif" value="CNP:" /></b>
+									<p:inputText id="nif" value="#{miPerfilBean.user.idCard}" disabled="true"/>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="numberCard" value="CNP:" /></b>
+									<p:inputText id="numberCard" value="#{miPerfilBean.user.numberCard}" disabled="true"/>
+								</div>				
+							</div>
+							<div class="ui-g">		
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="provinciaSelect" value="Judeţ:" /></b>
+									<p:inputText id="provinciaSelect"
+										value="#{miPerfilBean.user.province.name}" disabled="true"/>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="localSelect" value="Localitate:" /></b>
+									<p:inputText id="localSelect"
+										value="#{miPerfilBean.user.locality.name}" disabled="true"/>
+								</div>		
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="address" value="Adresă:" /></b>
+									<p:inputText id="address"
+										value="#{miPerfilBean.user.address}" disabled="true"/>
+								</div>
+																						
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="mobilePhone" value="Telefon:" /></b>
+									<p:inputText id="mobilePhone"
+										value="#{miPerfilBean.user.phone}" disabled="true"/>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="sex" value="Sex:" /></b>
+									<p:inputText id="sex"
+										value="#{miPerfilBean.user.sex.description}" disabled="true"/>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<b><h:outputLabel for="workplace" value="Locul de muncă:" /></b>
+									<p:inputText id="workplace"
+										value="#{miPerfilBean.user.workplace}" disabled="true"/>
+								</div>	
+								
+							</div>	
+						</div>
+						<div class="butoaneFormular">
+								<p:commandButton action="#{miPerfilBean.deschideDialogParola()}" 
+									value="Resetați parola" />
+								<p:commandButton value="Eliminare" icon="fa fa-fw fa-undo" title="Eliminare din aplicația GESINT" 
+								action="#{miPerfilBean.eliminareUser(miPerfilBean.user)}" >
+			                         <p:confirm header="Eliminare" message="Sigur doriți să vă eliminați din aplicația GESINT? Vor fi eliminate toate datele dumneavoastră din baza de date precum și toate documentele și acțiunile dumneavoastră." icon="fa fa-warning-sign" />
+			                    </p:commandButton>
+			           
+			                    
+							</div>
+					</p:tab>
+
+
+					<p:tab title="Publicații/ Documente">
+						<h:panelGrid columns="3" cellpadding="10">
+							<p:outputPanel layout="block" id="panelExpedientes">
+							</p:outputPanel>
+
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab title="Propuneri">
+						<div class="tabAccordion">
+							<div class="ui-g">
+
+								<p:outputPanel layout="block" id="panelCursos">
+								</p:outputPanel>
+							</div>
+						</div>
+					</p:tab>
+				</p:accordionPanel>
+				
+				<p:messages autoUpdate="true" closable="true" />
+
+				<p:dialog id="dialog" widgetVar="dialogMessage" header="INFO"
+					closable="true">
+					<p:messages for="dialogMessage" autoUpdate="true" showDetail="true"
+						showSummary="true" />
+				</p:dialog>
+			</h:form>
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage value="/images/loading.gif" />
+			</p:dialog>
+			<p:dialog header="Modifică parola"
+			widgetVar="dialogParola" modal="true" 
+			styleClass="modalContentParola" resizable="false" id="contenedor" showEffect="fade" hideEffect="fade" >
+				
+				 <h:form id="passwordForm">
+        <div class="blocFormular">
+        <h4>Contraseña</h4>
+            <div class="columnaIzdaFormulario">
+                <h:outputLabel for="parolaCurenta" value="Parola curentă:" />
+                <p:password value="#{miPerfilBean.parolaCurenta}" required="true"  id="parolaCurenta" requiredMessage="Introduceți parola curentă" />
+                
+                <h:outputLabel for="parolaNoua" value="Parola nouă:" />
+                <p:password value="#{miPerfilBean.parolaNoua}" required="true" feedback="true" id="parolaNoua" requiredMessage="Introduceți noua parolă" 
+                promptLabel="Introduceți o parolă" weakLabel="Débil" goodLabel="Buena" strongLabel="Fuerte" />
+                
+                <h:outputLabel for="parolaConfirmata" value="Confirmați parola:" />
+                <p:password value="#{miPerfilBean.parolaConfirmata}" required="true" feedback="true" id="parolaConfirmata" requiredMessage="Repetați noua parolă" 
+                promptLabel="Introduceți o parolă" weakLabel="Débil" goodLabel="Buena" strongLabel="Fuerte" />
+                
+                <div class="butoaneFormular">
+                    <p:commandButton id="guardar" value="Salvează " action="#{miPerfilBean.schimbareParola}" update="passwordForm" icon="fa fa-save" title="Salvați parola"/>
+                    <p:commandButton value="Ştergeţi" update="passwordForm" process="@this" title="Curăţă formularul" icon="fa fa-eraser">
+                        <p:resetInput target="passwordForm" />
+                    </p:commandButton>                
+                    <p:commandButton value="Anulați" icon="fa fa-fw fa-undo" title="Anulați și reveniți la pagina principală" outcome="/index" >
+                         <p:confirm header="Anulați" message="Sigur doriți să anulați această operațiune? Datele introduse vor fi pierdute" icon="fa fa-warning-sign" />
+                    </p:commandButton>
+                </div>
+            </div>
+            
+            <div class="columnaDchaFormulario">
+                <p:messages id="messages" autoUpdate="true" closable="true" />
+            </div>
+            
+            <div class="blocFormular">
+               <div class="butoaneFormular">
+                     <p:button id="volver" value="Renunţare" outcome="/index"  title="Reveniți la pagina principală"/>
+               </div>
+            </div>
+           	
+
+            <p:dialog id="dialog" widgetVar="dialogMessage" header="INFO" closable="false">
+               <p:messages for="dialogMessage" autoUpdate="true" showDetail="true" showSummary="true" />
+               <div class="centrareButoaneDialog">
+                   <p:button value="Închide" outcome="/index" />
+               </div>
+            </p:dialog>
+
+            <p:confirmDialog global="true">
+                <div class="centrareButoaneDialog">
+                    <p:button value="Acceptați" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                    <p:button value="Anulați" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+                </div>
+            </p:confirmDialog>
+        </div>
+        </h:form>
+			</p:dialog>
+		</div>
+		<div class="butoaneFormular">
+					<p:button outcome="/index"  value="Renunţare"
+						icon="fa fa-fw fa-undo" />
+				</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,244 @@
+<ui:composition template="../layouts/layoutInterior2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+
+	<ui:define name="content">
+		<h:form id="cautareSondaje">
+						<div class="filtro">
+				<div class="blocFormular">
+					<div class="titleFormulario">Căutare sondaje</div>
+
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="intrebare" styleClass="cautator" value="Întrebare:" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:inputText id="intrebare" converter="#{trimConverter}" value="#{sondajBean.sondajCautare.intrebare}" />
+						</div>
+					</div>					
+					
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">						
+							<h:outputLabel for="descriere" value="Descriere sondaj: " />							
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:inputText id="descriere" value="#{sondajBean.sondajCautare.descriere}" converter="#{trimConverter}" />
+						</div>
+					</div>
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="tipSondaj" value="Tip sondaj:" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:importEnum type="ro.stad.online.gesint.persistence.entities.enums.TipSondajEnum" var="tipos" allSuffix="ALL_ENUM_VALUES" />
+							<p:selectOneMenu  value="#{sondajBean.sondajCautare.tipSondaj}"	id="tipSondaj" class="selectFiltro"  >
+								<f:selectItem itemLabel="Alege unul..." itemValue="" />
+								<f:selectItems value="#{tipos.ALL_ENUM_VALUES}"
+									var="tip"
+									itemLabel="#{tip.descripcion}"
+									itemValue="#{tip}" />
+							</p:selectOneMenu>
+						</div>
+					</div>						
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="activ" value="Validate:" />
+						</div>
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:selectOneMenu id="activ" value="#{sondajBean.sondajCautare.activ}" class="selectFiltro">
+								<f:selectItem itemLabel="TOATE" itemValue="" />
+								<f:selectItem itemLabel="ÎN CURS" itemValue="true" />
+								<f:selectItem itemLabel="FINALIZATE" itemValue="false" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="validate" value="Situație:" />
+						</div>
+					<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:selectOneMenu id="validate" value="#{sondajBean.sondajCautare.validate}" class="selectFiltro">
+								<f:selectItem itemLabel="TOATE" itemValue="" />
+								<f:selectItem itemLabel="ACTIVE" itemValue="true" />
+								<f:selectItem itemLabel="ELIMINATE" itemValue="false" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="dateFrom" value="Data înregistrării începând:" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:calendar id="dateFrom" pattern="dd/MM/yyyy" locale="ro" navigator="true" maxdate="#{currentDate}" value="#{sondajBean.sondajCautare.dateFromCreated}" />
+						</div>
+					</div>
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="dateUntil" value="Data înregistrării până :" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:calendar id="dateUntil" pattern="dd/MM/yyyy" locale="ro" navigator="true" maxdate="#{currentDate}" value="#{sondajBean.sondajCautare.dateUntilCreated}" />
+						</div>
+					</div>
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="dateFrom2" value="Data sondajului începând:" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:calendar id="dateFrom2" pattern="dd/MM/yyyy" locale="ro" navigator="true" maxdate="#{currentDate}" value="#{sondajBean.sondajCautare.dataDinSondaj}" />
+						</div>
+					</div>
+					<div class="ui-g campoBusqueda">
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<h:outputLabel for="dateUntil2" value="Data sondajului până :" />
+						</div>
+						<div class="ui-g-12 ui-md-6 ui-lg-6">
+							<p:calendar id="dateUntil2" pattern="dd/MM/yyyy" locale="ro" navigator="true" maxdate="#{currentDate}" value="#{sondajBean.sondajCautare.dataPanaSondaj}" />
+						</div>
+					</div>
+				</div>
+				<div class="butoaneFormular">
+					<p:commandButton action="#{sondajBean.curatareCautare}" 
+					class="left" value="Curățare filtre" 
+					update="cautareSondaje" icon="fa fa-eraser" />
+					<p:commandButton id="cautareButon" value="Căutare"
+                        actionListener="#{sondajBean.cautareSondaje}"
+                        update="panelSondaje" icon="fa fa-search"
+						oncomplete="$('.mensajeSinResultados').css('opacity', 1)"
+						onstart="PF('statusDialog').show()" class="right"
+						onsuccess="PF('statusDialog').hide()"/>
+						<p:commandButton value="Sondaj nou" action="#{sondajBean.sondajNou}"  icon="fa fa-user-plus"/>
+				</div>
+			</div>
+			
+			
+			<div class="rezultateFiltru">
+				<p:outputPanel layout="block" id="panelSondaje">
+				 <p:dataTable id="tablaSondaje" var="sondaj" rowIndexVar="rowIndex" value="#{sondajBean.model}" 
+				  rows="10"  draggableColumns="true" paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
+				  onkeypress="if (event.keyCode == 13) {return false; }"  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+				  rowKey="#{sondaj.id}" rowsPerPageTemplate="5,10,15" pageLinks="4" paginatorPosition="bottom"
+				  emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">				
+						<f:facet name="header">
+							<p:outputPanel>
+								<div class="left">
+									<h:commandLink
+										rendered="#{sondajBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/xls.png" />
+										<p:dataExporter type="xls" target="tablaSondaje"
+											fileName="listaSondaje" />
+									</h:commandLink>
+									<h:commandLink
+										rendered="#{sondajBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/pdf.png" />
+										<p:dataExporter type="pdf" target="tablaSondaje"
+											fileName="listaSondaje" />
+									</h:commandLink>
+									<h:commandLink
+										rendered="#{sondajBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/csv.png" />
+										<p:dataExporter type="csv" target="tablaSondaje"
+											fileName="listaSondaje" />
+									</h:commandLink>
+								</div>
+								<span class="titlu">Sondaje</span>
+								<p:menuButton value="Opțiuni sondaje" styleClass="newActionSelectTable" icon="fa fa-plus">
+							        <p:menuitem value="Nou sondaj"  icon="fa fa-plus" action="#{sondajBean.sondajNou()}"  styleClass="sentenceText" />
+							    </p:menuButton>
+							    <p:commandButton id="toggler" type="button" 
+							 		value="Coloane" styleClass="botonColumnas" icon="fa fa-th"
+									rendered="#{sondajBean.model.rowCount ne 0}" />
+			                     <p:columnToggler datasource="tablaSondaje" trigger="toggler">
+			                            <p:ajax event="toggle" listener="#{sondajBean.onToggle}" />
+			                     </p:columnToggler>
+							</p:outputPanel>
+						</f:facet>	
+						<p:ajax event="rowSelect" oncomplete="PF('dlg').show()" update=":cautareSondaje:dialog" />	
+										
+						<p:column headerText="Întrebare" style="width:55%;text-align:center;" sortBy="#{sondaj.intrebare}" visible="#{sondajBean.list[0]}" exportable="#{sondajBean.list[0]}">
+							
+							<h:outputText escape="false" id="descriereIntrebare" value="#{sondaj.intrebare.length() gt 40 ? fn:substring(sondaj.intrebare,0,40).concat('...') : sondaj.intrebare}"></h:outputText>
+							<p:tooltip id="toolTipText" for="descriereIntrebare" value="#{sondaj.intrebare}" position="top" />	
+						</p:column>						
+						<p:column headerText="% DA" style="width:10%;text-align:center;"
+							sortBy="#{sondaj.procentajDa}" visible="#{sondajBean.list[1]}" exportable="#{sondajBean.list[1]}">
+							<b><h:outputText value="#{sondaj.procentajDa}" />%</b>
+						</p:column>		
+							<p:column headerText="% NU" style="width:10%;text-align:center;"
+							sortBy="#{sondaj.procentajNu}" visible="#{sondajBean.list[2]}" exportable="#{sondajBean.list[2]}">
+							<b><h:outputText value="#{sondaj.procentajNu}" />%</b>
+						</p:column>	
+							<p:column headerText="% Abtineri" style="width:15%; text-align:center;"
+							sortBy="#{sondaj.procentajAbt}" visible="#{sondajBean.list[3]}" exportable="#{sondajBean.list[3]}">
+							<b><h:outputText value="#{sondaj.procentajAbt}" />%</b>
+						</p:column>	
+						  <p:column headerText="Data sondajului" sortBy="#{sondaj.dataIncepere}" style="width:15%; text-align:center;" visible="#{sondajBean.list[4]}" exportable="#{sondajBean.list[4]}">
+	                        <h:outputText value="#{sondaj.dataIncepere}">
+	                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Madrid" />
+	                        </h:outputText>
+	                    </p:column>
+						<p:column headerText="Stare" sortBy="#{sondaj.activ}"
+							visible="#{sondajBean.list[5]}" exportable="#{sondajBean.list[5]}" style="width:10%; text-align:center;">
+							<h:outputText styleClass="fa fa-check-circle"
+									value=" ACTIV" rendered="#{sondaj.activ}" />
+							<h:outputText styleClass="fa fa-times-circle"
+									value=" FINALIZAT" rendered="#{not sondaj.activ}"  />
+						</p:column>
+						
+						<p:column headerText="Voturi" style="width:10%;"
+							sortBy="#{sondaj.totalVoturi}" visible="#{sondajBean.list[5]}" exportable="#{sondajBean.list[5]}">
+							<b><h:outputText value="#{sondaj.totalVoturi}" /></b>
+						</p:column>							
+					 <p:column styleClass="botonTabla" headerText="Administrare" style="width:10%;">
+                       			<h:commandLink title="Detalii sondaj" 
+								styleClass="fa fa-fw fa-align-left  ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
+								action="#{sondajBean.detaliiSondaj(sondaj)}"   />
+								<p:commandButton title="Eliminare" icon="fa fa-trash" styleClass="modBtn"
+								actionListener="#{sondajBean.eliminareSndaj(sondaj)}"
+								update=":cautareSondaje:panelSondaje">
+								<p:confirm header="Eliminare sondaj"
+									message="Sigur doriți să eliminați acest sondaj?"
+									icon="fa fa-warning-sign" />
+								</p:commandButton>
+						</p:column>  																
+						<f:facet name="footer">
+       				 	Total:
+						<h:outputText value="#{sondajBean.model.rowCount}">
+	    						<f:convertNumber type="number"
+                                 maxIntegerDigits="5"
+                                 maxFractionDigits="0"/>
+							</h:outputText>
+       				 	 proiecte
+    				</f:facet>
+					</p:dataTable>
+					 <p:dialog id="dialog" header="Întrebarea în integralitate" widgetVar="dlg" modal="true" height="500" width="800" resizable="false">
+	                    <h:outputText id="textoContinut" escape="false" value="#{sondajBean.sondaj.intrebare}" styleClass="saltoLinea"/>
+	                </p:dialog>
+				</p:outputPanel>
+				<p:confirmDialog global="true">
+					<div class="centrareButoaneDialog">
+						<p:commandButton value="Acceptați" type="button"
+							styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+						<p:commandButton value="Anulare" type="button"
+							styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+					</div>
+				</p:confirmDialog>
+
+			</div>
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage value="/images/loading.gif" />
+			</p:dialog>
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />           		
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

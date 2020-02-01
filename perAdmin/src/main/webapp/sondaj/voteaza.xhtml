@@ -1,0 +1,213 @@
+<ui:composition template="../layouts/layoutInterior2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ui:define name="content">
+ 
+		<h:form id="cautareListaAlerte">
+
+			<div class="rezultateFiltru">
+				<p:outputPanel layout="block" id="panouAlerte">
+					<p:dataTable id="tablaAlerte" var="alerta" rowIndexVar="rowIndex"
+						value="#{alertaBean.model}" rows="20" sortOrder="descending"
+						draggableColumns="true" lazy="true"
+		                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+		                resizableColumns="true" paginator="true"
+						rowKey="#{alerta.id}"
+						pageLinks="4" paginatorPosition="bottom"
+						onkeypress="if (event.keyCode == 13) {return false; }" styleClass="modHeaderTable"
+						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
+						<f:facet name="header">
+							<p:outputPanel >
+								<div class="left">
+									<h:commandLink
+										rendered="#{alertaBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/xls.png" />
+										<p:dataExporter type="xls" target="tablaAlerte"
+											fileName="listaAlertas" />
+									</h:commandLink>
+									<h:commandLink
+										rendered="#{alertaBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/pdf.png" />
+										<p:dataExporter type="pdf" target="tablaAlerte"
+											fileName="listaAlertas" />
+									</h:commandLink>
+									<h:commandLink
+										rendered="#{alertaBean.model.rowCount ne 0}">
+										<p:graphicImage value="/images/csv.png" />
+										<p:dataExporter type="csv" target="tablaAlerte"
+											fileName="listaAlertas" />
+									</h:commandLink>
+								</div>
+								<span class="titlu">CORESPONDENȚE ELECTRONICE (EMAIL)</span>
+								 <div class="right">
+								 <p:commandButton id="toggler" type="button" value="Coloane" styleClass="botonToggler" icon="fa fa-th" />
+			                        <p:columnToggler datasource="tablaAlerte" trigger="toggler">
+			                            <p:ajax event="toggle" listener="#{alertaBean.onToggle}" />
+			                        </p:columnToggler>
+                        </div>
+							</p:outputPanel>
+							
+						</f:facet>                    	
+						<p:column headerText="Data creării"
+							sortBy="#{alerta.dateCreate}" style="width:10%;"
+							visible="#{alertaBean.list[0]}"
+							exportable="#{alertaBean.list[0]}">
+							<h:outputText value="#{alerta.dateCreate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Madrid" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Data trimiterii"
+							sortBy="#{alerta.dateCreate}" style="width:12%;"
+							visible="#{alertaBean.list[1]}"
+							exportable="#{alertaBean.list[1]}">						
+							<p:outputPanel rendered="#{!empty alerta.fechaEnvio}">
+								<h:outputLabel styleClass="fa fa-check-circle"/>
+								<h:outputText  value="#{alerta.fechaEnvio}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="Europe/Madrid" /></h:outputText>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{empty alerta.fechaEnvio}">
+								<h:outputLabel styleClass="fa fa-warning modColor"/>
+								<span>Netrimis</span>
+							</p:outputPanel>
+						</p:column>
+						<p:column headerText="Destinatar" sortBy="#{alerta.destinatari}" style="width:29%;"
+							visible="#{alertaBean.list[2]}"
+							exportable="#{alertaBean.list[2]}">
+							<h:outputText value="#{alerta.destinatari}"/>
+						</p:column>
+
+						<p:column headerText="Tip de corespondență" sortBy="#{alerta.tipAlerta.description}"
+							style="width:17%;" visible="#{alertaBean.list[3]}"
+							exportable="#{alertaBean.list[3]}">
+							<h:outputText value="#{alerta.tipAlerta.description}" />
+						</p:column>
+						
+						<p:column headerText="Titlu" sortBy="#{alerta.titlu}" style="width:30%;"
+							visible="#{alertaBean.list[4]}"
+							exportable="#{alertaBean.list[4]}">
+							<h:outputText value="#{alerta.titlu}" />
+						</p:column>
+						<p:column  styleClass="botonTabla"
+							exportable="false" style="width:12%;" toggleable="false">
+							<p:commandButton title="Modificați corespondența" icon="fa fa-fw fa-eye"
+								styleClass="modBtn"
+								action="#{alertaBean.deschidereDialogAlertaCuDate(alerta)}" 
+								onstart="PF('statusDialog').show()" 
+								onsuccess="PF('statusDialog').hide()"
+								immediate="true"
+								update="cautareListaAlerte"/>
+                        <p:commandButton title="Eliminare corespondența" icon="fa fa-trash" actionListener="#{alertaBean.eliminareAlerta(alerta)}" update=":cautareListaAlerte:panouAlerte tablaAlerte">
+                            <p:confirm header="Eliminare corespondența" message="Sunteți sigur că doriți să eliminați DEFINITIV acestă corespondența?" icon="fa fa-warning-sign" />
+                        </p:commandButton>
+
+							<h:commandLink title="Modificare corespondența"  styleClass="fa fa-fw fa-pencil ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
+								action="#{alertaBean.getFormModificareAlerta(alerta)}" update=":cautareListaAlerte:panouAlerte tablaAlerte" />
+						</p:column>
+						<f:facet name="footer" >
+       				 		Total:
+							<h:outputText value="#{alertaBean.model.rowCount}">
+	    						<f:convertNumber type="number"
+                                 maxIntegerDigits="5"
+                                 maxFractionDigits="0"/>
+							</h:outputText>
+							registre
+    					</f:facet>
+					</p:dataTable>
+				</p:outputPanel>
+				<p:confirmDialog global="true">
+					<div class="centrareButoaneDialog">
+						<p:commandButton value="Acceptați" type="button"
+							styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+						<p:commandButton value="Anulați" type="button"
+							styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+					</div>
+				</p:confirmDialog>
+			</div>
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage value="/images/loading.gif" />
+			</p:dialog>
+			
+			
+			<p:dialog header="Date corespondență" widgetVar="dialogAlertas" modal="true" resizable="false" showEffect="fade" hideEffect="fade" >
+				<h:form id="formularDetaliuAlerta">
+				    <h:panelGrid columns="2" columnClasses="text-blod, label" >															
+						<h:outputLabel value="Subiect:" />
+						<h:outputLabel escape="false" value="#{alertaBean.alertaActual.titlu}" />
+						<h:outputLabel value="Descriere:" />
+						<h:outputLabel escape="false" value="#{alertaBean.alertaActual.descripcion}" style="max-height:200px;overflow-y:auto;display:block;" />
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+		</h:form>
+		<h:form id="formIncarcareDocumente">
+			<p:dialog header="Atașați documente corespondenței electronice" widgetVar="dlgIncarcareDocument" dynamic="true" width="800" height="800">
+				<div class="aclaratii">Se acceptă documentele care coincid ca nume și extensie cu documentele încărcate.</div>
+				<div class="blocView">
+		            <p:dataTable var="documento" value="#{alertaBean.listaDocumente}">
+		                <p:column headerText="DOCUMENT" width="50%">
+		                    <h:outputText value="#{documento.descripcion}" />
+		                </p:column>
+		                <p:column headerText="NUME" width="50%">
+		                    <h:outputText value="#{documento.nombre}" />
+		                </p:column>
+		            </p:dataTable>
+		        </div>
+		       <p:separator />
+		        <div class="aclaratii">
+		            (1).- Pentru fiecare tip de document, unul sau mai multe documente pot fi încărcate simultan. 
+		            <strong>Dacă oricare dintre ele este alcătuită din două sau mai multe părți, numele lor trebuie să înceapă cu numele necesar pentru documentul respectiv și un număr secvențial 
+		            </strong> (ex: organigrama_1.doc, organigramaParte2.ppt). Dimensiunea maximă per fișier încărcat este de 20 MB.
+		        </div>
+		                <div class="blocView">
+            <h:form id="formAlta">
+
+                <p:fileUpload width="50%" cancelLabel="ANULARE" label="SELECTAREA DOCUMENTULUI" uploadLabel="ÎNCĂRCARE DOCUMENTE" 
+                fileUploadListener="#{alertaBean.gestioneazaIncarcareDocument}" mode="advanced" dragDropSupport="false" 
+                sizelimit="20971520" multiple="true" update="tablaDocumente" autofileLimit="30" 
+                allowTypes="/(\.|\/)(jpe?g|png|bmp|doc|docx|pptx|ppt|pub|xls|xlsx|pdf)$/i" sequential="true" />
+
+
+                <p:outputPanel id="panouAtasament">
+                    <p:dataTable id="tablaDocumente" var="documento" value="#{alertaBean.documenteIncarcate}" editable="true" onkeypress="if (event.keyCode == 13) {return false; }" emptyMessage="Nu sunt încărcate documente.">
+                        <p:ajax event="rowEdit" listener="#{alertaBean.onRowEdit}" update=":formIncarcareDocumente:formAlta:msgs" />
+
+                        <p:column headerText="Documentele încărcate">
+                            <h:outputText value="#{documento.nombre}" />
+                        </p:column>
+                        <p:column styleClass="botonTabla">
+                            <p:commandButton icon="fa fa-fw fa-download" ajax="false" actionListener="#{alertaBean.descarcareFisier(documento.id)}" title="Descărcați documentul">
+                                <p:fileDownload value="#{alertaBean.file}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column styleClass="botonTabla" >
+                            <p:commandButton title="Elimină" icon="fa fa-trash" actionListener="#{alertaBean.eliminareDocument(documento)}" update=":formAlta:panouAtasament tablaDocumente">
+                                <p:confirm header="Ștergeți documentul" message="Sigur doriți să ștergeți acest document?" icon="fa fa-warning-sign" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:outputPanel>
+                <p:confirmDialog global="true">
+                    <div class="centrareButoaneDialog">
+                        <p:commandButton value="Acceptați" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                        <p:commandButton value="Anulați" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+                    </div>
+                </p:confirmDialog>
+                <div class="butoaneFormular">
+                    <p:button outcome="/alerte/alerte" value="Înapoi" icon="fa fa-fw fa-undo" />
+                </div>
+                <p:messages id="msgs" autoUpdate="true" closable="true" showDetail="true" />
+            </h:form>
+        </div>
+				
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

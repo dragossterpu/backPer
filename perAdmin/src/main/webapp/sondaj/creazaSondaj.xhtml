@@ -1,0 +1,103 @@
+<ui:composition template="../layouts/layoutInterior2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<div class="content_newForm">
+				<div class="titleFormulario">
+					<h3 style="margin-top: 0"><strong>Înregistrare nou sondaj</strong></h3>
+				</div>
+		<div class="container-fluid">
+			
+			  <div class="aclaratii2"><STRONG>Câmpurile marcate cu (*) sunt obligatorii</STRONG></div>
+			<div class="aclaratii2">Sondajele interne sau publice reprezintă noul concept al Democracy 2.0 unde membrii de partid sunt consultați în toate deciziile importante ale partidului </div>
+			<h:form id="form" class="tabsInvert">
+				<p:growl id="msgs" showDetail="true" />
+				<p:accordionPanel multiple="true" activeIndex="0,1,2,3">
+					<p:tab title="Datele sondajului">
+						
+						
+						<div class="tabAccordion">
+							
+						    <div class="p-col">
+						        <div class="box">
+						        <b><h:outputLabel for="descriere" value="* Descriere sondaj" /></b>
+									<p:separator />	
+    								<p:inputTextarea id="descriere" rows="10" cols="100" counter="display" maxlength="2000" counterTemplate="{0} caractere rămase." autoResize="false" 
+    								value="#{sondajBean.sondaj.descriere}" required="true" requiredMessage="Introduceți descrierea sondajului"/>
+    								<br />
+    								<h:outputText id="display" />
+								
+						        </div>
+						        <div class="p-col-6 p-offset-3">
+							        <div class="box">
+							        <b><h:outputLabel for="intrebare" value="* Întrebare sondaj" /></b>
+							       <p:inputText id="intrebare"
+										value="#{sondajBean.sondaj.intrebare}" required="true" requiredMessage="Introduceți întrebarea sondajului"/>
+							        </div>
+							    </div>
+									
+									 <b><p:outputLabel for="tip" value="* Sondaj "/></b>
+										<p:importEnum
+											type="ro.stad.online.gesint.persistence.entities.enums.TipSondajEnum"
+											var="tipuri" allSuffix="ALL_ENUM_VALUES" />
+										<p:selectOneMenu value="#{sondajBean.sondaj.tipSondaj}"
+											id="tip" class="selectFiltro" style="min-width:initial;" >
+											<f:selectItem itemLabel="Alege unul..." itemValue="" />
+											<f:selectItems value="#{tipuri.ALL_ENUM_VALUES}"
+												var="tip"
+												itemLabel="#{tip.descripcion}"
+												itemValue="#{tip}" />
+										</p:selectOneMenu>
+									
+												    
+							     
+							        <p:separator />	
+							        
+							       <div class="p-grid">
+									    <div class="p-col-4">
+									        <div class="box">
+									        <b><p:outputLabel for="dataIncepere" value="* Data începerii sondaj"/></b>
+										<p:calendar id="dataIncepere" locale="ro" navigator="true" mindate="#{currentDate}" pattern="dd/MM/yyyy" 
+											value="#{sondajBean.sondaj.dataIncepere}" />
+										<p:messages for="dataIncepere" autoUpdate="true" closable="true" />
+										</div>
+									    </div>
+									    <div class="p-col-4 p-offset-4">
+									        <div class="box">
+									        <b><p:outputLabel for="dataFinalizare" value="* Data finalizării sondaj"/></b>
+										<p:calendar id="dataFinalizare" locale="ro" navigator="true"  mindate="#{currentDate}" pattern="dd/MM/yyyy" 
+											value="#{sondajBean.sondaj.dataFinalizare}" />
+										<p:messages for="dataFinalizare" autoUpdate="true" closable="true" />
+									        </div>
+									    </div>
+									</div>
+										
+									
+									 <p:separator />	
+						    </div>
+						
+						
+
+							<div class="butoaneFormular">
+								 <p:button outcome="/sondaj/rezultate" value="Renunţare"
+						icon="fa fa-fw fa-undo" />
+								<p:commandButton
+									actionListener="#{sondajBean.salvatiSondajul(sondajBean.sondaj)}"
+									value="Salvare" update ="@form"/>
+							</div>
+						</div>
+					</p:tab>
+					</p:accordionPanel>
+	
+			
+			
+		</h:form>
+
+		</div>
+	
+		</div>
+	</ui:define>
+</ui:composition>
