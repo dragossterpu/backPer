@@ -35,7 +35,7 @@ xmlns:p="http://primefaces.org/ui">
 											fileName="functii" />
 									</h:commandLink>
 								</div>
-								<span class="titulo">FUNCŢII</span>
+								<span class="titlu">FUNCŢII</span>
 							</p:outputPanel>
 						</f:facet>
                     <p:column headerText="Numele funcției" style="width:22%;" sortBy="#{functie.name}">
@@ -82,13 +82,13 @@ xmlns:p="http://primefaces.org/ui">
                     </p:column>
                 </p:dataTable>
 
-                <div class="botonesFormulario">
+                <div class="butoaneFormular">
                     <p:button value="Funcție nouă" outcome="/administratie/functie/nouaFunctie" icon="fa fa-fw fa-user-plus" />
                 </div>
 
 
                 <p:confirmDialog global="true">
-                    <div class="centrarBotonesDialog">
+                    <div class="centrareButoaneDialog">
                         <p:commandButton value="Acceptă" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
                         <p:commandButton value="Renunță" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
                     </div>

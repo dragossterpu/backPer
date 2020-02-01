@@ -1,83 +1,74 @@
-<ui:composition template="../layouts/layoutInterior2.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-
-
-
-	<ui:define name="content">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
 		<h:form id="searchlistTeams">
-			<div class="resultadosFiltro">
+			<div class="rezultateFiltru">
 				<p:outputPanel layout="block" id="panelTeams">
-				 <p:dataTable id="tablaTeams" var="team" rowIndexVar="rowIndex" value="#{teamBean.listaTeams}" 
+				 <p:dataTable id="tablaTeams" var="team" rowIndexVar="rowIndex" value="#{echipaBean.listaTeams}" 
 				  rows="10"  draggableColumns="true" paginator="true" lazy="true"
 				  resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
 				  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
 				  rowKey="#{team.user.username}" rowsPerPageTemplate="5,10,15" pageLinks="4" paginatorPosition="bottom"
 				  emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
-                    <p:ajax event="rowEdit" listener="#{teamBean.onRowEdit}" />				
+                    <p:ajax event="rowEdit" listener="#{echipaBean.onRowEdit}" />				
 						<f:facet name="header">
 							<p:outputPanel>
 								<div class="left">
 									<h:commandLink
-										rendered="#{not empty teamBean.listaTeams}">
+										rendered="#{not empty echipaBean.listaTeams}">
 										<p:graphicImage value="/images/xls.png" />
 										<p:dataExporter type="xls" target="tablaTeams"
 											fileName="listaTeams" />
 									</h:commandLink>
 									<h:commandLink
-										rendered="#{not empty teamBean.listaTeams}">
+										rendered="#{not empty echipaBean.listaTeams}">
 										<p:graphicImage value="/images/pdf.png" />
 										<p:dataExporter type="pdf" target="tablaTeams"
 											fileName="listaTeams" />
 									</h:commandLink>
 									<h:commandLink
-										rendered="#{not empty teamBean.listaTeams}">
+										rendered="#{not empty echipaBean.listaTeams}">
 										<p:graphicImage value="/images/csv.png" />
 										<p:dataExporter type="csv" target="tablaTeams"
 											fileName="listaTeams" />
 									</h:commandLink>
 								</div>
-								<span class="titulo">Echipa de conducere</span>
+								<span class="titlu">Echipa de conducere</span>
 								<p:menuButton value="Opțiuni echipa de conducere" styleClass="newActionSelectTable" icon="fa fa-plus">
-							        <p:menuitem value="Nou membru"  icon="fa fa-plus" action="#{teamBean.nuevoMembru()}"  styleClass="sentenceText" />
-							        <p:menuitem value="Pozitie membru" action="#{teamBean.abrirDialogoOrdenaMembru()}"   icon="fa fa-file-archive-o" styleClass="sentenceText"/>
+							        <p:menuitem value="Nou membru"  icon="fa fa-plus" action="#{echipaBean.nuevoMembru()}"  styleClass="sentenceText" />
+							        <p:menuitem value="Pozitie membru" action="#{echipaBean.deschideDialogOrdenaMembru()}"   icon="fa fa-file-archive-o" styleClass="sentenceText"/>
 							    </p:menuButton>
 							</p:outputPanel>
 						</f:facet>						
 						<p:column headerText="Nume" style="width:10%;" sortBy="#{team.name}"
-							exportable="#{teamBean.list[0]}">
+							exportable="#{echipaBean.list[0]}">
 							<h:outputText value="#{team.user.name}" />
 						</p:column>
 						
 						<p:column headerText="Prenume" style="width:15%;" sortBy="#{team.user.lastName}"
-							exportable="#{teamBean.list[1]}">
+							exportable="#{echipaBean.list[1]}">
 							<h:outputText value="#{team.user.lastName}" />
 						</p:column>	
 						<p:column headerText="Funcție" style="width:15%;" sortBy="#{team.team.name}"
-							exportable="#{teamBean.list[2]}">
+							exportable="#{echipaBean.list[2]}">
 							<h:outputText value="#{team.team.name}" />
 						</p:column>
 						<p:column headerText="Descriere funcție" style="width:20%;" sortBy="#{team.team.description}"
-							exportable="#{teamBean.list[3]}">
+							exportable="#{echipaBean.list[3]}">
 							<h:outputText value="#{team.team.description}" />
 						</p:column>
 						<p:column headerText="Email" style="width:15%;" sortBy="#{team.user.email}"
-							exportable="#{teamBean.list[4]}">
+							exportable="#{echipaBean.list[4]}">
 							 <h:outputText value="#{team.user.email}" />
 						</p:column>
 		
 					 <p:column styleClass="botonTabla" headerText="Administrare" style="width:15%;">
                        			<h:commandLink title="Modificar functie membru" 
 								styleClass="fa fa-fw fa-align-left  ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
-								actionListener="#{teamBean.abrirDialogoModificaMembru(team)}"  update="searchlistTeams"  />
+								actionListener="#{echipaBean.abrirDialogoModificaMembru(team)}"  update="searchlistTeams"  />
 								<h:commandLink title="Modificare date personale"  styleClass="fa fa-fw fa-pencil ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
-								action="#{teamBean.getFormModificarUsuario(team)}" update="searchlistTeams" />
+								action="#{echipaBean.getFormModificareUser(team)}" update="searchlistTeams" />
 								<p:commandButton title="Eliminare" icon="fa fa-trash" styleClass="modBtn"
-								actionListener="#{teamBean.eliminarMembru(team.user)}"
+								actionListener="#{echipaBean.eliminarMembru(team.user)}"
 								update=":searchlistTeams:panelTeams">
 								<p:confirm header="Eliminar membru"
 									message="Sigur doriți să ștergeți acest membru al echipei de conducere?"
@@ -86,7 +77,7 @@
 						</p:column>  																
 						<f:facet name="footer">
        				 	Total:
-						<h:outputText value="#{fn:length(teamBean.listaTeams)}">
+						<h:outputText value="#{fn:length(echipaBean.listaTeams)}">
     						<f:convertNumber type="number"
                                 maxIntegerDigits="5"
                                 maxFractionDigits="0"/>
@@ -95,14 +86,14 @@
     				</f:facet>
     				<div class="ui-g-4">
 						<p:commandButton value="Caută alt membru"
-						action="#{teamBean.abrirDialogoOrdenaMembru}"
+						action="#{echipaBean.deschideDialogOrdenaMembru}"
 						immediate="true" onstart="PF('statusDialog').show()"
 						onsuccess="PF('statusDialog').hide()" update="searchlistTeams"/>
 					</div>
 					</p:dataTable>
 				</p:outputPanel>
 				<p:confirmDialog global="true">
-					<div class="centrarBotonesDialog">
+					<div class="centrareButoaneDialog">
 						<p:commandButton value="Acceptați" type="button"
 							styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
 						<p:commandButton value="Anulare" type="button"
@@ -116,12 +107,12 @@
 			<p:dialog header="Modifică poziția membrului echipei " widgetVar="dlgOrdena" dynamic="true" width="800" height="800">
 				<p:outputPanel layout="block" id="panelTeam" styleClass="containerMargin">
 				<p:orderList
-					value="#{teamBean.listaTeams}"
+					value="#{echipaBean.listaTeams}"
 					var="team" itemValue="#{team}"
 					converter="#{teamConverter}" controlsLocation="none"
 					responsive="true" styleClass="modListView">
-			        <p:ajax event="select" listener="#{teamBean.onSelect}"  />
-			        <p:ajax event="reorder" listener="#{teamBean.onReorder}" />
+			        <p:ajax event="select" listener="#{echipaBean.onSelect}"  />
+			        <p:ajax event="reorder" listener="#{echipaBean.onReorder}" />
 					<f:facet name="caption">Membrii echipei</f:facet>
 					<p:column style="width:30%">
 			            <h:outputText value="#{team.user.name}" />
@@ -152,24 +143,24 @@
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 									<b><h:outputLabel for="name" value="Nume:" /></b>
 								<p:inputText id="name"
-										value="#{teamBean.team.user.name}" />
+										value="#{echipaBean.team.user.name}" />
 								</div>	
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 									<b><h:outputLabel for="lastName" value="Prenume:" /></b>
 								<p:inputText id="lastName"
-										value="#{teamBean.team.user.lastName}" />
+										value="#{echipaBean.team.user.lastName}" />
 								</div>
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 									<b><h:outputLabel for="teamSelect" value="Funcția:" /></b>
-				                   <p:selectOneMenu value="#{teamBean.team.id}" id="teamSelect" required="true" requiredMessage="Alege o funcție !!">  
+				                   <p:selectOneMenu value="#{echipaBean.team.id}" id="teamSelect" required="true" requiredMessage="Alege o funcție !!">  
 				                    <f:selectItem itemLabel="Alege o funcție" itemValue="" /> 
-				                    <f:selectItems value="#{teamBean.listaFunctii}" var="team" itemLabel="#{team.name}" itemValue="#{team.id}" />				                 	 -->
+				                    <f:selectItems value="#{echipaBean.listaFunctii}" var="team" itemLabel="#{team.name}" itemValue="#{team.id}" />				                 	 -->
 				                 </p:selectOneMenu> 
 								</div>
-								<div class="botonesFormulario">
-									<p:button outcome="/teams/teams" value="Întoarcere"
+								<div class="butoaneFormular">
+									<p:button outcome="/teams/teams" value="Renunţare"
 										icon="fa fa-fw fa-undo" />
-									<p:commandButton actionListener="#{teamBean.modificaTeam(teamBean.team)}"
+									<p:commandButton actionListener="#{echipaBean.modificaTeam(echipaBean.team)}"
 										value="Modificare" update="searchlistTeams" icon="fa fa-send"
 										onstart="PF('statusDialog').show()"
 										onsuccess="PF('statusDialog').hide()" />
@@ -188,7 +179,4 @@
 			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />           		
 			
 		</h:form>
-
-	</ui:define>
-
 </ui:composition>

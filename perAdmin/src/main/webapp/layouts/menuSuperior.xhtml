@@ -8,12 +8,22 @@
 			<p:menuitem value="Acasă" icon="fa fa-fw fa-home" outcome="/index" styleClass="itemInicio" />			
 			<p:submenu label="Membrii" icon="fa fa-fw fa-group" styleClass="itemUsuarios">
 				<p:menuitem value="Membrii" outcome="/users/users"/>
-				<p:menuitem value="Equipa de conducere" outcome="/teams/teams" />
+				
 				<p:separator />	
-				<p:menuitem value="Alerte/Avize" outcome="/alertas/alertas" />
+				<p:menuitem value="Alerte/Avize" outcome="/alerte/alerte" />
+				<p:separator />	
+				<p:menuitem value="Corespondență electronică (EMAIL)" icon="fa fa-fw fa-envelope-square" outcome="/alerte/alerte" styleClass="itemInicio" />
 			</p:submenu>
-			<p:menuitem value="Corespondență electronică (EMAIL)" icon="fa fa-fw fa-envelope-square" outcome="/alertas/alertas" styleClass="itemInicio" />
-			<p:submenu label="Setările sistemului" icon="fa fa-fw fa-sun-o" styleClass="itemAdministracion" >								
+			<p:submenu label="Democracy 2.0" icon="fa fa-fw fa-group" styleClass="itemD2">
+				<p:menuitem value="Crează sondaj" outcome="/sondaj/creazaSondaj"/>				
+				<p:separator />	
+				<p:menuitem value="Rezultate sondaj" outcome="/sondaj/rezultate" />
+				<p:separator />	
+				<p:menuitem value="Suport votare" outcome="/sondaj/suport" />
+				<p:menuitem value="Voteaza sondaj" outcome="/sondaj/voteaza" />
+			</p:submenu>
+		
+			<p:submenu label="Setările sistemului" icon="fa fa-fw fa-sun-o" styleClass="itemAdministracion" rendered="#{p:ifAnyGranted('ROLE_ADMIN')}">								
 				<p:menuitem value="Activități" icon="fa fa-fw fa-edit" outcome="/enConstruccion" />	
 				<p:menuitem value="Log de sistema" icon="fa fa-fw fa-database" outcome="/enConstruccion"/>
 				<p:menuitem value="Proprietăţi" icon="fa fa-fw fa-edit" outcome="/enConstruccion"/>
@@ -47,8 +57,15 @@
 				<p:menuitem value="Proiecte" outcome="/proiecte/proiecte"/>
 				<p:menuitem value="Comunicate" outcome="/enConstruccion" />																											
 			</p:submenu>
-			<p:submenu label="Statistică Organizații" icon="fa fa-fw fa-bar-chart" styleClass="itemEstadisticas" >
-				<p:menuitem value="MicroStrategy"  outcome="/enConstruccion"/>
+			<p:submenu label="Statistică /Alegeri/ Organizații" icon="fa fa-fw fa-bar-chart" styleClass="itemEstadisticas" >
+				<p:submenu label="Rezultate alegeri" icon="fa fa-fw fa-cog">					
+					<p:menuitem value="Consilieri județeni"  outcome="/rezultate/rezultate"/>
+					<p:menuitem value="Consilieri locali"  outcome="/enConstruccion"/>
+					<p:menuitem value="Primari"  outcome="/enConstruccion"/>
+					<p:menuitem value="Președinte"  outcome="/enConstruccion"/>
+					<p:menuitem value="Europene"  outcome="/enConstruccion"/>
+					<p:menuitem value="Generale"  outcome="/enConstruccion"/>
+				</p:submenu>
 				<p:menuitem value="Înregistrare rezultate alegeri" outcome="/enConstruccion" />
 				<p:menuitem value="Statistică membrii" outcome="/estadisticas/statistica" />															
 			</p:submenu>
@@ -58,7 +75,7 @@
 		<div id="headerDatos">
 	    <div id="headerDatos">
 	        <h:form>
-	            	<p:link outcome="/enConstruccion" value="Profilul meu" />
+	            	<p:link outcome="/users/profilulMeu" value="Profilul meu" />
 					|
 					<p:link href="/logout" value="Închidere aplicație" />
 	        </h:form>

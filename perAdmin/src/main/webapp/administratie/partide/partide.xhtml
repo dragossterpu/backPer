@@ -35,7 +35,7 @@ xmlns:p="http://primefaces.org/ui">
 											fileName="partide" />
 									</h:commandLink>
 								</div>
-								<span class="titulo">PARTIDE POLITICE</span>
+								<span class="titlu">PARTIDE POLITICE</span>
 							</p:outputPanel>
 						</f:facet>
                     <p:column headerText="Numele partidului" style="width:22%;" sortBy="#{partid.name}">
@@ -62,17 +62,7 @@ xmlns:p="http://primefaces.org/ui">
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
- 					<p:column headerText="Numele vechi al partidului" style="width:28%;" sortBy="#{partid.oldName}">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{partid.oldName}" />
-                            </f:facet>
-
-                            <f:facet name="input">
-                               <b>  <p:inputText id="oldNameInput" value="#{partid.oldName}" converter="#{trimConverter}" /></b>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+ 				
                     <p:column styleClass="botonTabla" style="width:5%;">
                         <p:rowEditor editTitle="Modifică" saveTitle="Salvează" cancelTitle="Renunță" />
                     </p:column>
@@ -83,13 +73,13 @@ xmlns:p="http://primefaces.org/ui">
                     </p:column>
                 </p:dataTable>
 
-                <div class="botonesFormulario">
+                <div class="butoaneFormular">
                     <p:button value="Partid nou" outcome="/administratie/partide/nouPartid" icon="fa fa-fw fa-user-plus" />
                 </div>
 
 
                 <p:confirmDialog global="true">
-                    <div class="centrarBotonesDialog">
+                    <div class="centrareButoaneDialog">
                         <p:commandButton value="Acceptă" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
                         <p:commandButton value="Renunță" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
                     </div>

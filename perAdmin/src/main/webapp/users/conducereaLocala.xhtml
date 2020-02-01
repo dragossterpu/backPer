@@ -1,8 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
-		<p:importConstants type="ro.per.online.constantes.NumeroMagic" var="NumeroMagic" />
+		<p:importConstants type="ro.stad.online.gesint.constante.NumarMagic" var="NumeroMagic" />
 			<div class="filtro">
-				<div class="bloqueFormulario">
+				<div class="blocFormular">
 
 					<div class="titleFormulario">Filtre căutare</div>
 					<div class="ui-g campoBusqueda">
@@ -23,7 +23,7 @@
 					
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="nameCl" styleClass="buscador" value="Nume (Numele de familie):" />
+							<h:outputLabel for="nameCl" styleClass="cautator" value="Nume (Numele de familie):" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 							<p:inputText id="nameCl" converter="#{trimConverter}" value="#{userBean.teamBusqueda.name}" />
@@ -31,7 +31,7 @@
 					</div>
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="lastNameCl" styleClass="buscador" value="Prenume:" />
+							<h:outputLabel for="lastNameCl" styleClass="cautator" value="Prenume:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 							<p:inputText id="lastNameCl" converter="#{trimConverter}" value="#{userBean.teamBusqueda.lastName}" />
@@ -40,7 +40,7 @@
 					
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="emailCl" styleClass="buscador"
+							<h:outputLabel for="emailCl" styleClass="cautator"
 								value="Email:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
@@ -53,7 +53,7 @@
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 							<p:importEnum
-								type="ro.per.online.persistence.entities.enums.RoleEnum"
+								type="ro.stad.online.gesint.persistence.entities.enums.RolEnum"
 								var="roles" allSuffix="ALL_ENUM_VALUES" />
 							<p:selectOneMenu value="#{userBean.teamBusqueda.role}"
 								id="roleCl" class="selectFiltro" style="min-width:initial;" >
@@ -67,13 +67,13 @@
 					</div>		
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="provinciasSelectCl" styleClass="buscador" value="Județul:" />
+							<h:outputLabel for="provinciasSelectCl" styleClass="cautator" value="Județul:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">							
 	                    <p:selectOneMenu  value="#{userBean.teamBusqueda.idProvincia}"  id="provinciasSelectCl"
 	                       class="selectFiltro" filter="true" filterMatchMode="startsWith">
 	                        <f:selectItem itemLabel="Alege unul..." itemValue="" />
-	                        <f:selectItems  value="#{userBean.provinces}"  var="provincia" itemLabel="#{provincia.name}"  itemValue="#{provincia.indicator}" />                       
+	                        <f:selectItems  value="#{userBean.judete}"  var="provincia" itemLabel="#{provincia.name}"  itemValue="#{provincia.indicator}" />                       
 	                    </p:selectOneMenu>						
 						</div>
 					</div>
@@ -95,12 +95,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="botonesFormulario">
-					<p:commandButton action="#{userBean.limpiarBusqueda}" 
+				<div class="butoaneFormular">
+					<p:commandButton action="#{userBean.cautareCautare}" 
 					class="left" value="Curățare filtre" 
 					update="searchListUsers" icon="fa fa-eraser" />
-					<p:commandButton id="buscarBotonCl" value="Căutare"
-                        actionListener="#{userBean.buscarUsuarioLocal}"
+					<p:commandButton id="cautareButonCl" value="Căutare"
+                        actionListener="#{userBean.cautareUtilizatorLocal}"
                         update="@form" icon="fa fa-search"
 						oncomplete="$('.mensajeSinResultados').css('opacity', 1)"
 						onstart="PF('statusDialog').show()" class="right"
@@ -108,7 +108,7 @@
 				</div>
 			</div>
 			
-			<div class="resultadosFiltro">
+			<div class="rezultateFiltru">
 				<p:outputPanel layout="block" id="userPanelCl">
 					<p:dataTable var="user" value="#{userBean.listUsersLocal}"  rows="10" id="userTableCl"  draggableColumns="true" 
 					paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
@@ -131,9 +131,9 @@
 										<p:dataExporter type="csv" target="userTableCl" fileName="userList" />
 									</h:commandLink>
 								</div>
-								<span class="titulo">CONDUCEREA LOCALĂ</span>
+								<span class="titlu">CONDUCEREA LOCALĂ</span>
 								<p:menuButton value="Opțiuni modificare membri" styleClass="newActionSelectTable" icon="fa fa-plus">
-							        <p:menuitem value="Pozitie membru"  action="#{userBean.abrirDialogoOrdenaMembru(userBean.listUsersLocal,userBean.teamBusqueda.idProvincia)}"  icon="fa fa-file-archive-o" styleClass="sentenceText" />
+							        <p:menuitem value="Pozitie membru"  action="#{userBean.deschideDialogOrdenaMembru(userBean.listUsersLocal,userBean.teamBusqueda.idProvincia)}"  icon="fa fa-file-archive-o" styleClass="sentenceText" />
 							    </p:menuButton>
 							</p:outputPanel>
 						</f:facet>
@@ -154,7 +154,7 @@
 						</p:column>									
 						<p:column styleClass="botonTabla text-center" exportable="false" style="width:11%;" toggleable="false">
 							<h:commandLink title="Modificare membru"  styleClass="fa fa-fw fa-pencil ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
-								action="#{userBean.getFormModificarUsuario(user)}" update="userTableCl" />
+								action="#{userBean.getFormModificareUser(user)}" update="userTableCl" />
 							<p:commandButton title="Eliminare membru" icon="fa fa-trash" styleClass="modBtn"  actionListener="#{userBean.eliminarUsuario(user)}" 
 							update="searchListUsers" oncomplete="$('.noResultMessage').css('opacity', 1)" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
 								
@@ -174,9 +174,9 @@
 				</p:outputPanel>
  				
 				<p:confirmDialog global="true">
-					<div class="centrarBotonesDialog">
-						<p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
-						<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+					<div class="centrareButoaneDialog">
+						<p:commandButton value="DA" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+						<p:commandButton value="NU" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
 					</div>
 				</p:confirmDialog>					   	                
                   </div>
@@ -189,7 +189,7 @@
 					var="usuario" itemValue="#{usuario}" converter="#{userConverter}" controlsLocation="none"
 					responsive="true" styleClass="modListView">
 			        <p:ajax event="select" listener="#{userBean.onSelect}"  />
-			        <p:ajax event="reorder" listener="#{userBean.onReorder}" />
+			        <p:ajax event="reorder" listener="#{userBean.onReorderCL}" />
 					<f:facet name="caption">Membrii echipei locale</f:facet>
 					<p:column style="width:30%">
 			            <h:outputText value="#{usuario.nombreCompleto}" />

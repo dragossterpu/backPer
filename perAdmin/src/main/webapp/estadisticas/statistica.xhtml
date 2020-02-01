@@ -7,7 +7,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-		<ui:define name="title">Ecologiștii</ui:define>
+		<ui:define name="title">EGesint</ui:define>
 		<ui:define name="content">	
 			<h:form id="formHome">
 				<h3>STATISTICĂ</h3>	  
@@ -23,7 +23,7 @@
 					</div>
 					</div>
 					
-					<div class="resultadosFiltro5">
+					<div class="rezultateFiltru5">
 					<p:outputPanel layout="block" id="panelStatistica">
 					<p:dataTable var="judet"
 						value="#{statisticaBean.listaJudeteSuperiorProcentaj}" rows="10" styleClass="modHeaderTable"
@@ -33,7 +33,7 @@
 						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
 						<f:facet name="header">
 							<p:outputPanel>
-								<span class="titulo">ORGANIZAŢII JUDEŢENE</span>
+								<span class="titlu">ORGANIZAŢII JUDEŢENE</span>
 								<p:commandButton id="toggler" type="button" value="Coloane"
 									class="botonColumnas" icon="fa fa-th"/>
 								<p:columnToggler datasource="tablaJudete" trigger="toggler">
@@ -74,7 +74,7 @@
 						<p:column headerText="" styleClass="botonTabla text-center"
 							exportable="false" style="width:8%;" toggleable="false">
 							<p:commandButton title="Vedeți datele detaliate" icon="fa fa-fw fa-eye"
-								action="#{statisticaBean.buttonAction(judet.code_province)}" 
+								action="#{statisticaBean.buttonAction(judet.cod_judet)}" 
 								onstart="PF('statusDialog').show()"
 								onsuccess="PF('statusDialog').hide()" styleClass="modBtn"
 							/>				
@@ -89,7 +89,7 @@
        				 membrii
     			</f:facet>
 					</p:dataTable>
-					<div class="aclaraciones2">
+					<div class="aclaratii2">
 					<strong>Nume:</strong> Numele județului <br/>
 					<strong>Votanți:</strong> Populație cu drept de vot în județ<br/>
 					<strong>Membri:</strong> Membri sau simpatizanți înregistrați în GESINT<br/>

@@ -9,9 +9,9 @@
 		<ui:define name="content">	
 				
 
-				<h:form id="listaUsuarios" >
+				<h:form id="listaUtilizatori" >
 
-				<div class="resultadosFiltro">
+				<div class="rezultateFiltru">
 
 				<p:dataTable id="usuariosTotales" var="usuario"
 								value="#{businessmanBean.usuarioList}"
@@ -43,10 +43,10 @@
 				</p:column>
 
        <f:facet name="footer">
-            <p:commandButton process="usuariosTotales" action ="#{alertaBean.enviarAlertaUsuarios(businessmanBean.usuariosSelecionados)}" value="Enviar Alerta Usuarios"/>
+            <p:commandButton process="usuariosTotales" action ="#{alertaBean.trimitereAlertaUtilizators(businessmanBean.usuariosSelecionados)}" value="Enviar Alerta Usuarios"/>
         </f:facet>
 			</p:dataTable>
-    			              <div class="botonesFormulario">
+    			              <div class="butoaneFormular">
 
 								<p:button outcome="users/users"
 									value="Cancelar" icon="fa fa-fw fa-undo" />

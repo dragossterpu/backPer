@@ -9,11 +9,11 @@
 	<ui:define name="content">
 		<h:form id="searchlistLocality">
 						<div class="filtro">
-				<div class="bloqueFormulario">
+				<div class="blocFormular">
 					<div class="titleFormulario">Căutare localități</div>					
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="nombre" styleClass="buscador" value="Nume:" />
+							<h:outputLabel for="nombre" styleClass="cautator" value="Nume:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 							<p:inputText id="nombre"
@@ -22,7 +22,7 @@
 					</div>
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="url" styleClass="buscador" value="Județ:" />
+							<h:outputLabel for="url" styleClass="cautator" value="Județ:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 						 <p:selectOneMenu  value="#{localitateBean.localitateBusqueda.idProvincia}"  id="provinciasSelect"
@@ -37,7 +37,7 @@
 							<h:outputLabel for="role" value="Tipul localitații:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-		                    <p:importEnum type="ro.per.online.persistence.entities.enums.TypeLocalityEnum" var="tipuri" allSuffix="ALL_ENUM_VALUES" />
+		                    <p:importEnum type="ro.stad.online.gesint.persistence.entities.enums.TipLocalitateEnum" var="tipuri" allSuffix="ALL_ENUM_VALUES" />
 		                    <p:selectOneMenu value="#{localitateBean.localitateBusqueda.tip}" id="tip" class="selectFiltro">
 		                        <f:selectItem itemLabel="Alege unul..." itemValue="" />
 		                        <f:selectItems value="#{tipuri.ALL_ENUM_VALUES}" var="tipuriLocalitate" itemLabel="#{tipuriLocalitate.description}" itemValue="#{tipuriLocalitate}" />
@@ -47,11 +47,11 @@
 					
 					
 				</div>
-				<div class="botonesFormulario">
+				<div class="butoaneFormular">
 					<p:commandButton actionListener="#{localitateBean.cautareLocalitati}"
 						value="Căutare" update="panelLocalitati" icon="fa fa-search" class="right" oncomplete="$('.mensajeSinResultados').css('opacity', 1)" 
 						onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
-					<p:commandButton actionListener="#{localitateBean.limpiarBusqueda}"
+					<p:commandButton actionListener="#{localitateBean.cautareCautare}"
 						class="left" value="Curățare" update="searchlistLocality"
 						icon="fa fa-eraser" />
 						<p:commandButton value="Nouă localitate" styleClass="newActionTable"
@@ -60,7 +60,7 @@
 			</div>
 			
 			
-			<div class="resultadosFiltro">
+			<div class="rezultateFiltru">
 				<p:outputPanel layout="block" id="panelLocalitati">
 					<p:dataTable var="localitate" value="#{localitateBean.model}"  rows="10" id="userTable"  draggableColumns="true" 
 					paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
@@ -86,7 +86,7 @@
 											fileName="judete" />
 									</h:commandLink>
 								</div>
-								<span class="titulo">LOCALITĂŢI</span>
+								<span class="titlu">LOCALITĂŢI</span>
 							</p:outputPanel>
 						</f:facet>						
 	      				 <p:column headerText="Tipul localității" style="width:35%;" sortBy="#{localitate.typelocality.description}">

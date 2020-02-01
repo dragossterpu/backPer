@@ -6,7 +6,7 @@ xmlns:f="http://xmlns.jcp.org/jsf/core"
 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
             <h:form id="form">
-			<div class="bloqueFormulario">
+			<div class="blocFormular">
 					<p:panel header="Înregistrare nouă funcție" styleClass="panelModCard">
 						<p:panelGrid>
 							<p:row>
@@ -42,7 +42,7 @@ xmlns:p="http://primefaces.org/ui">
 							</p:row>
 					</p:panelGrid>
                 </p:panel>
-                <div class="botonesFormulario">
+                <div class="butoaneFormular">
                     <p:commandButton actionListener="#{functieBean.altaFunctie(numeFunctie,descriereFunctie,organization)}" value="Crează funcția" icon="fa fa-fw fa-save" />
                     <p:commandButton value="Renunță" icon="fa fa-fw fa-undo" action="/administratie/functie/functii?faces-redirect=true" immediate="true">
                          <p:confirm header="Renunță" message="Sunteți sigur că doriți să anulați această operație?. Datele introduse vor fi pierdute" icon="fa fa-warning-sign" />
@@ -50,7 +50,7 @@ xmlns:p="http://primefaces.org/ui">
                 </div>
 
                 <p:confirmDialog global="true">
-                    <div class="centrarBotonesDialog">
+                    <div class="centrareButoaneDialog">
                         <p:button value="Acceptă" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
                         <p:button value="Renunță" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
                     </div>
@@ -58,7 +58,7 @@ xmlns:p="http://primefaces.org/ui">
                 
                 <p:dialog id="dialog" widgetVar="dialogMessage" header="INFO" closable="false">
                     <p:messages for="dialogMessage" autoUpdate="true" showDetail="true" showSummary="true" />
-                    <div class="centrarBotonesDialog">
+                    <div class="centrareButoaneDialog">
                         <p:button value="Închide" outcome="/administratie/functie/functii" />
                     </div>
                 </p:dialog>

@@ -11,7 +11,7 @@
 				</div>
 		<div class="container-fluid">
 			
-			  <div class="aclaraciones">Câmpurile marcate cu (*) sunt obligatorii</div>
+			  <div class="aclaratii">Câmpurile marcate cu (*) sunt obligatorii</div>
 			<h:form id="form" class="tabsInvert">
 				<p:growl id="msgs" showDetail="true" />
 				<p:accordionPanel multiple="true" activeIndex="0,1,2,3">
@@ -27,7 +27,7 @@
 									<div class="ui-g-12 ui-md-6 ui-lg-4">
 										<b><h:outputLabel for="categoriaSelect" value="* Categoria:" /></b>
 										<p:importEnum
-											type="ro.per.online.persistence.entities.enums.CategoryEnum"
+											type="ro.stad.online.gesint.persistence.entities.enums.CategorieEnum"
 											var="categoria" allSuffix="ALL_ENUM_VALUES" />
 										<p:selectOneMenu value="#{proiectBean.proiect.categoria}"
 											id="categoriaSelect"
@@ -50,11 +50,11 @@
 											<f:selectItem itemLabel="NEVALIDAT" itemValue="false" />
 										</p:selectOneMenu>
 									</div>
-									<div class="aclaraciones2">Proiectul poate fi validat și de la opțiunile vizualizarea/ modificarea proiectului.</div>
+									<div class="aclaratii2">Proiectul poate fi validat și de la opțiunile vizualizarea/ modificarea proiectului.</div>
 								</div>
 								<p:separator />
 								<div class="ui-g">
-									 <div class="aclaraciones2">Cuvintele cheie ajută la căutările viitoare. Dacă doriți să introduceți mai mult de un  cuvânt, separați-le prin virgule, separați-le prin virgule(Ex : psd, hoți )</div>
+									 <div class="aclaratii2">Cuvintele cheie ajută la căutările viitoare. Dacă doriți să introduceți mai mult de un  cuvânt, separați-le prin virgule, separați-le prin virgule(Ex : psd, hoți )</div>
 									 <div class="ui-g-12 ui-md-6 ui-lg-4">
 										<b><h:outputLabel for="materiaIndexada" value="Cuvinte cheie:" /></b>
 	           						 	<p:inputText id="materiaIndexada" value="#{proiectBean.proiect.materiaIndexata}" converter="#{trimConverter}" />
@@ -70,9 +70,9 @@
                                 <p:messages for="editortexto" autoUpdate="true" closable="true" />
                             </p:outputPanel>
 
-							<div class="botonesFormulario">
+							<div class="butoaneFormular">
 								<p:commandButton
-									actionListener="#{proiectBean.altaProiect(proiectBean.proiect)}"
+									actionListener="#{proiectBean.inregistrareProiect(proiectBean.proiect)}"
 									value="Înregistrați" update ="@form"/>
 							</div>
 					</p:tab>
@@ -81,14 +81,14 @@
 					closable="true">
 					<p:messages for="dialogMessage" autoUpdate="true" showDetail="true"
 						showSummary="true" />
-						 <div class="centrarBotonesDialog">
+						 <div class="centrareButoaneDialog">
                    <p:button value="Închideţi" outcome="/proiecte/proiecte" />
                </div>
 				</p:dialog>			
 		</h:form>
 
 		</div>
-		<div class="botonesFormulario">
+		<div class="butoaneFormular">
 					<p:button outcome="/proiecte/proiecte" value="Anulează"
 						icon="fa fa-fw fa-undo" />
 				</div>

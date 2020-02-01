@@ -8,12 +8,12 @@
 	<ui:define name="body2">
 
 		<f:metadata>
-			<ui:param name="titulo" value="Accesul a fost refuzat" />
+			<ui:param name="titlu" value="Accesul a fost refuzat" />
 			
 		</f:metadata>
 
-		        <p:outputPanel styleClass="bloqueVistaTitulo">
-		            <h3>#{titulo}</h3>
+		        <p:outputPanel styleClass="blocTitluView">
+		            <h3>#{titlu}</h3>
 		        </p:outputPanel>
 
 		        <p:outputPanel rendered="#{externalBean.errorMsg eq ''}">

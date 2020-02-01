@@ -140,7 +140,7 @@
 				<div class="aclaraciones2">Butonul "Trimiteți email" trimite corespondența electronică și salvează comunicarea în baza de date.</div>
 				<div class="aclaraciones2">Butonul "Salvați alerta" NUMAI salvează comunicarea în baza de date fără a o trimite.</div>
 				<div class="botonesFormulario">
-					<p:button outcome="/alertas/alertas" value="Întoarcere"
+					<p:button outcome="/alertas/alertas" value="Renunţare"
 						icon="fa fa-fw fa-undo" />
 					<p:commandButton action="#{alertaBean.abrirDialogoCargaDoc()}"  
 					value="Atașați documente" icon="fa fa-plus" />
@@ -166,31 +166,48 @@
 					<p:selectOneButton value="#{alertaBean.opcion}">
 						<p:ajax event="change" update="formBusquedaUsuarios:panelBuscadorUsuarios" listener="#{alertaBean.limpiarBuscadores}" />
 						<f:selectItem itemLabel="Membrii" itemValue="1" />
-						<f:selectItem itemLabel="Echipa de conducere" itemValue="2" />
-						<f:selectItem itemLabel="Destinatar extern sistem" itemValue="3" />
+						<f:selectItem itemLabel="Conducere locală" itemValue="2" />
+						<f:selectItem itemLabel="Echipa de conducere centrală" itemValue="3" />
+						<f:selectItem itemLabel="Destinatar extern sistem" itemValue="4" />
 					</p:selectOneButton>				
 					<p:panelGrid id="pestanaUsuarios" columns="2">					
 						<p:panelGrid id="filtroUsuarios" columns="2" rendered="#{alertaBean.opcion == 1}">
 							<h:outputLabel for="nombreUser" styleClass="dialogLabel" value="Nume:" />
-							<p:inputText id="nombreUser" value="#{alertaBean.usuarioBusqueda.username}" />
+							<p:inputText id="nombreUser" value="#{alertaBean.usuarioBusqueda.name}" />
+							<h:outputLabel for="prenumeUser" styleClass="dialogLabel" value="Prenume:" />
+							<p:inputText id="prenumeUser" value="#{alertaBean.usuarioBusqueda.lastName}" />
 							<h:outputLabel for="provinciasSelect" styleClass="dialogLabel" value="Organizația/Județul:" />
-							 <p:selectOneMenu  value="#{alertaBean.usuarioBusqueda.idProvincia}"  id="provinciasSelect" class="selectFiltro" >
+							 <p:selectOneMenu    value="#{alertaBean.usuarioBusqueda.idProvincia}"  id="provinciasSelect" class="selectFiltro" >
+	                        <f:selectItem itemLabel="Alege una..." itemValue="" />
+	                        <f:selectItems  value="#{alertaBean.provinces}"  var="provincia" itemLabel="#{provincia.name}"  itemValue="#{provincia.indicator}" />                        
+	                      </p:selectOneMenu>							              
+						</p:panelGrid>
+						<p:panelGrid id="filtroUsuariosCC" columns="2" rendered="#{alertaBean.opcion == 2}">
+							<h:outputLabel for="nombreUserCL" styleClass="dialogLabel" value="Nume:" />
+							<p:inputText id="nombreUserCL" value="#{alertaBean.usuarioBusqueda.name}" />
+							<h:outputLabel for="prenumeUserCL" styleClass="dialogLabel" value="Prenume:" />
+							<p:inputText id="prenumeUserCL" value="#{alertaBean.usuarioBusqueda.lastName}" />
+							<h:outputLabel for="provinciasSelectCL" styleClass="dialogLabel" value="Organizația/Județul:" />
+							 <p:selectOneMenu  value="#{alertaBean.usuarioBusqueda.idProvincia}"  id="provinciasSelectCL" class="selectFiltro" >
 	                        <f:selectItem itemLabel="Alege una..." itemValue="" />
 	                        <f:selectItems  value="#{alertaBean.provinces}"  var="provincia" itemLabel="#{provincia.name}"  itemValue="#{provincia.indicator}" />                        
 	                    </p:selectOneMenu>								
-							<h:outputLabel for="role" styleClass="dialogLabel" value="Rol:" />
-							 <p:importEnum type="ro.per.online.persistence.entities.enums.RoleEnum" var="roles" allSuffix="ALL_ENUM_VALUES" />
-		                    <p:selectOneMenu value="#{alertaBean.usuarioBusqueda.role}" id="role" class="selectFiltro">
-		                        <f:selectItem itemLabel="Alege unul..." itemValue="" />
-		                        <f:selectItems value="#{roles.ALL_ENUM_VALUES}" var="roleUser" itemLabel="#{roleUser.description}" itemValue="#{roleUser}" />
-		                    </p:selectOneMenu>		                   
+							<h:outputLabel for="teamUserCl" styleClass="dialogLabel" value="Funcția:" />
+							<p:selectOneMenu value="#{alertaBean.usuarioBusqueda.idFunctia}" filter="true" 
+								filterMatchMode="startsWith" id="teamUserCl" class="selectFiltro" style="min-width:initial;" >
+								<f:selectItem itemLabel="Alege una..." itemValue="" />
+								<f:selectItems value="#{alertaBean.listaFunctiiLocal}"
+									var="team"
+									itemLabel="#{team.name}"
+									itemValue="#{team.id}" />
+							</p:selectOneMenu>	                   
 						</p:panelGrid>
-						<p:panelGrid id="filtroUsuariosExternos" columns="2" rendered="#{alertaBean.opcion == 3}">
+						<p:panelGrid id="filtroUsuariosExternos" columns="2" rendered="#{alertaBean.opcion == 4}">
 								<div class="aclaraciones2">Se pot introduce mai mulți destinatari separați prin virgulă (Ex: destinatar@exemplu.com, destinatar2@exemplu.com).</div>
 								<p:outputPanel rendered="#{alertaBean.opcion == 3}" >
 									<h:outputLabel for="userExtern" value="* Destinatar extern PER:" />
 								</p:outputPanel>
-								<p:outputPanel rendered="#{alertaBean.opcion == 3}" class="ui-g-10" >
+								<p:outputPanel rendered="#{alertaBean.opcion == 4}" class="ui-g-10" >
 									<p:inputText id="userExtern" ajax="true" value="#{alertaBean.utilizatorExtern}" class="ui-g-2"
 										required="#{empty alertaBean.utilizatorExtern}"
 										requiredMessage="Trebuie să introduceți un destinatar extern pentru alertă.">
@@ -203,6 +220,11 @@
 						 <p:commandButton action="#{alertaBean.buscarUsuarios()}" rendered="#{alertaBean.opcion == 1}"
 							value="Căutați" icon="fa fa-search"
 							update=":formBusquedaUsuarios:tablaUsuarios"
+							onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+						 <p:commandButton action="#{alertaBean.buscarUsuarios()}" rendered="#{alertaBean.opcion == 2}"
+							value="Căutați" icon="fa fa-search"
+							update=":formBusquedaUsuarios:tablaUsuariosCL"
 							onstart="PF('statusDialog').show()"
 							onsuccess="PF('statusDialog').hide()" />
 						
@@ -223,23 +245,44 @@
 							<f:facet name="footer">
       				 				Total: #{alertaBean.modelUser.rowCount} membrii aleși.
    							</f:facet>
-						</p:dataTable>						
-						<p:dataTable var="team" value="#{alertaBean.listaTeams}" rendered="#{alertaBean.opcion == 2}" rows="10" id="tablaTeam" 
+						</p:dataTable>	
+					
+						
+						<p:dataTable var="usuarioCL" value="#{alertaBean.listUsersLocal}" rendered="#{alertaBean.opcion == 2}" rows="10" id="tablaUsuariosCL" 
 						paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
 						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
-						rowKey="#{team.id}" rowsPerPageTemplate="5,10,25" pageLinks="4" paginatorPosition="bottom"
+						rowKey="#{usuarioCL.username}" rowsPerPageTemplate="5,10,25" pageLinks="4" paginatorPosition="bottom"
 						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
 							<p:ajax event="page" listener="#{alertaBean.onChangePageUsuarios()}" />
-							<p:ajax event="rowUnselectCheckbox" listener="#{alertaBean.onRowUnSelectedTeam}" />
-							<p:ajax event="rowSelectCheckbox" listener="#{alertaBean.onRowSelectedTeam}" />
+							<p:ajax event="rowUnselectCheckbox" listener="#{alertaBean.onRowUnSelectedUser}" />
+							<p:ajax event="rowSelectCheckbox" listener="#{alertaBean.onRowSelectedUser}" />
+							<p:ajax event="toggleSelect" listener="#{alertaBean.onToggleSelectUsersCL}" global="true" />							
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />
+							<p:column headerText="Nume" width="150">										
+								<h:outputText value="#{usuarioCL.nombreCompleto}" />
+							</p:column>
+							<f:facet name="footer">
+      				 				Total: #{alertaBean.rowCountLocal} membrii din conducerea locală.
+   							</f:facet>
+						</p:dataTable>	
+											
+						<p:dataTable var="team" value="#{alertaBean.listUsersCentral}" rendered="#{alertaBean.opcion == 3}" rows="10" id="tablaTeam" 
+						paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+						rowKey="#{team.username}" rowsPerPageTemplate="5,10,25" pageLinks="4" paginatorPosition="bottom"
+						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
+							<p:ajax event="page" listener="#{alertaBean.onChangePageUsuarios()}" />
+							<p:ajax event="rowUnselectCheckbox" listener="#{alertaBean.onRowUnSelectedUser}" />
+							<p:ajax event="rowSelectCheckbox" listener="#{alertaBean.onRowSelectedUser}" />
 							<p:ajax event="toggleSelect" listener="#{alertaBean.onToggleSelectTeam}" global="true" />							
 							<p:column selectionMode="multiple"
 								style="width:16px;text-align:center" />							
 							<p:column headerText="Nume" width="150">										
-								<h:outputText value="#{team.user.nombreCompleto}" />
+								<h:outputText value="#{team.nombreCompleto}" />
 							</p:column>							
 							<f:facet name="footer">
-      				 				Total: #{alertaBean.numarMembrii} membrii în conducerea PER.
+      				 				Total: #{alertaBean.rowCountCentral} membrii în conducerea PER.
    							</f:facet>
 						</p:dataTable>
 					</p:panelGrid>

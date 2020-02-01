@@ -5,11 +5,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="../layouts/layoutInterior.xhtml">
           <f:metadata>
-         	<f:viewAction action="#{navegacionBean.adelante(procesoMasivoBean.titulo, request.servletPath)}"/>
+         	<f:viewAction action="#{navigareBean.inainte(procesoMasivoBean.titlu, request.servletPath)}"/>
    		 </f:metadata>
     <ui:define name="content">
- 	<h1 class="titulo">#{procesoMasivoBean.titulo}</h1>
- 	<div class="aclaraciones2"> Prin această operație se elimină logic membrii. Pentru o eliminare definitivă utilizați eliminarea individuală din aplicație .</div>
+ 	<h1 class="titlu">#{procesoMasivoBean.titlu}</h1>
+ 	<div class="aclaratii2"> Prin această operație se elimină logic membrii. Pentru o eliminare definitivă utilizați eliminarea individuală din aplicație .</div>
        
         <div class="contenedor">
             <div id="panel">
@@ -26,7 +26,7 @@
                                           allowTypes="/(\.|\/)(xlsx)$/"
                                           invalidFileMessage="Trebuie să selectați un fișier cu extensie Excel'.xlsx' (Superior la 2007)."
                                           style="width:200%"
-                                          fileUploadListener="#{procesoMasivoBean.borradoFicheroUsuarios}"
+                                          fileUploadListener="#{procesoMasivoBean.eliminareUtilizatoriFisier}"
                                           fileLimit="1" fileLimitMessage="Există deja un fișier selectat">
                                 <p:remoteCommand/>
                             </p:fileUpload>
@@ -37,7 +37,7 @@
 
 						    <p:dialog id="dialog" widgetVar="dialogMessage" header="Información" closable="false" width="30%">
 						        <p:messages for="dialogMessage" autoUpdate="true" showDetail="true" showSummary="true" escape="false"/>
-						        <div class="centrarBotonesDialog">
+						        <div class="centrareButoaneDialog">
 						            <p:button value="Închideți" outcome="/users/users" />
 						        </div>
 						    </p:dialog>

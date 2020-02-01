@@ -10,16 +10,16 @@
     template="/layout/template.xhtml">
 
     <f:metadata>
-        <f:viewParam name="esBorrado"
-            value="#{procesoMasivoController.esBorradoMasivo}" />
-             <f:viewAction action="#{navegacionBean.adelante(procesoMasivoController.titulo, request.servletPath)}"/>
+        <f:viewParam name="esteEliminare"
+            value="#{procesoMasivoController.esteEliminareMasiva}" />
+             <f:viewAction action="#{navigareBean.inainte(procesoMasivoController.titlu, request.servletPath)}"/>
     </f:metadata>
     <ui:define name="body">
         <p:importConstants type="es.mira.pdyrh.constantes.Constantes"
             var="Constantes" />
         <p:importConstants type="es.mira.pdyrh.modelo.enums.RoleEnum"
             var="RoleEnum" />
-        <h1 class="titulo">#{procesoMasivoController.titulo}</h1>
+        <h1 class="titlu">#{procesoMasivoController.titlu}</h1>
         <div class="contenedor">
             <div id="panel">
                 <h:form id="busquedaUsuarios">
@@ -61,7 +61,7 @@
                             </p:selectOneMenu>
                         </p:panelGrid>
                         <p:panelGrid layout="grid" columns="4"
-                            rendered="#{procesoMasivoController.esBorradoMasivo}"
+                            rendered="#{procesoMasivoController.esteEliminareMasiva}"
                             columnClasses="columna-pequenia,,columna-pequenia,">
                             <p:outputLabel for="fechaBloqueoDesde"
                                 value="Fecha de bloqueo desde" />
@@ -81,15 +81,15 @@
                         </p:panelGrid>
                     </p:panel>
 
-                    <p:commandButton id="buscarBoton" value="Buscar"
-                        actionListener="#{procesoMasivoController.buscarUsuarios}"
+                    <p:commandButton id="cautareButon" value="Căutare"
+                        actionListener="#{procesoMasivoController.cautareUtilizatori}"
                         update="@form" />
                     <p:commandButton
-                        actionListener="#{procesoMasivoController.limpiarBusqueda}"
-                        value="Limpiar" update="@form" />
+                        actionListener="#{procesoMasivoController.cautareCautare}"
+                        value="Curăţare" update="@form" />
                     <p:button
                         outcome="/administracion/usuarios/usuarios"
-                        value="Volver" />
+                        value="Renunţare" />
 
                     <p:outputPanel id="panelTabla"
                         rendered="#{procesoMasivoController.mostrarTabla}">
@@ -97,7 +97,7 @@
                             rowStyleClass="#{usuario.fechaInactividad eq null ? 'inactivo' : 'activo'}"
                             value="#{procesoMasivoController.model}"
                             id="tablaUsuarios" draggableColumns="true"
-                            selection="#{procesoMasivoController.usuarioBusqueda.usuariosSeleccionados}"
+                            selection="#{procesoMasivoController.usuarioBusqueda.utilizatoriSelectionati}"
                             rows="#{Constantes.TAMPAGINA}"
                             rowsPerPageTemplate="5,10,15,20"
                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -106,16 +106,16 @@
                             emptyMessage="No existe ningún resultado que cumpla los parámetros de su búsqueda."
                             rowSelectMode="add" sortField="username">
                             <p:ajax event="page"
-                                listener="#{procesoMasivoController.aniadirUsuariosCambioPaginaTabla}"
+                                listener="#{procesoMasivoController.adaugareUtilizatoriSchimbPagina}"
                                 global="false" />
                             <p:ajax event="rowUnselectCheckbox"
-                                listener="#{procesoMasivoController.checkDesmarcado}"
+                                listener="#{procesoMasivoController.checkDeselectionat}"
                                 global="false" />
                             <p:ajax event="rowSelectCheckbox"
-                                listener="#{procesoMasivoController.checkSeleccionado}"
+                                listener="#{procesoMasivoController.checkSelectionat}"
                                 global="false" />
                             <p:ajax event="toggleSelect"
-                                listener="#{procesoMasivoController.checkSeleccionarTodos}"
+                                listener="#{procesoMasivoController.checkSelectionatToate}"
                                 global="false" />
 
                             <f:facet name="header">
@@ -191,7 +191,7 @@
                         </f:facet>
                         </p:dataTable>
                         <p:commandButton value="Procesar usuarios"
-                            actionListener="#{procesoMasivoController.procesarUsuarios}">
+                            actionListener="#{procesoMasivoController.procesareUtilizatori}">
                             <p:confirm />
                         </p:commandButton>
                     </p:outputPanel>
@@ -203,7 +203,7 @@
                     <ui:decorate
                         template="/componentes/dialogoConfirmarAccion.xhtml">
                         <ui:param name="mensaje"
-                            value="¿Está seguro de la operación de #{procesoMasivoController.titulo} masivo
+                            value="¿Está seguro de la operación de #{procesoMasivoController.titlu} masivo
                                 sobre los usuarios seleccionados?" />
                         <ui:param name="cabecera" value="Modificación" />
                     </ui:decorate>

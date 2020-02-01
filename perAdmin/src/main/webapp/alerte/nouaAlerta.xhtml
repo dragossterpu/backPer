@@ -1,0 +1,365 @@
+<ui:composition template="../layouts/layoutInterior2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h:form id="form">
+			<div class="blocFormular">
+				<p:panel header="Creați o corespndență nouă" styleClass="panelModCard">
+					<div class="container-fluid">
+						<div class="blocFormular">
+							<p:dataTable var="usuario" value="#{alertaBean.utilizatoriSelectionatiFinali}" id="tablaUsueriosSeleccionados" rows="5" 
+							paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 			rowsPerPageTemplate="5,10,15" resizableColumns="true" pageLinks="5" paginatorAlwaysVisible="false" 
+								rendered="#{not empty alertaBean.utilizatoriSelectionatiFinali}" rowKey="#{usuario.username}">
+								<f:facet name="header">Membrii cărora li se va trimite alerta/ comunicarea via EMAIL</f:facet>
+								<p:column headerText="EMAIL" style="width:60%;">
+									<h:outputText value="#{usuario.username}" />
+								</p:column>
+								<p:column headerText="CANAL DE COMUNICARE" style="width:25%;" styleClass="text-center">
+									<h:outputText value="#{usuario.alertChannel}" />
+								</p:column>
+								<p:column styleClass="botonTabla text-center" exportable="false"
+									toggleable="false" style="width:5%;">
+									<p:commandButton title="Eliminare" icon="fa fa-trash" styleClass="modBtn"
+										actionListener="#{alertaBean.eliminareUtilizator(usuario)}"
+										update="form" immediate="true" />
+								</p:column>
+								<f:facet name="footer">
+									Total:	#{alertaBean.utilizatoriSelectionatiFinali.size()} destinatari ai comunicării via Email
+   							</f:facet>
+							</p:dataTable>
+							<div class="ui-g">
+								<p:outputPanel rendered="#{empty alertaBean.utilizatoriSelectionatiFinali}" class="ui-g-2">
+									<b><h:outputLabel for="destinatar" value="* Destinatar:" /></b>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{empty alertaBean.utilizatoriSelectionatiFinali}" class="ui-g-6">
+									<p:inputText id="destinatar" ajax="true" value="#{alertaBean.numeUtilizator}"
+										required="#{empty alertaBean.numeUtilizator or empty alertaBean.utilizatoriSelectionatiFinali}"
+										requiredMessage="Trebuie să introduceți un destinatar pentru alertă."
+										validatorMessage="Format e-mail nevalid.">
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									</p:inputText>
+									<p:message for="destinatar" display="tooltip" />
+								</p:outputPanel>
+								<div class="ui-g-4">
+									<p:commandButton value="Căutați" icon="fa fa-search"
+										action="#{alertaBean.deschideDialogCautareUtilizatori}"
+										immediate="true" onstart="PF('statusDialog').show()"
+										onsuccess="PF('statusDialog').hide()" update="formCautatorUtilizatori"/>
+								</div>
+							</div>							
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<b><h:outputLabel for="tipSelect" value="* Tipul corespondenței:" /></b>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<p:importEnum type="ro.stad.online.gesint.persistence.entities.enums.CategorieEnum"
+										var="tip" allSuffix="ALL_ENUM_VALUES" />
+									<p:selectOneMenu value="#{alertaBean.alerta.tipAlerta}"
+										id="tipSelect"
+										required="true" requiredMessage="Alegeți un tip de corespondență" styleClass="form-control form-select">
+										<f:selectItem itemLabel="Alege un un tip" itemValue="" />
+										<f:selectItems value="#{tip.ALL_ENUM_VALUES}" var="tip"
+											itemLabel="#{tip.description}" itemValue="#{tip}" />
+									</p:selectOneMenu>							
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<b><h:outputLabel for="titlu" value="*Subiect:" /></b>
+								</div>
+								<div class="ui-g-10">
+									<p:inputText id="titlu" value="#{alertaBean.alerta.titlu}"
+										required="true"
+										requiredMessage="Trebuie să introduceți un subiect pentru alertă." />
+									<p:messages for="titlu" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<b><h:outputLabel for="nombre" value="*Descriere:" /></b>
+								</div>
+								<div class="ui-g-10">
+									<p:inputTextarea id="nombre" rows="6" cols="150"
+										maxlength="200" autoResize="false"
+										value="#{alertaBean.alerta.descripcion}" required="true"
+										requiredMessage="Trebuie să introduceți o descriere a alertei."
+										converter="#{trimConverter}"
+										validatorMessage="Descrierea trebuie să aibă mai mult de 10 caractere.">
+										<f:validateLength minimum="10" />
+									</p:inputTextarea>
+									<p:messages for="nombre" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<b><h:outputLabel for="auto" value="Trimitere automatică a corespondenței" /></b>
+								</div>
+								<div class="ui-g-10" id ="auto">
+									 <p:selectBooleanCheckbox value="#{alertaBean.alerta.automatic}"/>
+									<p:messages for="auto" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<b><h:outputLabel for="fechaEnvio" value="Alegeți data trimiterii automatice a corespondenței:" /></b>
+								</div>
+								<div class="ui-g-12 ui-md-6 ui-lg-4">
+									<p:calendar id="fechaEnvio" pattern="dd/MM/yyyy" locale="es"
+										navigator="true"  mindate="#{alertaBean.currentDate}"
+										value="#{alertaBean.alerta.fechaEnvio}" />
+									<p:messages for="fechaEnvio" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<p:dataTable id="tablaDocumente" var="documento" value="#{alertaBean.documenteIncarcate}" editable="true" onkeypress="if (event.keyCode == 13) {return false; }" emptyMessage="Nu sunt încărcate documente.">
+			                        <p:ajax event="rowEdit" listener="#{alertaBean.onRowEdit}" />
+			
+			                        <p:column headerText="Documentele încărcate">
+			                            <h:outputText value="#{documento.nombre}" />
+			                        </p:column>
+			                        <p:column styleClass="botonTabla">
+			                            <p:commandButton icon="fa fa-fw fa-download" ajax="false" actionListener="#{alertaBean.descarcareFisier(documento)}" title="Descărcați documentul">
+			                                <p:fileDownload value="#{alertaBean.file}" />
+			                            </p:commandButton>
+			                        </p:column>
+			                        <p:column styleClass="botonTabla" >
+			                            <p:commandButton title="Elimină" icon="fa fa-trash" actionListener="#{alertaBean.eliminareDocumentFinal(documento)}" update=":form tablaDocumente">
+			                                <p:confirm header="Ștergeți documentul" message="Sigur doriți să ștergeți acest document?" icon="fa fa-warning-sign" />
+			                            </p:commandButton>
+			                        </p:column>	
+	                    		</p:dataTable>
+                    	</div>
+						</div>
+					</div>
+				</p:panel>
+				<div class="aclaratii2">Butonul "Trimiteți email" trimite corespondența electronică și salvează comunicarea în baza de date.</div>
+				<div class="aclaratii2">Butonul "Salvați alerta" NUMAI salvează comunicarea în baza de date fără a o trimite.</div>
+				<div class="butoaneFormular">
+					<p:button outcome="/alerte/alerte" value="Renunţare"
+						icon="fa fa-fw fa-undo" />
+					<p:commandButton action="#{alertaBean.deschideDialogIncarcarDocument()}"  
+					value="Atașați documente" icon="fa fa-plus" />
+					<p:commandButton action="#{alertaBean.trimitereAlerta}"
+						value="Trimiteți email" update="form" icon="fa fa-send"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" />
+					<p:commandButton action="#{alertaBean.salvareAlerta}" outcome="/alerte/alerte"
+						value="Salvați alerta" update="form" icon="fa fa-send"
+						onstart="PF('statusDialog').show()" 
+						onsuccess="PF('statusDialog').hide()" />
+				</div>
+			</div>					
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage value="/images/loading.gif" />
+			</p:dialog>
+		</h:form>
+		<h:form id="formCautatorUtilizatori">
+			<p:dialog header="Căutare destinatari pentru trimitere via EMAIL" widgetVar="dlgBusqueda"
+						dynamic="true" width="800" height="500">
+				<p:panelGrid columns="1" id="panouCautareUtilizatori">
+					<p:selectOneButton value="#{alertaBean.opcion}">
+						<p:ajax event="change" update="formCautatorUtilizatori:panouCautareUtilizatori" listener="#{alertaBean.cautareFiltre}" />
+						<f:selectItem itemLabel="Membrii" itemValue="1" />
+						<f:selectItem itemLabel="Conducere locală" itemValue="2" />
+						<f:selectItem itemLabel="Echipa de conducere centrală" itemValue="3" />
+						<f:selectItem itemLabel="Destinatar extern sistem" itemValue="4" />
+					</p:selectOneButton>				
+					<p:panelGrid id="pestanaUsuarios" columns="2">					
+						<p:panelGrid id="filtroUsuarios" columns="2" rendered="#{alertaBean.opcion == 1}">
+							<h:outputLabel for="nombreUser" styleClass="dialogLabel" value="Nume:" />
+							<p:inputText id="nombreUser" value="#{alertaBean.usuarioBusqueda.name}" />
+							<h:outputLabel for="prenumeUser" styleClass="dialogLabel" value="Prenume:" />
+							<p:inputText id="prenumeUser" value="#{alertaBean.usuarioBusqueda.lastName}" />
+							<h:outputLabel for="provinciasSelect" styleClass="dialogLabel" value="Organizația/Județul:" />
+							 <p:selectOneMenu    value="#{alertaBean.usuarioBusqueda.idProvincia}"  id="provinciasSelect" class="selectFiltro" >
+	                        <f:selectItem itemLabel="Alege una..." itemValue="" />
+	                        <f:selectItems  value="#{alertaBean.judete}"  var="provincia" itemLabel="#{provincia.name}"  itemValue="#{provincia.indicator}" />                        
+	                      </p:selectOneMenu>							              
+						</p:panelGrid>
+						<p:panelGrid id="filtroUsuariosCC" columns="2" rendered="#{alertaBean.opcion == 2}">
+							<h:outputLabel for="nombreUserCL" styleClass="dialogLabel" value="Nume:" />
+							<p:inputText id="nombreUserCL" value="#{alertaBean.usuarioBusqueda.name}" />
+							<h:outputLabel for="prenumeUserCL" styleClass="dialogLabel" value="Prenume:" />
+							<p:inputText id="prenumeUserCL" value="#{alertaBean.usuarioBusqueda.lastName}" />
+							<h:outputLabel for="provinciasSelectCL" styleClass="dialogLabel" value="Organizația/Județul:" />
+							 <p:selectOneMenu  value="#{alertaBean.usuarioBusqueda.idProvincia}"  id="provinciasSelectCL" class="selectFiltro" >
+	                        <f:selectItem itemLabel="Alege una..." itemValue="" />
+	                        <f:selectItems  value="#{alertaBean.judete}"  var="provincia" itemLabel="#{provincia.name}"  itemValue="#{provincia.indicator}" />                        
+	                    </p:selectOneMenu>								
+							<h:outputLabel for="teamUserCl" styleClass="dialogLabel" value="Funcția:" />
+							<p:selectOneMenu value="#{alertaBean.usuarioBusqueda.idFunctia}" filter="true" 
+								filterMatchMode="startsWith" id="teamUserCl" class="selectFiltro" style="min-width:initial;" >
+								<f:selectItem itemLabel="Alege una..." itemValue="" />
+								<f:selectItems value="#{alertaBean.listaFunctiiLocal}"
+									var="team"
+									itemLabel="#{team.name}"
+									itemValue="#{team.id}" />
+							</p:selectOneMenu>	                   
+						</p:panelGrid>
+						<p:panelGrid id="filtroUsuariosExternos" columns="2" rendered="#{alertaBean.opcion == 4}">
+								<div class="aclaratii2">Se pot introduce mai mulți destinatari separați prin virgulă (Ex: destinatar@exemplu.com, destinatar2@exemplu.com).</div>
+								<p:outputPanel rendered="#{alertaBean.opcion == 3}" >
+									<h:outputLabel for="userExtern" value="* Destinatar extern PER:" />
+								</p:outputPanel>
+								<p:outputPanel rendered="#{alertaBean.opcion == 4}" class="ui-g-10" >
+									<p:inputText id="userExtern" ajax="true" value="#{alertaBean.utilizatorExtern}" class="ui-g-2"
+										required="#{empty alertaBean.utilizatorExtern}"
+										requiredMessage="Trebuie să introduceți un destinatar extern pentru alertă.">
+									</p:inputText>
+									<p:message for="userExtern" display="tooltip" />
+								</p:outputPanel>
+						</p:panelGrid>
+						
+						
+						 <p:commandButton action="#{alertaBean.cautareUtilizatori()}" rendered="#{alertaBean.opcion == 1}"
+							value="Căutați" icon="fa fa-search"
+							update=":formCautatorUtilizatori:tablaUsuarios"
+							onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+						 <p:commandButton action="#{alertaBean.cautareUtilizatori()}" rendered="#{alertaBean.opcion == 2}"
+							value="Căutați" icon="fa fa-search"
+							update=":formCautatorUtilizatori:tablaUsuariosCL"
+							onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+						
+						<p:dataTable var="usuario" value="#{alertaBean.modelUser}" rendered="#{alertaBean.opcion == 1}" rows="10" id="tablaUsuarios" 
+						paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+						rowKey="#{user.username}" rowsPerPageTemplate="5,10,25" pageLinks="4" paginatorPosition="bottom"
+						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
+							<p:ajax event="page" listener="#{alertaBean.schimbarePaginaUtilizatori()}" />
+							<p:ajax event="rowUnselectCheckbox" listener="#{alertaBean.onRowUnSelectedUser}" />
+							<p:ajax event="rowSelectCheckbox" listener="#{alertaBean.onRowSelectedUser}" />
+							<p:ajax event="toggleSelect" listener="#{alertaBean.onToggleSelectUsers}" global="true" />							
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />
+							<p:column headerText="Nume" width="150">										
+								<h:outputText value="#{usuario.nombreCompleto}" />
+							</p:column>
+							<f:facet name="footer">
+      				 				Total: #{alertaBean.modelUser.rowCount} membrii aleși.
+   							</f:facet>
+						</p:dataTable>	
+					
+						
+						<p:dataTable var="usuarioCL" value="#{alertaBean.listUsersLocal}" rendered="#{alertaBean.opcion == 2}" rows="10" id="tablaUsuariosCL" 
+						paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+						rowKey="#{usuarioCL.username}" rowsPerPageTemplate="5,10,25" pageLinks="4" paginatorPosition="bottom"
+						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
+							<p:ajax event="page" listener="#{alertaBean.schimbarePaginaUtilizatori()}" />
+							<p:ajax event="rowUnselectCheckbox" listener="#{alertaBean.onRowUnSelectedUser}" />
+							<p:ajax event="rowSelectCheckbox" listener="#{alertaBean.onRowSelectedUser}" />
+							<p:ajax event="toggleSelect" listener="#{alertaBean.onToggleSelectUsersCL}" global="true" />							
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />
+							<p:column headerText="Nume" width="150">										
+								<h:outputText value="#{usuarioCL.nombreCompleto}" />
+							</p:column>
+							<f:facet name="footer">
+      				 				Total: #{alertaBean.rowCountLocal} membrii din conducerea locală.
+   							</f:facet>
+						</p:dataTable>	
+											
+						<p:dataTable var="team" value="#{alertaBean.listUsersCentral}" rendered="#{alertaBean.opcion == 3}" rows="10" id="tablaTeam" 
+						paginator="true" lazy="true" resizableColumns="true"  sortOrder="descending" styleClass="modHeaderTable"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+						rowKey="#{team.username}" rowsPerPageTemplate="5,10,25" pageLinks="4" paginatorPosition="bottom"
+						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
+							<p:ajax event="page" listener="#{alertaBean.schimbarePaginaUtilizatori()}" />
+							<p:ajax event="rowUnselectCheckbox" listener="#{alertaBean.onRowUnSelectedUser}" />
+							<p:ajax event="rowSelectCheckbox" listener="#{alertaBean.onRowSelectedUser}" />
+							<p:ajax event="toggleSelect" listener="#{alertaBean.onToggleSelectTeam}" global="true" />							
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />							
+							<p:column headerText="Nume" width="150">										
+								<h:outputText value="#{team.nombreCompleto}" />
+							</p:column>							
+							<f:facet name="footer">
+      				 				Total: #{alertaBean.rowCountCentral} membrii în conducerea PER.
+   							</f:facet>
+						</p:dataTable>
+					</p:panelGrid>
+					<p:outputPanel class="btnModalAcept">
+						<p:commandButton value="Acceptați" onclick="PF('dlgBusqueda').hide()" update="form" actionListener="#{alertaBean.stabilireUtilizatoriFinali}"/>
+					</p:outputPanel>
+				</p:panelGrid>	
+			</p:dialog>
+			<p:dialog id="dialog" widgetVar="dialogMessage" header="INFO"
+				closable="false" resizable="false" modal="true">
+				<p:messages for="dialogMessage" autoUpdate="true"
+					showDetail="true" showSummary="true" />
+				<p:commandButton value="Acceptați 2"
+					onclick="PF('dialogMessage').hide()" outcome="/alerte/alerte" styleClass="right" />
+			</p:dialog>
+		</h:form>
+				<h:form id="formIncarcareDocumente">
+				<p:dialog header="Atașați documente corespondenței electronice" widgetVar="dlgIncarcareDocument" dynamic="true" width="800" height="800">
+				<div class="aclaratii">Se acceptă documentele care coincid ca nume și extensie cu documentele încărcate.</div>
+				<div class="blocView">
+		            <p:dataTable id="tablaDoc" var="documento" value="#{alertaBean.documenteIncarcate}">
+		                <p:column headerText="DOCUMENT" width="50%">
+		                    <h:outputText value="#{documento.descripcion}" />
+		                </p:column>
+		                <p:column headerText="NUME" width="50%">
+		                    <h:outputText value="#{documento.nombre}" />
+		                </p:column>
+		            </p:dataTable>
+		        </div>
+		       <p:separator />
+		        <div class="aclaratii2">
+		            (1).- Pentru fiecare tip de document, unul sau mai multe documente pot fi încărcate simultan. 
+		            <strong>Dacă oricare dintre ele este alcătuită din două sau mai multe părți, numele lor trebuie să înceapă cu numele documentului respectiv și un număr secvențial 
+		            </strong> (ex: organigrama_1.doc, organigrama_2.doc). Dimensiunea maximă per fișier încărcat este de 20 MB.
+		        </div>
+		                <div class="blocView">
+
+                <p:fileUpload width="50%" cancelLabel="ANULARE" label="SELECTAREA DOCUMENTULUI" uploadLabel="ÎNCĂRCARE DOCUMENTE" 
+                fileUploadListener="#{alertaBean.gestioneazaIncarcareDocument}" mode="advanced" dragDropSupport="false" 
+                sizelimit="20971520" multiple="true" update=":formIncarcareDocumente:panouAtasament tablaDocumente" autofileLimit="30" 
+                allowTypes="/(\.|\/)(jpe?g|png|bmp|doc|docx|pptx|ppt|pub|xls|xlsx|pdf)$/i" sequential="true" />				
+                <p:outputPanel id="panouAtasament">
+                    <p:dataTable id="tablaDocumente" var="documento" value="#{alertaBean.listaDocumente}" editable="true" onkeypress="if (event.keyCode == 13) {return false; }" emptyMessage="Nu sunt încărcate documente.">
+                        <p:ajax event="rowEdit" listener="#{alertaBean.onRowEdit}" update=":formIncarcareDocumente:msgs" />
+
+                        <p:column headerText="Documentele încărcate">
+                            <h:outputText value="#{documento.nombre}" />
+                        </p:column>
+                        <p:column styleClass="botonTabla">
+                            <p:commandButton icon="fa fa-fw fa-download" ajax="false" actionListener="#{alertaBean.descarcareFisier(documento)}" title="Descărcați documentul">
+                                <p:fileDownload value="#{alertaBean.file}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column styleClass="botonTabla" >
+                            <p:commandButton title="Elimină document" icon="fa fa-trash" action="#{alertaBean.eliminareDocument(documento)}" update=":formIncarcareDocumente:panouAtasament tablaDocumente">
+                                <p:confirm header="Ștergeți documentul" message="Sunteți sigur că doriți să eliminați acest document?" icon="fa fa-warning-sign" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                    <p:outputPanel class="btnModalAcept">
+						<p:commandButton value="Acceptați și încărcați doocumentele în alertă/comunicare " onclick="PF('dlgIncarcareDocument').hide()" update=":form tablaDocumente" actionListener="#{alertaBean.incarcareDocument}"/>
+					</p:outputPanel>
+                </p:outputPanel>
+                	
+                <p:confirmDialog global="true">
+                    <div class="centrareButoaneDialog">
+                        <p:commandButton value="Acceptați" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                        <p:commandButton value="Anulați" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+                    </div>
+                </p:confirmDialog>
+                <div class="butoaneFormular">
+                    <p:button outcome="/alerte/alerte" value="Înapoi" icon="fa fa-fw fa-undo" />
+                </div>
+                <p:messages id="msgs" autoUpdate="true" closable="true" showDetail="true" />
+        </div>				
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

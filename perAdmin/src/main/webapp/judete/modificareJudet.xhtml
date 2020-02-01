@@ -8,7 +8,7 @@
 
 	<ui:define name="content">
 			<h:form id="form" enctype="multipart/form-data">
-				<div class="bloqueFormulario">
+				<div class="blocFormular">
 					<p:panel header="Județ" styleClass="panelModCard">
 						<p:panelGrid>
 							<p:row>
@@ -16,7 +16,7 @@
 									<h:outputLabel for="nombre" value="*Nume:" />
 								</p:column>
 								<p:column>
-									<p:inputText id="nombre" value="#{provinceBean.judetul.name}"
+									<p:inputText id="nombre" value="#{provinciaBean.judetul.name}"
 										required="true"
 										requiredMessage="Introduce un nume pentru județ" />
 									<p:message for="nombre" />
@@ -27,7 +27,7 @@
 									<h:outputLabel for="locuitori" value="Populație:" />
 								</p:column>
 								<p:column>
-									<p:inputText id="locuitori" value="#{provinceBean.judetul.population}" required="true"
+									<p:inputText id="locuitori" value="#{provinciaBean.judetul.population}" required="true"
 										requiredMessage="Introduce populația județului" />
 									<p:message for="nombre" />
 								</p:column>
@@ -37,7 +37,7 @@
 									<h:outputLabel for="indicator" value="Codul județului:" />
 								</p:column>
 								<p:column>
-									<p:inputText id="indicator" value="#{provinceBean.judetul.indicator}" required="true"
+									<p:inputText id="indicator" value="#{provinciaBean.judetul.indicator}" required="true"
 										requiredMessage="Introduce codul județului" />
 									<p:message for="nombre" />
 								</p:column>
@@ -46,12 +46,12 @@
 								<p:column>
 									<b><h:outputLabel for="imagenG" value="Fotografia :" /></b>
 									<p:separator />
-									<p:graphicImage rendered="#{not empty provinceBean.judetul.photo}" id="imagenG" value="#{provinceBean.judetul.imageJudet}" cache="false" stream="false">
-									<f:param name="id" value="#{provinceBean.judetul.indicator}" />
+									<p:graphicImage rendered="#{not empty provinciaBean.judetul.photo}" id="imagenG" value="#{provinciaBean.judetul.imageJudet}" cache="false" stream="false">
+									<f:param name="id" value="#{provinciaBean.judetul.indicator}" />
 									 </p:graphicImage>
-									<b><h:outputLabel for="imagenNueva" value="Încarcă noua imagine:" /></b>
+									<b><h:outputLabel for="imagineNoua" value="Încarcă noua imagine:" /></b>
 									<p:separator />
-									<p:fileUpload fileUploadListener="#{provinceBean.cargaImagen}" mode="advanced" dragDropSupport="false" id="imagenNueva"
+									<p:fileUpload fileUploadListener="#{provinciaBean.incarcareImagine}" mode="advanced" dragDropSupport="false" id="imagineNoua"
 									   sizeLimit="204800" invalidSizeMessage=" Dimensiunea maximă permisă este de 20MB" required="true" 
 									   fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
 									      uploadLabel="Salvează noua stemă" cancelLabel="Renunțare" label="Încarcă/Caută stema" update="imagenG" /> 
@@ -59,7 +59,7 @@
 							</p:row>
 						</p:panelGrid>
 						<p:confirmDialog global="true">
-							<div class="centrarBotonesDialog">
+							<div class="centrareButoaneDialog">
 								<p:button value="Aceptar" styleClass="ui-confirmdialog-yes"
 									icon="fa fa-check" />
 								<p:button value="Cancelar" styleClass="ui-confirmdialog-no"
@@ -71,16 +71,16 @@
 							closable="false">
 							<p:messages for="dialogMessage" autoUpdate="true"
 								showDetail="true" showSummary="true" />
-							<div class="centrarBotonesDialog">
+							<div class="centrareButoaneDialog">
 								<p:button value=" Închide" outcome="/judete/judete" />
 							</div>
 						</p:dialog>
 					</p:panel>
-					<div class="botonesFormulario">
-						<p:commandButton value="Întoarcere" icon="fa fa-fw fa-undo"
+					<div class="butoaneFormular">
+						<p:commandButton value="Renunţare" icon="fa fa-fw fa-undo"
 							action="/judete/judete?faces-redirect=true" immediate="true">
 						</p:commandButton>
-						<p:commandButton actionListener="#{provinceBean.modificaJudet(provinceBean.judetul)}"
+						<p:commandButton actionListener="#{provinciaBean.modificaJudet(provinciaBean.judetul)}"
 							value="Salvează" icon="fa fa-fw fa-check" ajax="false" />
 					</div>
 				</div>

@@ -7,7 +7,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-		<ui:define name="title">Ecologiștii</ui:define>
+		<ui:define name="title">EGesint</ui:define>
 		<ui:define name="content">	
 			<h:form id="formHome">
 				<h3>STATISTICA ORGANIZAȚIEI #{statisticaBean.numeOrganizatie}</h3>	  
@@ -36,7 +36,7 @@
 						<h:panelGroup rendered="#{statisticaBean.presedinteFiliala ne null}">
 						<H3> Echipa de conducere a organizației #{statisticaBean.numeOrganizatie}</H3>
 							<H4> Președintele organizației <B>#{statisticaBean.numeOrganizatie}</B></H4>
-							<H5><B>#{statisticaBean.presedinteFiliala.name} #{statisticaBean.presedinteFiliala.lastName}</B></H5>
+							<H5><B>#{statisticaBean.presedinteFiliala.nombreCompleto}</B></H5>
 							<H5>Telefon : <B>#{statisticaBean.presedinteFiliala.phone}</B></H5>
 							<H5>E-mail :<B> #{statisticaBean.presedinteFiliala.email}</B></H5>
 							<H5>Adresa : <B>#{statisticaBean.presedinteFiliala.address}</B></H5>
@@ -46,7 +46,7 @@
 						</h:panelGroup>
 						<h:panelGroup rendered="#{not empty statisticaBean.conducereFiliala}">
 						 <p:dataList value="#{statisticaBean.conducereFiliala}" var="pers" type="ordered">
-						 	<H4>#{pers.role.description}: #{pers.name} #{pers.lastName}</H4>
+						 	<H4>#{pers.team.name}: #{pers.nombreCompleto}</H4>
 						 </p:dataList>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{empty statisticaBean.conducereFiliala}">
@@ -57,7 +57,7 @@
 					</div>
 					</div>
 					
-					<div class="resultadosFiltro5">
+					<div class="rezultateFiltru5">
 					<p:outputPanel layout="block" id="panelStatistica">
 					<p:dataTable var="localitate"
 						value="#{statisticaBean.listaLocalitatiSuperiorProcentaj}" rows="10" styleClass="modHeaderTable"
@@ -67,7 +67,7 @@
 						emptyMessage="Nu există niciun rezultat care să corespundă parametrilor căutării dvs." paginatorAlwaysVisible="false">
 						<f:facet name="header">
 							<p:outputPanel>
-								<span class="titulo">ORGANIZAȚIA JUDEȚEANĂ #{statisticaBean.numeOrganizatie}</span>
+								<span class="titlu">ORGANIZAȚIA JUDEȚEANĂ #{statisticaBean.numeOrganizatie}</span>
 								<p:commandButton id="toggler" type="button" value="Coloane"
 									class="botonColumnas" icon="fa fa-th"/>
 								<p:columnToggler datasource="tablaLocalitati" trigger="toggler">
@@ -114,12 +114,12 @@
                                  maxFractionDigits="0"/>
 							</h:outputText>
 							membrii
-       				   <div class="centrarBotonesDialog">
+       				   <div class="centrareButoaneDialog">
 					<p:button value="Închideţi" outcome="/estadisticas/statistica" />
 				</div>
     			</f:facet>    			
 					</p:dataTable>
-					<div class="aclaraciones2">
+					<div class="aclaratii2">
 					<strong>Nume:</strong> Numele localității <br/>
 					<strong>Votanți:</strong> Populație cu drept de vot în localitate<br/>
 					<strong>Membri:</strong> Membri sau simpatizanți înregistrați în GESINT<br/>
@@ -131,7 +131,7 @@
 					</div>
 				<!-- Optiuni -->
 				
-					<div class="resultadosFiltroOptiuni">
+					<div class="rezultateFiltruOptiuni">
 					<h3>Posibile opțiuni, persoane sau partide locale ale ORGANIZAȚIEI #{statisticaBean.numeOrganizatie}</h3>	 
 					<p:outputPanel layout="block" id="panelOptiuni">
 					<p:dataTable var="optiune"
@@ -142,7 +142,7 @@
 						 paginatorAlwaysVisible="false">
 						<f:facet name="header">
 							<p:outputPanel>
-								<span class="titulo">OPȚIUNI/ ȚINTE PENTRU ALEGERI ALE ORGANIZAȚIEI #{statisticaBean.numeOrganizatie}</span>
+								<span class="titlu">OPȚIUNI/ ȚINTE PENTRU ALEGERI ALE ORGANIZAȚIEI #{statisticaBean.numeOrganizatie}</span>
 								<p:commandButton id="toggler" type="button" value="Coloane"
 									class="botonColumnas" icon="fa fa-th"/>
 								<p:columnToggler datasource="tablaOptiuni" trigger="toggler">
@@ -165,7 +165,7 @@
 						</p:column>	
 						
 						
-       				   <div class="centrarBotonesDialog">
+       				   <div class="centrareButoaneDialog">
 					<p:button value="Închideţi" outcome="/estadisticas/statistica" />
 				</div>
    

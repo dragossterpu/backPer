@@ -12,6 +12,6 @@
         <phase-listener>org.springframework.web.jsf.DelegatingPhaseListenerMulticaster</phase-listener>
     </lifecycle>
 <factory>
-      <exception-handler-factory>ro.per.online.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
+      <exception-handler-factory>ro.stad.online.gesint.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
   </factory>
 </faces-config>

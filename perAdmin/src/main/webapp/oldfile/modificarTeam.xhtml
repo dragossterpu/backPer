@@ -119,11 +119,11 @@
 								<div class="ui-g-12 ui-md-6 ui-lg-4 text-center">
 									<p:commandButton value="Alertas"
 									icon="fa fa-bell" 
-									action="#{alertaBean.mostrarDialogoAlertas()}" immediate="true"/>
+									action="#{alertaBean.deschidereDialogAlerte()}" immediate="true"/>
 								</div>
 							</div>
 						</div>
-						<div class="botonesFormulario">
+						<div class="butoaneFormular">
 								<p:commandButton actionListener="#{businessmanBean.restaurarClave}"
 									value="Restaurar contraseña" />
 								<p:commandButton
@@ -326,8 +326,8 @@
 				</ui:include>
 			</p:dialog>
 		</div>
-		<div class="botonesFormulario">
-					<p:button outcome="/users/businessman" value="Volver"
+		<div class="butoaneFormular">
+					<p:button outcome="/users/businessman" value="Renunţare"
 						icon="fa fa-fw fa-undo" />
 				</div>
 		</div>

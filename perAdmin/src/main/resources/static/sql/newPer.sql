@@ -40,7 +40,7 @@ CREATE TABLE alert (
     auto boolean,
     channel character varying(255),
     body character varying(4000) NOT NULL,
-    destinatarios text,
+    destinatari text,
     sended_on timestamp without time zone
 );
 
@@ -237,27 +237,7 @@ CREATE TABLE properties (
 
 ALTER TABLE public.properties OWNER TO "dragos_perAdmin";
 
---
--- Name: psubsidiary; Type: TABLE; Schema: public; Owner: dragos_perAdmin; Tablespace: 
---
 
-CREATE TABLE psubsidiary (
-    id bigint NOT NULL,
-    address character varying(50),
-    email character varying(50),
-    mobil character varying(15),
-    name character varying(200),
-    phonefax character varying(40),
-    id_province character varying(255) NOT NULL,
-    user_username character varying(150)
-);
-
-
-ALTER TABLE public.psubsidiary OWNER TO "dragos_perAdmin";
-
---
--- Name: pteam; Type: TABLE; Schema: public; Owner: dragos_perAdmin; Tablespace: 
---
 
 CREATE TABLE pteam (
     id bigint NOT NULL,
@@ -729,7 +709,7 @@ COPY alegeri_partid (id_alegeri, id_partid) FROM stdin;
 -- Data for Name: alert; Type: TABLE DATA; Schema: public; Owner: dragos_perAdmin
 --
 
-COPY alert (id, date_create, date_deleted, date_updated, user_create, user_deleted, user_updated, titlu, auto, channel, body, destinatarios, sended_on) FROM stdin;
+COPY alert (id, date_create, date_deleted, date_updated, user_create, user_deleted, user_updated, titlu, auto, channel, body, destinatari, sended_on) FROM stdin;
 1	2019-01-12 10:03:29.521	\N	2019-01-12 10:03:29.521	admin	\N	admin	proba  fara document conducere per2	f	EMAIL	proba  fara document conducere per2	danut.pop@per.ro,mircia.gutau@per.ro,cristian.anghel@per.ro,radu.cristescu@per.ro,bob.vasile@per.ro,cristinel.deaconescu@per.ro,tineret@per.ro,viorel.dobre@per.ro,mirica.dimitrescu@per.ro,bianca.vasile@per.ro,daniel.diaconu@per.ro,ovidiu.zara@per.ro,danut.frunza@per.ro,dragos.sterpu@per.ro,costica.popsor@per.ro,danut.frangu@per.ro,eugen.vizitiu@per.ro	\N
 2	2019-01-14 06:42:11.515	\N	2019-01-14 06:42:11.515	admin	\N	admin	proba  fara document conducere per2	f	EMAIL	Ffgougxguiddtuiktudktud	danut.pop@per.ro,mircia.gutau@per.ro,cristian.anghel@per.ro,radu.cristescu@per.ro,bob.vasile@per.ro,cristinel.deaconescu@per.ro,tineret@per.ro,viorel.dobre@per.ro,mirica.dimitrescu@per.ro,bianca.vasile@per.ro,daniel.diaconu@per.ro,ovidiu.zara@per.ro,danut.frunza@per.ro,dragos.sterpu@per.ro,costica.popsor@per.ro,danut.frangu@per.ro,eugen.vizitiu@per.ro	\N
 \.
@@ -1410,13 +1390,6 @@ COPY properties (id, description, filename, name, value) FROM stdin;
 23	\N	HOME	TIMP_ISTORIC_STATISTIC	30
 \.
 
-
---
--- Data for Name: psubsidiary; Type: TABLE DATA; Schema: public; Owner: dragos_perAdmin
---
-
-COPY psubsidiary (id, address, email, mobil, name, phonefax, id_province, user_username) FROM stdin;
-\.
 
 
 --
@@ -11230,14 +11203,6 @@ ALTER TABLE ONLY properties
 
 
 --
--- Name: psubsidiary_pkey; Type: CONSTRAINT; Schema: public; Owner: dragos_perAdmin; Tablespace: 
---
-
-ALTER TABLE ONLY psubsidiary
-    ADD CONSTRAINT psubsidiary_pkey PRIMARY KEY (id);
-
-
---
 -- Name: pteam_pkey; Type: CONSTRAINT; Schema: public; Owner: dragos_perAdmin; Tablespace: 
 --
 
@@ -11309,13 +11274,6 @@ ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (username);
 
 
---
--- Name: fk11rp9kxy71wi005pcme5w3i94; Type: FK CONSTRAINT; Schema: public; Owner: dragos_perAdmin
---
-
-ALTER TABLE ONLY psubsidiary
-    ADD CONSTRAINT fk11rp9kxy71wi005pcme5w3i94 FOREIGN KEY (user_username) REFERENCES users(username);
-
 
 --
 -- Name: fk5mjf8dgewrbnjwxj3y75oxrq3; Type: FK CONSTRAINT; Schema: public; Owner: dragos_perAdmin
@@ -11365,12 +11323,6 @@ ALTER TABLE ONLY plocality
     ADD CONSTRAINT fk_province FOREIGN KEY (code_province) REFERENCES pprovince(code_province);
 
 
---
--- Name: fk_province; Type: FK CONSTRAINT; Schema: public; Owner: dragos_perAdmin
---
-
-ALTER TABLE ONLY psubsidiary
-    ADD CONSTRAINT fk_province FOREIGN KEY (id_province) REFERENCES pprovince(code_province);
 
 
 --
@@ -11596,14 +11548,6 @@ REVOKE ALL ON TABLE properties FROM PUBLIC;
 REVOKE ALL ON TABLE properties FROM "dragos_perAdmin";
 GRANT ALL ON TABLE properties TO "dragos_perAdmin";
 
-
---
--- Name: psubsidiary; Type: ACL; Schema: public; Owner: dragos_perAdmin
---
-
-REVOKE ALL ON TABLE psubsidiary FROM PUBLIC;
-REVOKE ALL ON TABLE psubsidiary FROM "dragos_perAdmin";
-GRANT ALL ON TABLE psubsidiary TO "dragos_perAdmin";
 
 
 --

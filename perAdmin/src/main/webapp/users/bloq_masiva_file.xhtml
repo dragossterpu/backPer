@@ -9,7 +9,7 @@
 <!--         <f:viewParam name="plantilla" value="#{plantilla_carga_masiva_usuarios.xlsx}"/> -->
     </f:metadata>
     <ui:define name="content">
-        <h1 class="titulo"> Înregistrare masivă utilizatori prin fișier </h1>
+        <h1 class="titlu"> Înregistrare masivă utilizatori prin fișier </h1>
 
         <div class="contenedor">
             <div id="panel">
@@ -18,7 +18,7 @@
                     <p:panel>
                         <p:panelGrid columns="4" layout="grid">
                             <p:commandButton value="Descărcați șablonul (Excel)" ajax="false" icon="ui-icon-arrowthick-1-s"
-                            				actionListener="#{procesoMasivoBean.descargarPlantillaMasivaUsuarios(plantilla_carga_masiva_usuarios.xlsx)}" >
+                            				actionListener="#{procesoMasivoBean.descarcareSablonUtilizatoriMasiv(plantilla_carga_masiva_usuarios.xlsx)}" >
                                 <p:fileDownload value="#{procesoMasivoBean.file}"/>
                             </p:commandButton>
 
@@ -28,11 +28,11 @@
                                           allowTypes="/(\.|\/)(xlsx)$/"
                                           invalidFileMessage="Trebuie să selectați un Excel cu extensie '.xlsx' (Superior la 2007)."
                                           style="width:200%"
-                                          fileUploadListener="#{procesoMasivoBean.cargaFicheroUsuarios}"
+                                          fileUploadListener="#{procesoMasivoBean.incarcareUtilizatoriFisier}"
                                           process="@this" update="@form"
                                           fileLimit="1" fileLimitMessage="Există deja un fișier selectat"
-                                          rendered="#{procesoMasivoBean.tipoAltaUserMasivo == 'alta' and procesoMasivoController.esBorradoMasivo eq 'false'
-                                         and procesoMasivoController.esBloqueoMasivo eq 'false' }">
+                                          rendered="#{procesoMasivoBean.tipInregistrareMasivaUtilizator == 'alta' and procesoMasivoController.esteEliminareMasiva eq 'false'
+                                         and procesoMasivoController.esteBlocareMasiva eq 'false' }">
                                 <p:remoteCommand/>
                             </p:fileUpload>
 
@@ -42,10 +42,10 @@
                                           allowTypes="/(\.|\/)(xlsx)$/"
                                           invalidFileMessage="Trebuie să selectați un Excel cu extensie '.xlsx' (Superior la 2007)."
                                           style="width:200%"
-                                          fileUploadListener="#{procesoMasivoBean.borradoFicheroUsuarios}"
+                                          fileUploadListener="#{procesoMasivoBean.eliminareUtilizatoriFisier}"
                                           fileLimit="1" fileLimitMessage="Există deja un fișier selectat"
-                                          rendered="#{procesoMasivoBean.esBorradoMasivo == 'esBorrado' and procesoMasivoController.tipoAltaUserMasivo eq 'false'
-                                         and procesoMasivoController.esBloqueoMasivo eq 'false'}">
+                                          rendered="#{procesoMasivoBean.esteEliminareMasiva == 'esteEliminare' and procesoMasivoController.tipInregistrareMasivaUtilizator eq 'false'
+                                         and procesoMasivoController.esteBlocareMasiva eq 'false'}">
                                 <p:remoteCommand/>
                             </p:fileUpload>
 
@@ -55,10 +55,10 @@
                                           allowTypes="/(\.|\/)(xlsx)$/"
                                           invalidFileMessage="Trebuie să selectați un Excel cu extensie '.xlsx' (Superior la 2007)."
                                           style="width:200%"
-                                          fileUploadListener="#{procesoMasivoBean.bloqueoFicheroUsuarios}"
+                                          fileUploadListener="#{procesoMasivoBean.blocareFisierUtilizatori}"
                                           fileLimit="1" fileLimitMessage="Există deja un fișier selectat"
-                                          rendered="#{procesoMasivoBean.esBloqueoMasivo == 'esBloqueo' and procesoMasivoController.esBorradoMasivo eq 'false'
-                                         and procesoMasivoController.tipoAltaUserMasivo eq 'false' }">
+                                          rendered="#{procesoMasivoBean.esteBlocareMasiva == 'esteBlocaj' and procesoMasivoController.esteEliminareMasiva eq 'false'
+                                         and procesoMasivoController.tipInregistrareMasivaUtilizator eq 'false' }">
                                 <p:remoteCommand/>
                             </p:fileUpload>
 
@@ -70,7 +70,7 @@
 							closable="false">
 							<p:messages for="dialogMessage" autoUpdate="true"
 								showDetail="true" showSummary="true" />
-							<div class="centrarBotonesDialog">
+							<div class="centrareButoaneDialog">
 								<p:button value="Închideți" outcome="/users/users" />
 							</div>
 						</p:dialog>

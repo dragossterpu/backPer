@@ -8,7 +8,7 @@
 
 	<ui:define name="content">
 			<h:form id="form" enctype="multipart/form-data">
-				<div class="bloqueFormulario">
+				<div class="blocFormular">
 					<p:panel header="Localitate" styleClass="panelModCard">
 						<p:panelGrid>
 							<p:row>
@@ -53,9 +53,9 @@
 									<p:graphicImage rendered="#{not empty localitateBean.localitatea.photo}" id="imagenG" value="#{localitateBean.localitatea.imageLocalitate}" cache="false" stream="false">
 									<f:param name="id" value="#{localitateBean.localitatea.id}" />
 									 </p:graphicImage>
-									<b><h:outputLabel for="imagenNueva" value="Încarcă noua imagine:" /></b>
+									<b><h:outputLabel for="imagineNoua" value="Încarcă noua imagine:" /></b>
 									<p:separator />
-									<p:fileUpload fileUploadListener="#{localitateBean.cargaImagen}" mode="advanced" dragDropSupport="false" id="imagenNueva"
+									<p:fileUpload fileUploadListener="#{localitateBean.incarcareImagine}" mode="advanced" dragDropSupport="false" id="imagineNoua"
 									   sizeLimit="204800" invalidSizeMessage=" Dimensiunea maximă permisă este de 20MB" required="true" 
 									   fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
 									      uploadLabel="Salvează noua stemă" cancelLabel="Renunțare" label="Încarcă/Caută stema" update="imagenG" /> 
@@ -63,7 +63,7 @@
 							</p:row>
 						</p:panelGrid>
 						<p:confirmDialog global="true">
-							<div class="centrarBotonesDialog">
+							<div class="centrareButoaneDialog">
 								<p:button value="Acceptă" styleClass="ui-confirmdialog-yes"
 									icon="fa fa-check" />
 								<p:button value="Renunță" styleClass="ui-confirmdialog-no"
@@ -75,13 +75,13 @@
 							closable="false">
 							<p:messages for="dialogMessage" autoUpdate="true"
 								showDetail="true" showSummary="true" />
-							<div class="centrarBotonesDialog">
+							<div class="centrareButoaneDialog">
 								<p:button value=" Închide" outcome="/localitati/localitati" />
 							</div>
 						</p:dialog>
 					</p:panel>
-					<div class="botonesFormulario">
-						<p:commandButton value="Întoarcere" icon="fa fa-fw fa-undo"
+					<div class="butoaneFormular">
+						<p:commandButton value="Renunţare" icon="fa fa-fw fa-undo"
 							action="/localitati/localitati?faces-redirect=true" immediate="true">
 						</p:commandButton>
 						<p:commandButton actionListener="#{localitateBean.inregistrareLocalitate(localitateBean.localitatea, localitateBean.idProvincia)}"

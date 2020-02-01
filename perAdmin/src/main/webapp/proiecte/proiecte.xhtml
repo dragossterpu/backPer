@@ -9,20 +9,20 @@
 
 
 	<ui:define name="content">
-		<h:form id="buscarProiecte">
+		<h:form id="cautareProiecte">
 						<div class="filtro">
-				<div class="bloqueFormulario">
+				<div class="blocFormular">
 					<div class="titleFormulario">Căutare proiecte </div>
 
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="text" styleClass="buscador" value="Titlu:" />
+							<h:outputLabel for="text" styleClass="cautator" value="Titlu:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 							<p:inputText id="text" converter="#{trimConverter}" value="#{proiectBean.proiectBusqueda.nume}" />
 						</div>
 					</div>					
-						<h:outputText value="Pentru a căuta mai mult de un cuvânt, separați prin virgule" styleClass="aclaraciones2" />
+						<h:outputText value="Pentru a căuta mai mult de un cuvânt, separați prin virgule" styleClass="aclaratii2" />
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 						
@@ -35,7 +35,7 @@
 					</div>
 					<div class="ui-g campoBusqueda">
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
-							<h:outputLabel for="validated" styleClass="buscador" value="Aprobat:" />
+							<h:outputLabel for="validated" styleClass="cautator" value="Aprobat:" />
 						</div>
 						<div class="ui-g-12 ui-md-6 ui-lg-6">
 							<p:selectOneMenu class="selectFiltro" id="validated"
@@ -63,12 +63,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="botonesFormulario">
-					<p:commandButton action="#{proiectBean.limpiarBusqueda}" 
+				<div class="butoaneFormular">
+					<p:commandButton action="#{proiectBean.cautareCautare}" 
 					class="left" value="Curățare filtre" 
-					update="buscarProiecte" icon="fa fa-eraser" />
-					<p:commandButton id="buscarBoton" value="Căutare"
-                        actionListener="#{proiectBean.buscarProiecte}"
+					update="cautareProiecte" icon="fa fa-eraser" />
+					<p:commandButton id="cautareButon" value="Căutare"
+                        actionListener="#{proiectBean.cautareProiecte}"
                         update="panelProiecte" icon="fa fa-search"
 						oncomplete="$('.mensajeSinResultados').css('opacity', 1)"
 						onstart="PF('statusDialog').show()" class="right"
@@ -78,7 +78,7 @@
 			</div>
 			
 			
-			<div class="resultadosFiltro">
+			<div class="rezultateFiltru">
 				<p:outputPanel layout="block" id="panelProiecte">
 				 <p:dataTable id="tablaProiecte" var="proiect" rowIndexVar="rowIndex" value="#{proiectBean.modelProiect}" 
 				  rows="10"  draggableColumns="true" paginator="true" lazy="true"
@@ -109,10 +109,10 @@
 											fileName="listaProiecte" />
 									</h:commandLink>
 								</div>
-								<span class="titulo">Proiecte</span>
+								<span class="titlu">Proiecte</span>
 								<p:menuButton value="Opțiuni proiecte" styleClass="newActionSelectTable" icon="fa fa-plus">
 							        <p:menuitem value="Nou proiect"  icon="fa fa-plus" action="#{proiectBean.proiectNou()}"  styleClass="sentenceText" />
-							        <p:menuitem value="Pozitie proiect" action="#{proiectBean.abrirDialogoOrdenaProiecte()}"   icon="fa fa-file-archive-o" styleClass="sentenceText"/>
+							        <p:menuitem value="Pozitie proiect" action="#{proiectBean.deschideDialogOrdoneazaProiecte()}"   icon="fa fa-file-archive-o" styleClass="sentenceText"/>
 							    </p:menuButton>
 							    <p:commandButton id="toggler" type="button" 
 							 		value="Columnas" styleClass="botonColumnas" icon="fa fa-th"
@@ -122,7 +122,7 @@
 			                     </p:columnToggler>
 							</p:outputPanel>
 						</f:facet>	
-						<p:ajax event="rowSelect" oncomplete="PF('dlg').show()" update=":buscarProiecte:dialog" />	
+						<p:ajax event="rowSelect" oncomplete="PF('dlg').show()" update=":cautareProiecte:dialog" />	
 										
 						<p:column headerText="Nume" style="width:18%;" sortBy="#{proiect.titlu}" visible="#{proiectBean.list[0]}" exportable="#{proiectBean.list[0]}">
 							<h:outputText value="#{proiect.titlu}" />
@@ -145,10 +145,10 @@
 					 <p:column styleClass="botonTabla" headerText="Administrare" style="width:15%;">
                        			<h:commandLink title="Modificare proiect" 
 								styleClass="fa fa-fw fa-align-left  ui-button ui-state-default ui-CommandLink modBtn ui-CommandLink-icono"
-								actionListener="#{proiectBean.abrirDialogoModificaMembru(proiect)}"  update="buscarProiecte"  />
+								actionListener="#{proiectBean.abrirDialogoModificaMembru(proiect)}"  update="cautareProiecte"  />
 								<p:commandButton title="Eliminare" icon="fa fa-trash" styleClass="modBtn"
 								actionListener="#{proiectBean.eliminarProiect(proiect)}"
-								update=":buscarProiecte:panelProiecte">
+								update=":cautareProiecte:panelProiecte">
 								<p:confirm header="Eliminare proiect"
 									message="Sigur doriți să eliminați acest proiect?"
 									icon="fa fa-warning-sign" />
@@ -169,7 +169,7 @@
 	                </p:dialog>
 				</p:outputPanel>
 				<p:confirmDialog global="true">
-					<div class="centrarBotonesDialog">
+					<div class="centrareButoaneDialog">
 						<p:commandButton value="Acceptați" type="button"
 							styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
 						<p:commandButton value="Anulare" type="button"
@@ -198,7 +198,7 @@
 	   		  </p:outputPanel>
 			 <p:commandButton  value="Finalizează modificarea" title="Finalizează modificarea" icon="fa fa-trash" styleClass="modBtn"
 							immediate="true"
-							update="buscarProiecte" id="modifica">
+							update="cautareProiecte" id="modifica">
 							<p:confirm header="Finalizează modificarea"
 								message="Ești sigur că dorești modificarea poziției proiectului? "
 								icon="ui-icon-alert" />

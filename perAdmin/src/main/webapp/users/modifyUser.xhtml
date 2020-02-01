@@ -55,7 +55,7 @@
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 									<b><h:outputLabel for="rolSelect" value="Rol:" /></b>
 									<p:importEnum
-										type="ro.per.online.persistence.entities.enums.RoleEnum"
+										type="ro.stad.online.gesint.persistence.entities.enums.RolEnum"
 										var="rol" allSuffix="ALL_ENUM_VALUES" />
 									<p:selectOneMenu value="#{userBean.usuario.role}"
 										id="rolSelect"
@@ -94,7 +94,7 @@
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 									<b><h:outputLabel for="educationSelect" value="Nivel de educație:" /></b>
 									<p:importEnum
-										type="ro.per.online.persistence.entities.enums.EducationEnum"
+										type="ro.stad.online.gesint.persistence.entities.enums.EducatieEnum"
 										var="education" allSuffix="ALL_ENUM_VALUES" />
 									<p:selectOneMenu value="#{userBean.usuario.education}"
 										id="educationSelect"
@@ -113,7 +113,7 @@
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 									<b><h:outputLabel for="sexSelect" value="Sexul:" /></b>
 									<p:importEnum
-										type="ro.per.online.persistence.entities.enums.SexEnum"
+										type="ro.stad.online.gesint.persistence.entities.enums.SexEnum"
 										var="sex" allSuffix="ALL_ENUM_VALUES" />
 									<p:selectOneMenu value="#{userBean.usuario.sex}"
 										id="sexSelect"
@@ -126,7 +126,7 @@
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 									<b><h:outputLabel for="civilStatusSelect" value="Starea civilă:" /></b>
 									<p:importEnum
-										type="ro.per.online.persistence.entities.enums.CivilStatusEnum"
+										type="ro.stad.online.gesint.persistence.entities.enums.StatutCivilEnum"
 										var="civilStatus" allSuffix="ALL_ENUM_VALUES" />
 									<p:selectOneMenu value="#{userBean.usuario.civilStatus}"
 										id="civilStatusSelect"
@@ -154,30 +154,30 @@
 								</div>
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
 								<b><h:outputLabel for="provinciaSelect" value="Județul/Organizația (*):" /></b>
-									<p:selectOneMenu value="#{userBean.provincia.name}"  id="provinciasSelect" styleClass="form-control form-select" filter="true" filterMatchMode="startsWith" >
+									<p:selectOneMenu value="#{userBean.provinciSelec.name}"  id="provinciasSelect" styleClass="form-control form-select" filter="true" filterMatchMode="startsWith" >
 										<f:selectItem itemLabel="Toate" itemValue="" />
-										<f:selectItems value="#{userBean.provinces}" var="province" itemLabel="#{province.name}" itemValue="#{province.name}" />
-										 <p:ajax event="change" update="municipiosSelect"
-											listener="#{userBean.actualLocalidades(userBean.provincia.name)}" />   
+										<f:selectItems value="#{userBean.judete}" var="province" itemLabel="#{province.name}" itemValue="#{province.name}" />
+										 <p:ajax event="change" update="municipiuSelectat"
+											listener="#{userBean.actualLocalitati(userBean.provinciSelec.name)}" />   
 									</p:selectOneMenu> 								
 								</div>
 							</div>
 							<p:separator />
 							<div class="ui-g">
 								<div class="ui-g-12 ui-md-6 ui-lg-4">								
-								<b><h:outputLabel for="municipiosSelect" value="Localitatea/Sector (*):" /></b>
-								<p:selectOneMenu value="#{userBean.usuario.locality.name}" id="municipiosSelect" filter="true" 
+								<b><h:outputLabel for="municipiuSelectat" value="Localitatea/Sector (*):" /></b>
+								<p:selectOneMenu value="#{userBean.usuario.locality.name}" id="municipiuSelectat" filter="true" 
 									filterMatchMode="startsWith" styleClass="form-control form-select" >															
-									<f:selectItems value="#{userBean.localidades}" var="municipio" itemLabel="#{municipio.name}" itemValue="#{municipio.name}" />
+									<f:selectItems value="#{userBean.localitati}" var="municipio" itemLabel="#{municipio.name}" itemValue="#{municipio.name}" />
 								</p:selectOneMenu>
-								<p:messages for="municipiosSelect" autoUpdate="true"  closable="true"/>
+								<p:messages for="municipiuSelectat" autoUpdate="true"  closable="true"/>
 							</div>
 								<div class="ui-g-12 ui-md-6 ui-lg-4">
-									<b><h:outputLabel for="municipiosSelect"  value="Înregistrați o nouă localitate (*):" /></b>
+									<b><h:outputLabel for="municipiuSelectat"  value="Înregistrați o nouă localitate (*):" /></b>
 									<p:separator />
 									<p:commandButton id="buttMunicipio" title="Adăugați o nouă localitate (trebuie să selectați anterior un județ)" 
-										type="button" onclick="PF('dialogMunicipio').show()" icon="fa fa-fw fa fa-plus" update="crearMunicipio" 
-										disabled="#{userBean.localidades == null}"/>									
+										type="button" onclick="PF('dialogMunicipiu').show()" icon="fa fa-fw fa fa-plus" update="creazaMunicipiu" 
+										disabled="#{userBean.localitati == null}"/>									
 								</div>													
 							</div>					
 							<p:separator />
@@ -190,19 +190,19 @@
 									 </p:graphicImage>
 									</div>	
 									<div class="ui-g-12 ui-md-6 ui-lg-4">
-									<b><h:outputLabel for="imagenNueva" value=" Încarcă noua fotografie :" /></b>
+									<b><h:outputLabel for="imagineNoua" value=" Încarcă noua fotografie :" /></b>
 									<p:separator />
-									<p:fileUpload fileUploadListener="#{userBean.cargaImagen}" mode="advanced" dragDropSupport="false"
+									<p:fileUpload fileUploadListener="#{userBean.incarcareImagine}" mode="advanced" dragDropSupport="false"
 									   sizeLimit="204800" invalidSizeMessage=" Dimensiunea maximă permisă este de 20MB" required="true" 
 									   fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
 									   uploadLabel=" Salvează noua fotografie" cancelLabel=" Renunțare" label="Încarcă/Caută fotografia" update="imagenG" /> 
 								</div>									
 							</div>
-							<div class="botonesFormulario">
+							<div class="butoaneFormular">
 								<p:commandButton actionListener="#{userBean.restaurarClave}"
 									value="Resetați parola" />
 								<p:commandButton
-									actionListener="#{userBean.modificarUsuario(userBean.usuario,userBean.provincia.name,userBean.usuario.locality.name)}"
+									actionListener="#{userBean.modificareUtilizator(userBean.usuario,userBean.provincia.name,userBean.usuario.locality.name)}"
 									value="Salvare" update ="@form"/>
 							</div>
 						</div>
@@ -212,42 +212,42 @@
 					closable="true">
 					<p:messages for="dialogMessage" autoUpdate="true" showDetail="true"
 						showSummary="true" />
-						 <div class="centrarBotonesDialog">
+						 <div class="centrareButoaneDialog">
                    <p:button value="Închideţi" outcome="/users/users" />
                </div>
 				</p:dialog>
 			
-		<p:dialog id="crearMunicipio" widgetVar="dialogMunicipio" header="Înregistrare oraș/localitate nouă" position="center" resizable="false" onShow="$('[id*=inputNombre]').val('');" modal="true" width="40%" >
-			<h:outputLabel for="inputNombre" value=" Numele noii localități (*):" />
-			<p:inputText id="inputNombre" binding="#{nombreMunicipio}"
+		<p:dialog id="creazaMunicipiu" widgetVar="dialogMunicipiu" header="Înregistrare oraș/localitate nouă" position="center" resizable="false" onShow="$('[id*=inputNume]').val('');" modal="true" width="40%" >
+			<h:outputLabel for="inputNume" value=" Numele noii localități (*):" />
+			<p:inputText id="inputNume" binding="#{nombreMunicipio}"
 				required="#{param['form:guardar']!=null}" requiredMessage="Numele orașului nu poate fi gol" converter="#{trimConverter}" />
 			
 			<h:outputLabel for="typeLocality" value="Alegeți tipul localității (*):" />
-			<p:importEnum type="ro.per.online.persistence.entities.enums.TypeLocalityEnum"
+			<p:importEnum type="ro.stad.online.gesint.persistence.entities.enums.TipLocalitateEnum"
 				var="typeLocalitys" allSuffix="ALL_ENUM_VALUES" />
-				<p:selectOneMenu value="#{userBean.tipLocalidadSelected}" id="typeLocality" class="selectFiltro" style="min-width:initial;" 
+				<p:selectOneMenu value="#{userBean.tipLocalitateSelectat}" id="typeLocality" class="selectFiltro" style="min-width:initial;" 
 				effect="fold" required="#{param['form:guardar']!=null}"  requiredMessage="Este obligatoriu să alegeți un tip de localitate">
 					<f:selectItem itemLabel="Alege unul..." itemValue="" />
-					<f:selectItems value="#{typeLocalitys.ALL_ENUM_VALUES}" var="tipLocalidadSelected" itemLabel="#{tipLocalidadSelected.description}"
-				itemValue="#{tipLocalidadSelected}" />
+					<f:selectItems value="#{typeLocalitys.ALL_ENUM_VALUES}" var="tipLocalitateSelectat" itemLabel="#{tipLocalitateSelectat.description}"
+				itemValue="#{tipLocalitateSelectat}" />
 				</p:selectOneMenu>
 			<b><h:outputLabel for="provinciaSelect" value="Județul/Organizația:" /></b>
 									<p:selectOneMenu value="#{userBean.usuario.province}" 
 										id="provinciaSelect" filter="true" filterMatchMode="startsWith"
 										 styleClass="form-control form-select" converter="#{selectConverter}">
 										<f:selectItem itemLabel="#{userBean.usuario.province}" />
-										<f:selectItems value="#{userBean.provinces}"  var="provincia"
+										<f:selectItems value="#{userBean.judete}"  var="provincia"
 											itemLabel="#{provincia.name}" itemValue="#{provincia}" />
 									</p:selectOneMenu>		
 			
-			<div class="centrarBotonesDialog">
-				<p:commandButton id="guardar" value="Înregistrează" actionListener="#{userBean.nuevoMunicipio(nombreMunicipio.value, userBean.usuario.province,userBean.tipLocalidadSelected, userBean.usuario)}" 
-				update ="@form"  oncomplete="PF('dialogMunicipio').hide()"/>
-				<p:commandButton value="Închidere" onclick="PF('dialogMunicipio').hide()"/>
+			<div class="centrareButoaneDialog">
+				<p:commandButton id="guardar" value="Înregistrează" actionListener="#{userBean.nuevoMunicipio(nombreMunicipio.value, userBean.usuario.province,userBean.tipLocalitateSelectat, userBean.usuario)}" 
+				update ="@form"  oncomplete="PF('dialogMunicipiu').hide()"/>
+				<p:commandButton value="Închidere" onclick="PF('dialogMunicipiu').hide()"/>
 			</div>
 		</p:dialog>	
-				<div class="botonesFormulario">
-			<p:button outcome="/users/users" value="Întoarcere" icon="fa fa-fw fa-undo" />
+				<div class="butoaneFormular">
+			<p:button outcome="/users/users" value="Renunţare" icon="fa fa-fw fa-undo" />
 		</div>			
 		</h:form>
 

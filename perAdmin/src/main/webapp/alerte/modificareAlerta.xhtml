@@ -1,0 +1,178 @@
+<ui:composition template="../layouts/layoutInterior2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h:form id="form">
+			<div class="blocFormular">
+				<p:panel header="Modificați/Trimiteți alerta" styleClass="panelModCard">
+					<div class="container-fluid">
+						<div class="blocFormular">
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<h:outputLabel for="destinatar" value="Destinatari:" />
+								</div>
+								<div class="ui-g-10">
+									<p:inputText id="destinatar" value="#{alertaBean.alerta.destinatari}"
+										required="true"
+										requiredMessage="Trebuie să introduceți un destinatar pentru alertă." />
+									<p:messages for="titlu" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<h:outputLabel for="titlu" value="Subiect:" />
+								</div>
+								<div class="ui-g-10">
+									<p:inputText id="titlu" value="#{alertaBean.alerta.titlu}"
+										required="true"
+										requiredMessage="Trebuie să introduceți un subiect pentru alertă." />
+									<p:messages for="titlu" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<h:outputLabel for="nombre" value="Descriere:" />
+								</div>
+								<div class="ui-g-10">
+									<p:inputTextarea id="nombre" rows="6" cols="150"
+										maxlength="200" autoResize="false"
+										value="#{alertaBean.alerta.descripcion}" required="true"
+										requiredMessage="Trebuie să introduceți o descriere a alertei."
+										converter="#{trimConverter}"
+										validatorMessage="Descrierea trebuie să aibă mai mult de 10 caractere.">
+										<f:validateLength minimum="10" />
+									</p:inputTextarea>
+									<p:messages for="nombre" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<h:outputLabel for="auto" value="Trimitere automatică a corespondenței" />
+								</div>
+								<div class="ui-g-10" id ="auto">
+									 <p:selectBooleanCheckbox value="#{alertaBean.alerta.automatic}"/>
+									<p:messages for="auto" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<div class="ui-g-2">
+									<h:outputLabel for="fechaEnvio" value="Alegeți data trimiterii automatice a corespondenței:" />
+								</div>
+								<div class="ui-g-10">
+									<p:calendar id="fechaEnvio" pattern="dd/MM/yyyy" locale="es"
+										navigator="true" maxdate="#{currentDate}"
+										value="#{alertaBean.alerta.fechaEnvio}" />
+									<p:messages for="fechaEnvio" autoUpdate="true" closable="true" />
+								</div>
+							</div>
+							<div class="ui-g">
+								<p:dataTable id="tablaDocumente" var="documento" value="#{alertaBean.documenteIncarcate}" editable="true" >
+			                        <p:ajax event="rowEdit" listener="#{alertaBean.onRowEdit}" />
+			
+			                        <p:column headerText="Documentele încărcate">
+			                            <h:outputText value="#{documento.nombre}" />
+			                        </p:column>
+			                        <p:column styleClass="botonTabla">
+			                            <p:commandButton icon="fa fa-fw fa-download" ajax="false" actionListener="#{alertaBean.descarcareFisier(documento)}" title="Descărcați documentul">
+			                                <p:fileDownload value="#{alertaBean.file}" />
+			                            </p:commandButton>
+			                        </p:column>
+			                        <p:column styleClass="botonTabla" >
+			                            <p:commandButton title="Elimină" icon="fa fa-trash" actionListener="#{alertaBean.eliminareDocumentFinal(documento)}" update=":form tablaDocumente">
+			                                <p:confirm header="Ștergeți documentul" message="Sigur doriți să ștergeți acest document?" icon="fa fa-warning-sign" />
+			                            </p:commandButton>
+			                        </p:column>	
+	                    		</p:dataTable>
+                    		</div>
+						</div>
+					</div>
+				</p:panel>
+				<div class="aclaratii2">Butonul "Trimiteți email" trimite corespondența electronică și salvează comunicarea în baza de date.</div>
+				<div class="aclaratii2">Butonul "Salvați" NUMAI salvează comunicarea în baza de date fără a o trimite.</div>
+				<div class="butoaneFormular">
+					<p:button outcome="/alerte/alerte" value="Renunţare"
+						icon="fa fa-fw fa-undo" />
+					<p:commandButton action="#{alertaBean.deschideDialogIncarcarDocument()}"  
+					value="Atașați documente" icon="fa fa-plus" />
+					<p:commandButton action="#{alertaBean.trimitereAlerta}"
+						value="Trimiteți email" update="form" icon="fa fa-send"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" />
+					<p:commandButton action="#{alertaBean.salvareAlerta}" outcome="/alerte/alerte"
+						value="Salvați" update="form" icon="fa fa-send"
+						onstart="PF('statusDialog').show()" 
+						onsuccess="PF('statusDialog').hide()" />
+				</div>
+			</div>					
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:graphicImage value="/images/loading.gif" />
+			</p:dialog>
+		</h:form>		
+				<h:form id="formIncarcareDocumente">
+				<p:dialog header="Atașați documente corespondenței electronice" widgetVar="dlgIncarcareDocument" dynamic="true" width="800" height="800">
+				<div class="aclaratii">Se acceptă documentele care coincid ca nume și extensie cu documentele încărcate.</div>
+				<div class="blocView">
+		            <p:dataTable id="tablaDoc" var="documento" value="#{alertaBean.documenteIncarcate}">
+		                <p:column headerText="DOCUMENT" width="50%">
+		                    <h:outputText value="#{documento.descripcion}" />
+		                </p:column>
+		                <p:column headerText="NUME" width="50%">
+		                    <h:outputText value="#{documento.nombre}" />
+		                </p:column>
+		            </p:dataTable>
+		        </div>
+		       <p:separator />
+		        <div class="aclaratii2">
+		            (1).- Pentru fiecare tip de document, unul sau mai multe documente pot fi încărcate simultan. 
+		            <strong>Dacă oricare dintre ele este alcătuită din două sau mai multe părți, numele lor trebuie să înceapă cu numele documentului respectiv și un număr secvențial 
+		            </strong> (ex: organigrama_1.doc, organigrama_2.doc). Dimensiunea maximă per fișier încărcat este de 20 MB.
+		        </div>
+		                <div class="blocView">
+
+                <p:fileUpload width="50%" cancelLabel="ANULARE" label="SELECTAREA DOCUMENTULUI" uploadLabel="ÎNCĂRCARE DOCUMENTE" 
+                fileUploadListener="#{alertaBean.gestioneazaIncarcareDocumentMod}" mode="advanced" dragDropSupport="false" 
+                sizelimit="20971520" multiple="true" update=":formIncarcareDocumente:panouAtasament tablaDocumente" autofileLimit="30" 
+                allowTypes="/(\.|\/)(jpe?g|png|bmp|doc|docx|pptx|ppt|pub|xls|xlsx|pdf)$/i" sequential="true" />				
+                <p:outputPanel id="panouAtasament">
+                    <p:dataTable id="tablaDocumente" var="documento" value="#{alertaBean.listaDocumente}" editable="true" onkeypress="if (event.keyCode == 13) {return false; }" emptyMessage="Nu sunt încărcate documente.">
+                        <p:ajax event="rowEdit" listener="#{alertaBean.onRowEdit}" update=":formIncarcareDocumente:msgs" />
+
+                        <p:column headerText="Documentele încărcate">
+                            <h:outputText value="#{documento.nombre}" />
+                        </p:column>
+                        <p:column styleClass="botonTabla">
+                            <p:commandButton icon="fa fa-fw fa-download" ajax="false" actionListener="#{alertaBean.descarcareFisier(documento)}" title="Descărcați documentul">
+                                <p:fileDownload value="#{alertaBean.file}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column styleClass="botonTabla" >
+                            <p:commandButton title="Elimină document" icon="fa fa-trash" action="#{alertaBean.eliminareDocument(documento)}" update=":formIncarcareDocumente:panouAtasament tablaDocumente">
+                                <p:confirm header="Ștergeți documentul" message="Sunteți sigur că doriți să eliminați acest document?" icon="fa fa-warning-sign" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                    <p:outputPanel class="btnModalAcept">
+						<p:commandButton value="Acceptați și încărcați doocumentele în alertă/comunicare " onclick="PF('dlgIncarcareDocument').hide()" update=":form tablaDocumente" actionListener="#{alertaBean.incarcareDocument}"/>
+					</p:outputPanel>
+                </p:outputPanel>
+                	
+                <p:confirmDialog global="true">
+                    <div class="centrareButoaneDialog">
+                        <p:commandButton value="Acceptați" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                        <p:commandButton value="Anulați" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
+                    </div>
+                </p:confirmDialog>
+                <div class="butoaneFormular">
+                    <p:button outcome="/alerte/alerte" value="Înapoi" icon="fa fa-fw fa-undo" />
+                </div>
+                <p:messages id="msgs" autoUpdate="true" closable="true" showDetail="true" />
+        </div>				
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

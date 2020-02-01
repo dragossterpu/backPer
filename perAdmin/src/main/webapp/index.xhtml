@@ -9,19 +9,19 @@
 	xmlns:p="http://primefaces.org/ui">
 <f:view>
 	<ui:composition template="layouts/layoutInterior.xhtml">
-		<ui:define name="title">Ecologiștii</ui:define>
+		<ui:define name="title">Gesint</ui:define>
 		<ui:define name="content">	
 			 
-			 <div class="bloqueFormulario2">	
+			 <div class="blocFormular2">	
 				<h:form id="formHome">
 				<h1 class="nombreInforme">Raport situație generală</h1>
 				 <h2>Rezumat executiv</h2>
 				<div class="p-grid">				   
 				  <div class="p-col-12 p-md-6 p-lg-12">
-				        <div class="aclaraciones3">În 2018, Conducerea PER a hotărât introducerea unui sistem de monitorizare a situației membrilor/simpatizanților înscriși.   
+				        <div class="aclaratii3">În 2018, Conducerea PARTIDULUI a hotărât introducerea unui sistem de monitorizare a situației membrilor/simpatizanților înscriși.   
 		 				Rapoartele generate de acest sistem vor deveni necesare pentru a dezvolta inițiative și de a contribui la îndeplinirea obiectivelor stabilite în viitor.<br/><br/>          				 		
 	          			Printre funcțiile acestui sistem,  se poate cita ca rezumat: </div>
-	          			<div class="aclaraciones4">- Să acționeze ca un observator al fenomenului, să adune informații și să propună noi inițiative în acest sens.
+	          			<div class="aclaratii4">- Să acționeze ca un observator al fenomenului, să adune informații și să propună noi inițiative în acest sens.
 					 - Promovarea coordonării și cooperării intre grupuri și organizații la nivel național.<br/>
 					 - Elaborarea și evaluarea gradului de conformitate cu instrucțiunile și protocoale de acțiune adresate organizațiilor la nivel județean.<br/>
 					 - Coordonează campaniile publice ale partidului.<br/>
@@ -32,7 +32,7 @@
 				 <h2>Obiectiv la nivel național alegeri 2020</h2>
 				<div class="p-grid">				   
 				  <div class="p-col-12 p-md-6 p-lg-12">
-				        <div class="aclaraciones3">Acest raport evidențiază situația teritorială lunară ale organizațiilor județene și are ca scop îndeplinirea obiectivelor <strong>minime</strong>
+				        <div class="aclaratii3">Acest raport evidențiază situația teritorială lunară ale organizațiilor județene și are ca scop îndeplinirea obiectivelor <strong>minime</strong>
 				        stabilite.   
 		 				.<br/>         				 		
 	          			Calcularea și procesarea datelor s-a facut prin utilizarea soluțiilor inovative de <strong>Business Intelligence</strong> folosind combinarea inteligenței sporite, 
@@ -40,26 +40,26 @@
 	          			Datele introduse în sistem au fost obținute de la ultimele <strong>alegeri locale (2012, 2016), factori locali și caractere specifice fiecărei localitați în parte,</strong> toate aceastea trebuiesc
 	          			să asigure în orice condiții intrarea în parlament indiferent de procentul de participare la vot. S-a luat în calcul un procentaj <strong> maxim 78% și minim 52% .</strong><br/>
 	          			<strong>Obiectivele naționale pentru alegerile locale și parlamentare din anul 2020 : </strong></div>
-	          			<div class="aclaraciones4">
+	          			<div class="aclaratii4">
 					 - Membri sau susținători care se pot implica efectiv în activitățiile partidului: <strong>#{homeBean.date.membriiMinim}</strong> <br/>
 					 - Numar minim de voturi la nivel național: <strong>#{homeBean.date.voturiMinim}</strong> <br/>
 				</div>
-				<div class="aclaraciones3">
+				<div class="aclaratii3">
 				 Pentru a vedea datele județene sau locale intrați în <p:link outcome="/estadisticas/statistica" value=" Statistica locala" />
 				
 				 </div>
 	          	 </div>
 				</div>				
-          		<h1 class="nombreInforme">DATE STATISTICE PRIVIND PERSOANELE ÎNSCRISE ÎN PER</h1>
+          		<h1 class="nombreInforme">DATE STATISTICE PRIVIND PERSOANELE ÎNSCRISE ÎN PARTIDULUI</h1>
 					<h2>Principalele cifre</h2>
 					Următoarele date arată rezultatul obținut după studierea și analiza informațiilor înregistrate în baza de date a <strong>GESINT</strong>.<br/> 
 					Ca punct de plecare și ținând seama de informațiile înregistrate în baza de date a <strong>GESINT</strong>, la data de <strong>#{homeBean.current_date}</strong>, 
-					există în total un număr de <strong>#{homeBean.statistica.numarTotal}</strong> membri/simpatizanți activi în PER.<br/>
+					există în total un număr de <strong>#{homeBean.statistica.numarTotal}</strong> membri/simpatizanți activi în PARTID.<br/>
 					În același timp, este important de subliniat faptul că rezultatatele obținute după studierea și analiza informațiilor, se va face lunar, trimestrial, bianual și anual.<br/> 
 					Astfel, tabelul de mai jos, prezintă o distribuire temporară a datelor privind datele din baza de date a <strong>GESINT</strong>.<br/> 
           				Pentru pregătirea acestui raport, s-au folosit date publicate de Institutul Național de Statistică și date înregistrate de organizațiile județene ale partidului 
 						la data de <strong>#{homeBean.current_date}</strong>.<br/> De asemenea, au fost utilizate surse de date bazate pe analize strategice.<br/>	           		 					
- 						Mai jos, cele mai relevante date sunt prezentate privind Situația Generala a PER.<br/> 
+ 						Mai jos, cele mai relevante date sunt prezentate privind Situația Generala a PARTIDULUI.<br/> 
 					
 					<h3>Total membri/simpatizanți înregistrați.</h3>
 					<div class="p-grid">
@@ -144,10 +144,10 @@
 					
 					<h3>Situație membri/simpatizanți înregistrați anual </h3>
 					
-					 <div class="resultadosFiltro4">            	
-					    <p:dataTable id="tablaTiposUsuarios" value="#{homeBean.listaUsuariosAn}" var="entry">		
+					 <div class="rezultateFiltru4">            	
+					    <p:dataTable id="tablaTiposUsuarios" value="#{homeBean.listaUtilizatoriAn}" var="entry">		
 					    <f:facet name="header">																																											
-							<span class="subtitulo">MEMBRI ÎNREGISTRAȚI ANUAL</span>														
+							<span class="subtitlu">MEMBRI ÎNREGISTRAȚI ANUAL</span>														
 							</f:facet>												
 							<p:column headerText="Anul" style="width:40%; text-align: center;">													
 								 <strong><h:outputText value="#{entry.an}" /></strong>																																																					
@@ -160,15 +160,15 @@
 							</p:column>
 						</p:dataTable> 
 					 </div> 
-					 <div class="aclaraciones3">Din numărul total de înregistrări în <strong>GESINT</strong>, se poate observa că numai <strong>#{homeBean.procentajTotalMembriiUltimAn}  %</strong> sunt în ultimul an(sunt luate în calcul ultimele 12 luni).<br />
+					 <div class="aclaratii3">Din numărul total de înregistrări în <strong>GESINT</strong>, se poate observa că numai <strong>#{homeBean.procentajTotalMembriiUltimAn}  %</strong> sunt în ultimul an(sunt luate în calcul ultimele 12 luni).<br />
 					 Pe de altă parte, dacă analizăm procentajul înregistrărilor calculate de la un an la altul, observăm că media celor anterioare este de <strong>#{homeBean.mediaProcentaj}  % </strong>.
 					 Se observa o <strong>#{homeBean.textValorarProcentaj}</strong> de înregistrare a membrilor/simpatizanților în ultimul an în comparație cu media anilor precedenți.
 					 </div> 
 					 <h3>Organizațiile cu cei mai mulți membri/simpatizanți înregistrați din numărul minim necesar.</h3>
-					 <div class="resultadosFiltro4">            	
+					 <div class="rezultateFiltru4">            	
 					    <p:dataTable id="tablaOrganizatiiSuperior" value="#{homeBean.listaJudeteSuperior}" var="judetSuperior">		
 					    <f:facet name="header">																																											
-							<span class="subtitulo">PRIMELE ȘAPTE ORGANIZAȚII. TOTAL NUMĂR DE MEMBRI/SIMPATIZANȚI</span>														
+							<span class="subtitlu">PRIMELE ȘAPTE ORGANIZAȚII. TOTAL NUMĂR DE MEMBRI/SIMPATIZANȚI</span>														
 							</f:facet>												
 							<p:column headerText="Numele județului" style="width:40%; text-align: center;">													
 								 <strong><h:outputText value="#{judetSuperior.nume}" /></strong>																																																					
@@ -176,7 +176,7 @@
 							<p:column headerText="Total persoane județ" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetSuperior.totalLocuitori}"  /></strong>
 							</p:column>
-							<p:column headerText="Numer minim membrii" style="width:30%; text-align: center;">
+							<p:column headerText="Număr minim membrii" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetSuperior.membriiMinim}"  /></strong>
 							</p:column>
 							<p:column headerText="Total membrii județ" style="width:30%; text-align: center;">
@@ -189,10 +189,10 @@
 						</p:dataTable> 
 					 </div> 
 					  <h3>Organizațiile cu cei mai puțini membri/simpatizanți înregistrați din numărul minim necesar.</h3>
-					 <div class="resultadosFiltro4">            	
+					 <div class="rezultateFiltru4">            	
 					    <p:dataTable id="tablaOrganizatiiInferior" value="#{homeBean.listaJudeteInferior}" var="judetInferior">		
 					    <f:facet name="header">																																											
-							<span class="subtitulo">ULTIMELE ȘAPTE ORGANIZAȚII. TOTAL NUMĂR DE MEMBRII</span>														
+							<span class="subtitlu">ULTIMELE ȘAPTE ORGANIZAȚII. TOTAL NUMĂR DE MEMBRII</span>														
 							</f:facet>												
 							<p:column headerText="Numele județului" style="width:40%; text-align: center;">													
 								 <strong><h:outputText value="#{judetInferior.nume}" /></strong>																																																					
@@ -200,7 +200,10 @@
 							<p:column headerText="Total persoane județ" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetInferior.totalLocuitori}"  /></strong>
 							</p:column>
-								<p:column headerText="Total membrii județ" style="width:30%; text-align: center;">
+							<p:column headerText="Număr minim membrii" style="width:30%; text-align: center;">
+								<strong><h:outputText value="#{judetInferior.membriiMinim}"  /></strong>
+							</p:column>
+							<p:column headerText="Total membrii județ" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetInferior.numarMembrii}"  /></strong>
 							</p:column>
 							<p:column headerText="Procentaj din total"  style="width:30%; text-align: center;">
@@ -209,10 +212,10 @@
 						</p:dataTable> 
 					 </div> 
 					  <h3>Organizațiile cu cei mai mulți membrii înregistrați real (procentajul între locuitori cu drept de vot și membri/simpatizanți)</h3>
-					 <div class="resultadosFiltro4">            	
+					 <div class="rezultateFiltru4">            	
 					    <p:dataTable id="tablaOrganizatiiSuperiorProcentaj" value="#{homeBean.listaJudeteSuperiorProcentaj}" var="judetSuperiorProcentaj">		
 					    <f:facet name="header">																																											
-							<span class="subtitulo">PRIMELE ȘAPTE ORGANIZAȚII. TOTAL PROCENTAJ</span>														
+							<span class="subtitlu">PRIMELE ȘAPTE ORGANIZAȚII. TOTAL PROCENTAJ</span>														
 							</f:facet>												
 							<p:column headerText="Numele județului" style="width:40%; text-align: center;">													
 								 <strong><h:outputText value="#{judetSuperiorProcentaj.nume}" /></strong>																																																					
@@ -220,7 +223,10 @@
 							<p:column headerText="Total persoane județ" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetSuperiorProcentaj.totalLocuitori}"  /></strong>
 							</p:column>
-								<p:column headerText="Total membrii județ" style="width:30%; text-align: center;">
+							<p:column headerText="Număr minim membrii" style="width:30%; text-align: center;">
+								<strong><h:outputText value="#{judetSuperiorProcentaj.membriiMinim}"  /></strong>
+							</p:column>
+							<p:column headerText="Total membrii județ" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetSuperiorProcentaj.numarMembrii}"  /></strong>
 							</p:column>
 							<p:column headerText="Procentaj din total"  style="width:30%; text-align: center;">
@@ -229,10 +235,10 @@
 						</p:dataTable> 
 					 </div> 
 					 <h3>Organizațiile cu cei mai puțini membrii înregistrați real (procentajul între locuitori cu drept de vot și membri/simpatizanți)</h3>
-					 <div class="resultadosFiltro4">            	
+					 <div class="rezultateFiltru4">            	
 					    <p:dataTable id="tablaOrganizatiiInferiorProcentaj" value="#{homeBean.listaJudeteInferiorProcentaj}" var="judetInferiorrProcentaj">		
 					    <f:facet name="header">																																											
-							<span class="subtitulo">ULTIMELE ȘAPTE ORGANIZAȚII. TOTAL PROCENTAJ</span>														
+							<span class="subtitlu">ULTIMELE ȘAPTE ORGANIZAȚII. TOTAL PROCENTAJ</span>														
 							</f:facet>												
 							<p:column headerText="Numele județului" style="width:40%; text-align: center;">													
 								 <strong><h:outputText value="#{judetInferiorrProcentaj.nume}" /></strong>																																																					
@@ -240,7 +246,10 @@
 							<p:column headerText="Total persoane județ" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetInferiorrProcentaj.totalLocuitori}"  /></strong>
 							</p:column>
-								<p:column headerText="Total membrii județ" style="width:30%; text-align: center;">
+							<p:column headerText="Număr minim membrii" style="width:30%; text-align: center;">
+								<strong><h:outputText value="#{judetInferiorrProcentaj.membriiMinim}"  /></strong>
+							</p:column>
+							<p:column headerText="Total membrii județ" style="width:30%; text-align: center;">
 								<strong><h:outputText value="#{judetInferiorrProcentaj.numarMembrii}"  /></strong>
 							</p:column>
 							<p:column headerText="Procentaj din total"  style="width:30%; text-align: center;">

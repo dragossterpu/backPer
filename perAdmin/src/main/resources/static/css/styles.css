@@ -20,37 +20,47 @@ label:before {
 	font: normal normal normal 14px/1 FontAwesome;
 }
 
-.aclaraciones {
+.aclaratii {
     padding: 10px;
     font-style: italic;
     color: #ff0000;
 }
-.aclaraciones2 {
+.aclaratii2 {
     padding: 10px;
     font-style: italic;
-    color: #004a4a;
+    color: #2e3640;
+    
 }
-.aclaraciones3 {
+.aclaratii3 {
     padding-top: 10px; 
     padding: 5px;
     font: 16px/27px Roboto,RobotoDraft,Arial,sans-serif;
-    color: #004a4a;
+    color: #2e3640;
 }
-.aclaraciones4 {
+.aclaratii4 {
     padding-left: 40px;
 	padding-right: 100px;
     font: 16px/27px Roboto,RobotoDraft,Arial,sans-serif;
-    color: #004a4a;
+    color: #2e3640;
 }
 
-.bloqueVista {
+.aclaratii5 {
+       padding: 10px;
+     padding-left: 40px;
+	padding-right: 100px;
+    font: 16px/27px Roboto,RobotoDraft,Arial,sans-serif;
+    color: #2e3640;
+    
+}
+
+.blocView {
     width: 100%;
     height: auto;
     display: table;
     font: 14px Arial, Helvetica, Helvetica Neue, Georgia;
 }
 
-.bloqueVistaTitulo {
+.blocTitluView {
     width: 100%;
     height: auto;
     display: table;
@@ -59,19 +69,19 @@ label:before {
 }
 
 .fa:before {
-	color: #056033
+	color: #3c82b4
 }
 
 .ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left{
-	    border-color: #056033;
+	    border-color: #3c82b4;
 }
 
 .ui-menu-child li:hover .fa:before {
-	color: #056033;
+	color: #3c82b4;
 }
 
 .ui-menu .ui-menuitem-text {
-	color: #056033;
+	color: #3c82b4;
 	display: inline-block;
 	vertical-align: middle;
 	float: none;
@@ -121,7 +131,7 @@ label:before {
 	width: 100%;
 }
 
-.buscador {
+.cautator {
 	width: 35%;
 }
 
@@ -148,8 +158,8 @@ label:before {
 .ui-inputfield:focus {
 	outline: 0;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px
-		#056033;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #056033
+		#3c82b4;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #3c82b4
 }
 
 .negrita {
@@ -157,7 +167,7 @@ label:before {
 }
 
 #header {
-	background: linear-gradient(to left, #7DDDB0, #177247);
+	background: linear-gradient(to left, #3c82b4, #575971);
 	min-height: 63px;
 	text-align: right;
 	position: relative;
@@ -215,25 +225,31 @@ label:before {
 	width: 30px
 }
 
-.resultadosFiltro {
+.rezultateFiltru {
 	width: 73%;
 	height: 100%;
 	float: right;
 
 }
-.resultadosFiltroOptiuni {
+.rezultateFiltruCentral {
+	width: 73%;
+	height: 100%;
+	padding-left: 15%;
+
+}
+.rezultateFiltruOptiuni {
 	width: 73%;
 	height: 100%;
 	float: right;
 	padding-right: 150px;
 
 }
-.resultadosFiltro2 {
+.rezultateFiltru2 {
 	width: 40%;
 	height: 100%;
 	float: right;
 }
-.resultadosFiltro5 {
+.rezultateFiltru5 {
 	width: 50%;
 	height: 100%;
 	float: right;
@@ -244,13 +260,13 @@ label:before {
 	height: 100%;
 	float: left;
 }
-.resultadosFiltro3 {
+.rezultateFiltru3 {
 	width: 60%;
 	height: 100%;
 	float: right;
 
 }
-.resultadosFiltro4 {
+.rezultateFiltru4 {
 	width: 50%;
 	height: 100%;
 	margin-right: auto;
@@ -288,11 +304,11 @@ ul ul span {
 
 .ui-menu .ui-state-hover {
 	background: transparent;
-	color: #056033 !important;
+	color: #3c82b4 !important;
 }
 
 .ui-state-focus2 {
-	background: #056033;
+	background: #3c82b4;
 }
 
 .ui-menubar {
@@ -309,11 +325,11 @@ ul ul span {
 	padding: 11px 0px;
 	text-align: center;
 	color: #ffffff;
-	background: #056033 !important;
+	background: #3c82b4 !important;
 	font-size: 1.1rem;
 }
 
-.botonesFormulario {
+.butoaneFormular {
 	padding-top: 5px;
 	height: 45px;
 	text-align: center;
@@ -323,7 +339,7 @@ ul ul span {
 }
 
 .ui-accordion .ui-accordion-header {
-	background: #056033;
+	background: #3c82b4;
 	cursor: pointer;
 	position: relative;
 	margin: 0px 0px 0px;
@@ -361,7 +377,7 @@ ul ul span {
 }
 
 .title {
-	color: #056033;
+	color: #3c82b4;
 	font-size: 1em;
 	font-family: Arial, sans-serif;
 }
@@ -576,7 +592,7 @@ ul ul span {
 	left: 0;
 	width: 5px;
 	height: 100%;
-	background: #15d250;
+	background: #3c82b4;
 }
 
 .fa-download:before, .fa-trash:before, .fa-edit:before, .fa-eye:before,
@@ -590,7 +606,7 @@ ul ul span {
 	.fa-bell:before, .fa-comment:before, .fa-file-word-o:before, .fa-file:before,
 	.fa-check-circle-o:before, .fa-remove:before, .fa-line-chart:before,
 	.fa-sitemap:before {
-	color: #056033 !important;
+	color: #3c82b4 !important;
 }
 
 .stat .fa-user:before, .stat .fa-folder-open:before, .stat .fa-file:before,
@@ -625,11 +641,14 @@ ul ul span {
 	float: right;
 }
 
-.titulo {
+.titlu {
 	font-size: 1.4em;
 }
-
-.subtitulo {
+.titlu2 {
+	font-size: 1.4em;
+	color: black;
+}
+.subtitlu {
 	font-size: 1rem;
 }
 
@@ -856,7 +875,7 @@ ul ul span {
 }
 
 .color-t {
-	color: #056033
+	color: #3c82b4
 }
 
 .negro {
@@ -864,7 +883,7 @@ ul ul span {
 }
 
 .color-t .fa:before {
-	color: #056033
+	color: #3c82b4
 }
 
 .oscuro {
@@ -879,7 +898,7 @@ ul ul span {
 	color: #707070;
 }
 
-.centrarBotonesDialog {
+.centrareButoaneDialog {
 	text-align: center;
 }
 
@@ -897,19 +916,19 @@ ul ul span {
 	border-bottom: solid 19px white;
 	border-left: solid 19px #e10e3f;
 	z-index: 10;
-	color: #056033;
+	color: #3c82b4;
 }
 
 .modTabs .ui-state-active, .modTabs .ui-widget-content .ui-state-active,
 	.modTabs .ui-widget-header .ui-state-active {
-	border: 1px solid #056033;
+	border: 1px solid #275678;
 	background: #ffffff !important;
 	font-weight: bold;
-	color: #056033;
+	color: #3c82b4;
 }
 
 .modTabs .ui-tabs.ui-tabs-left>.ui-tabs-nav li {
-	background: #056033;
+	background: #3c82b4;
 	transition: all 0.2s linear;
 }
 
@@ -918,16 +937,16 @@ ul ul span {
 }
 
 .modTabs .ui-tabs .ui-tabs-nav li a {
-	color: #056033;
+	color: #3c82b4;
 	transition: all 0.2s linear;
 }
 
 .modTabs .ui-tabs .ui-tabs-nav li.ui-state-active a {
-	color: #056033;
+	color: #3c82b4;
 }
 
 .modTabs .ui-tabs .ui-tabs-nav li a:hover {
-	color: #056033;
+	color: #3c82b4;
 }
 
 .panelExpediente.ui-accordion .ui-accordion-header.ui-state-disabled {
@@ -988,7 +1007,7 @@ ul ul span {
 	display: table;
 }
 
-.margenTituloArchivo {
+.margenTitluArchivo {
 	display: inline-block;
 	margin-right: 10px;
 	vertical-align: middle;
@@ -1157,7 +1176,7 @@ ul ul span {
 }
 
 .ui-menu-child>.ui-menuitem-active>a>span {
-	color: #056033 !important;
+	color: #3c82b4 !important;
 }
 
 .ui-datatable-scrollable-body:focus {
@@ -1168,7 +1187,7 @@ ul ul span {
 	.ui-widget-header .ui-state-default {
 	border: 1px solid #dcdcdc;
 	color: #000;
-	    border-color: #056033;
+	    border-color: #3c82b4;
 	
 }
 
@@ -1220,7 +1239,7 @@ ul ul span {
 
 .ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-rpp-options
 	{
-	color: #056033;
+	color: #3c82b4;
 }
 
 .newActionTable {
@@ -1338,7 +1357,7 @@ inline-block
 .modLink {
 	background: white !important;
 	border: none !important;
-	color: #056033 !important;
+	color: #3c82b4 !important;
 	text-decoration: underline !important;
 }
 
@@ -1346,35 +1365,35 @@ inline-block
 	width: auto;
 }
 
-.botonesFormulario button {
-	background: #056033 !important;
+.butoaneFormular button {
+	background: #3c82b4 !important;
 	color: white !important;
 	margin: 3px 0px;
 	border-radius: 20px;
 }
 
-.botonesFormulario button:hover {
-	background: #056033 !important;
+.butoaneFormular button:hover {
+	background: #3c82b4 !important;
 	margin: 3px 0px;
 }
 
-.botonesFormulario button:active {
-	background: #056033 !important;
+.butoaneFormular button:active {
+	background: #3c82b4 !important;
 	margin: 3px 0px;
 }
 
-.botonesFormulario button:focus {
-	background: #056033 !important;
+.butoaneFormular button:focus {
+	background: #3c82b4 !important;
 	outline: none;
 	color: white;
 	margin: 3px 0px;
 }
 
-.botonesFormulario button span.ui-icon:before {
+.butoaneFormular button span.ui-icon:before {
 	color: white !important;
 }
 
-.botonesFormulario button span.ui-button-text {
+.butoaneFormular button span.ui-button-text {
 	font-size: 1rem;
 }
 
@@ -1387,7 +1406,7 @@ inline-block
 	border: solid 1px transparent !important;
 	outline: 0 !important;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px
-		#056033 !important;
+		#3c82b4 !important;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #e01144!importan;
 }
 
@@ -1595,7 +1614,7 @@ inline-block
 	padding-right: 2em;
 }
 
-.bloqueFormulario {
+.blocFormular {
 	max-width: 1024px;
 	margin: auto;
 }
@@ -1630,20 +1649,20 @@ inline-block
 }
 
 .navPrimary>ul>li:hover>a, .navPrimary>ul>li.activeMenu>a {
-	color: #0BCA6B !important;
-	border-bottom: solid 2px #056033 !important;
+	color: #4d77db!important;
+	border-bottom: solid 2px #3c82b4 !important;
 	border-radius: 0 !important;
 }
 
 .navPrimary>ul>li:hover>a span.ui-menuitem-icon:before, .navPrimary>ul>li:hover>a span,
 	.navPrimary>ul>li.activeMenu>a span, .navPrimary>ul>li.activeMenu>a span.ui-menuitem-icon:before
 	{
-	color: #0BCA6B !important;
+	color: #4d77db!important;
 }
 
 .navPrimary>ul>li:hover>a span.ui-icon.ui-icon-triangle-1-s:before,
 	.navPrimary>ul>li.activeMenu span.ui-icon.ui-icon-triangle-1-s:before {
-	border-top: solid 5px #056033;
+	border-top: solid 5px #3c82b4;
 }
 
 .navPrimary>ul>li>a span {
@@ -1739,7 +1758,7 @@ div#menuSuperior>form {
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited
 	{
-	color: #cc0000;
+	color: #0078f0;
 	text-decoration: none;
 }
 
@@ -1774,17 +1793,17 @@ div#menuSuperior>form {
 }
 
 .ui-datatable-footer ui-widget-header ui-corner-bottom{
-	background:#056033;
+	background:#3c82b4;
 }
 .ui-widget-header {
-    border: 1px solid #e3a1a1;
-    background: #056033;
+    border: 1px solid #75d5f4;
+    background: #3c82b4  ;
     color: #ffffff;
     font-weight: bold;
 }
 
 .ui-widget-header {
-	background: #056033;
+	background: #3c82b4  ;
 	border-radius: 0;
 }
 
@@ -1800,13 +1819,13 @@ div#menuSuperior>form {
     text-indent: -99999px;
     overflow: hidden;
     background-repeat: no-repeat;
-    color: #056033;
+    color: #3c82b4  ;
 }
 .ui-icon ui-icon-triangle-1-e{
-	color: #056033;
+	color: #3c82b4;
 }
 .ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only{
-	color: #056033;
+	color: #3c82b4;
 }
 .ui-paginator.ui-paginator-bottom {
     border: 0 none;
@@ -1880,7 +1899,7 @@ div#menuSuperior>form {
     max-width:80%;
     margin: 20px auto;
 }
-.bloqueFormulario2 {
+.blocFormular2 {
     width: 90%;
     height: auto;
     margin-right: auto;
@@ -1925,8 +1944,8 @@ div#menuSuperior>form {
 table.ui-panelgrid,
 table.ui-panelgrid tbody2,
 table.ui-panelgrid td.ui-panelgrid-cell{width:100%; display:inline-block;}
-.login #panel_content{border:none; background-color:#b7ecd2 !important; padding:0;}
-.login table *{background-color:#b7ecd2!important; border:none;}
+.login #panel_content{border:none; background-color:#d8dcec   !important; padding:0;}
+.login table *{background-color:#d8dcec    !important; border:none;}
 .login table.ui-panelgrid td.ui-panelgrid-cell{border:none !important; padding:0; color:#606060;font-weight: bold;}
 .login table input{border:1px solid #999; background-color:#fff !important; width:100%; font-family:Roboto, sans-serif; font-size:15px; font-size:1.5rem; padding:5px; color:black; margin:5px 0;}
 /*** FinTabla de LOGIN ***/
@@ -1942,15 +1961,15 @@ table.ui-panelgrid td.ui-panelgrid-cell{width:100%; display:inline-block;}
 .box-logos{display:inline-block; margin:0px 15px; margin:40px 0px 0px 0px; width:100%; vertical-align:bottom; max-width:calc(100% - 463px); text-align:right;} 
 .logo-elypse{display:inline-block; margin:0px 15px; padding-left: 20px;float:left;padding-bottom: 25px;}
 #logo-ely img, .logo-telefonica img{max-width:100%; height:auto;}
-.claim{display:inline-block;  width:calc(100% - 463px); height:10px; float:left; margin-top:40px; font-family:'Roboto', sans-serif; font-size:1.6rem;}
+.claim{display:inline-block;  width:calc(100% - 363px); height:10px; float:left; margin-top:40px; font-family:'Roboto', sans-serif; font-size:1.6rem;}
 .logo-telefonica{float:right; display:inline-block; margin:0px 34px 0 10px;}
 .user-mobile{display:none; width:100%;}
 
 /** Estilos DE CONTENEDORES GENERALES **/
-#wrapper{max-width:1000px; margin:14px auto 0 auto; padding-bottom:10px; border-bottom:15px solid #177247; height:120px;}
+#wrapper{max-width:1000px; margin:14px auto 0 auto; padding-bottom:10px; border-bottom:15px solid #629be2   ; height:120px;}
 .wrapper{max-width:1000px; margin:0 auto;}
-#holder{background-color:#b7ecd2; margin-left:15px;}
- 
+#holder{background-color:#d8dcec    ; margin-left:15px;}
+ #holder2{background-color:#d8dcec    ; margin-left:115px;padding-top: 20px;height: 330px;}
  .listInfo {
     max-width: calc(75% - 15px);
     padding-top: 60px;
@@ -1972,7 +1991,7 @@ table.ui-panelgrid td.ui-panelgrid-cell{width:100%; display:inline-block;}
 }
 #body2{font-family:Verdana, Helvetica, Tahoma, sans;font-size:10px;line-height:13.5pt;color:black;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing: border-box;}
 
-.bloqueVistaTitulo{padding:20px 0 10px 0; color:#02b5c9; text-transform:uppercase;}
+.blocTitluView{padding:20px 0 10px 0; color:#02b5c9; text-transform:uppercase;}
 
 .grafica
 	{
@@ -1980,4 +1999,20 @@ table.ui-panelgrid td.ui-panelgrid-cell{width:100%; display:inline-block;}
 	}
 .ui-datatable .ui-datatable-header {
     border-bottom: 0 none;
-    padding-bottom: 10px;
+    padding-bottom: 10px;}
+    .ui-panel .ui-panel-content {
+    border: 0;
+    background: 0;
+    /* padding: .5em 1em; */
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #eeeeee;
+    background: #ffffff url(/perAdmin/javax.faces.resource/images/ui-bg_flat_65_ffffff_40x100.png.xhtml?ln=primefaces-blitzer) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #004080;
+}
+.graficaEstadisticas {
+    color:#000;
+    width:700px;
+    height:500px
+}

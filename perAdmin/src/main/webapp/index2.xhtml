@@ -9,7 +9,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <f:view>
 	<ui:composition template="layouts/layoutInterior.xhtml">
-		<ui:define name="title">Ecologiștii</ui:define>
+		<ui:define name="title">Gesint</ui:define>
 		<ui:define name="content">	
 			<h:form id="formHome">
 				<h3>STATISTICĂ</h3>	  
@@ -21,14 +21,14 @@
 					onstart="PF('statusDialog').show()"
 					onsuccess="PF('statusDialog').hide()" />
 		        		<p:tab title="SITUAȚIE GENERALĂ MEMBRII" id="membrii_noi">	           		            
-		           				 <div id="bloqueFormulario">          
+		           				 <div id="blocFormular">          
 	    							 <h1 class="nombreInforme">Raport situație generală</h1>            
-			     					 <div class="aclaraciones3">În 2018, Conducerea PER a hotărât introducerea unui sistem de monitorizare a situației membrilor înscriși.   
+			     					 <div class="aclaratii3">În 2018, Conducerea PER a hotărât introducerea unui sistem de monitorizare a situației membrilor înscriși.   
 	 								Rapoartele generate de acest sistem vor deveni necesare pentru a dezvolta inițiative și de a contribui la îndeplinirea obiectivelor stabilite în viitor.</div>
           				 		</div> 
-          				 		<div class="aclaraciones3">Printre funcțiile acestui sistem,  se poate cita ca rezumat:</div>
+          				 		<div class="aclaratii3">Printre funcțiile acestui sistem,  se poate cita ca rezumat:</div>
           				 		
-          				 		<div class="aclaraciones3">Să acționeze ca un observator al fenomenului, să adune informații și să propună noi inițiative în acest sens.
+          				 		<div class="aclaratii3">Să acționeze ca un observator al fenomenului, să adune informații și să propună noi inițiative în acest sens.
 															Promovarea coordonării și cooperării intre grupuri și organizații la nivel național.
 														Elaborarea și evaluarea gradului de conformitate cu instrucțiunile și protocoale de acțiune adresate organizațiilor la nivel județean.
 						Coordonează campaniile publice ale partidului.
@@ -36,24 +36,24 @@
 						Elaborarea, difuzarea și publicarea, periodic, a informațiilor generale și statistice.</div>
           				
           				 <h2>Rezumat executiv</h2>
-          				 <div class="aclaraciones3">Pentru pregătirea acestui raport, s-au folosit date publicate de Institutul Național de Statistică și date înregistrate de organizațiile județene ale partidului 
+          				 <div class="aclaratii3">Pentru pregătirea acestui raport, s-au folosit date publicate de Institutul Național de Statistică și date înregistrate de organizațiile județene ale partidului 
 							la data de <strong>#{homeBean.current_date}</strong>. De asemenea, au fost utilizate surse de date bazate pe analize strategice.</div>	           		 					
- 						<div class="aclaraciones3">Mai jos, cele mai relevante date sunt prezentate, ca rezumat, în legătură cu acest Raport privind Situația Generala a PER:</div>
+ 						<div class="aclaratii3">Mai jos, cele mai relevante date sunt prezentate, ca rezumat, în legătură cu acest Raport privind Situația Generala a PER:</div>
  						<h3>Total</h3>
  						<div class="filtro2">
-	 						<div class="aclaraciones3">La data de <strong>#{homeBean.current_date}</strong>, în sistemul <strong>GESINT</strong>, au fost înregistrați un total de <strong>#{homeBean.statistica.numarTotal}</strong> membrii.
+	 						<div class="aclaratii3">La data de <strong>#{homeBean.current_date}</strong>, în sistemul <strong>GESINT</strong>, au fost înregistrați un total de <strong>#{homeBean.statistica.numarTotal}</strong> membrii.
 	 						 Trebuie remarcat faptul că totalul numarului de membrii activi reprezintă un procentaj de <strong>#{homeBean.procentajTotalMembrii} %</strong> din totalul cetațenilor români cu drept de vot( <strong>#{homeBean.statistica.totalVot}</strong> locuitori).
 	 						 În ceea ce privește procentul membrilor activi(înregistrati), se considera <strong>#{homeBean.valoare}</strong>.
 	 						 Pe de altă parte, din numărul total de membrii activi, în ultimul an, înregistrati sunt <strong>#{homeBean.statistica.totalUltimAn}</strong> dintr-un total de <strong>#{homeBean.statistica.numarTotal}</strong> 
 	 						 membrii, ceea ce reprezintă un procent de <strong>#{homeBean.procentajTotalMembriiUltimAn} %</strong>  
 	 						</div>
  						</div>
- 						<div class="resultadosFiltro2">
+ 						<div class="rezultateFiltru2">
 							 <p:chart type="bar" model="#{homeBean.horizontalBarModel}" />      
 						</div>
  						<p:separator />
- 						<div class="resultadosFiltro3">
-							 <div class="aclaraciones3">Un total de <strong>#{homeBean.statistica.totalBarbati} %</strong> din înregistrările totale în <strong>GESINT</strong> corespund bărbaților și <strong>#{homeBean.statistica.totalFemei} %</strong> femeilor. 
+ 						<div class="rezultateFiltru3">
+							 <div class="aclaratii3">Un total de <strong>#{homeBean.statistica.totalBarbati} %</strong> din înregistrările totale în <strong>GESINT</strong> corespund bărbaților și <strong>#{homeBean.statistica.totalFemei} %</strong> femeilor. 
 								Se poate observa că numărul înregistrărilor referitoare la bărbați <strong>#{homeBean.textMaiMare}</strong> decât cel referitor la femei.
 		 					 </div>	
 		 							<p:chart type="pie" id="graficaSex" model="#{homeBean.graficaUserSex}"/>

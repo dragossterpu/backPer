@@ -60,7 +60,7 @@ a.salir {
 
     /* ********** Paneles ********** */
 .ui-panel{border:0px; padding:0; margin-bottom:15px; margin-top:0px;}
-.ui-panel .ui-panel-content{border:1px solid #a6c9e2;}
+.ui-panel .ui-panel-content{border:1px solid #a6c9e2; background-color: #70D7AD !important;}
 .ui-tabs{padding:0px;}
 .ui-tabs .ui-tabs-panel{padding:10px 0px 0px 0px;}
  /* ********** Paneles FIN********** */

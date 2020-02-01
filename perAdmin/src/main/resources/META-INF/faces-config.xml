@@ -23,6 +23,6 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 <factory>
-      <exception-handler-factory>ro.per.online.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
+      <exception-handler-factory>ro.stad.online.gesint.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
   </factory>
 </faces-config>

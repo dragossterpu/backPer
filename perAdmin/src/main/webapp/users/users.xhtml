@@ -8,7 +8,7 @@
 	xmlns:my="http://java.sun.com/jsf/composite/composites"
 	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 	<ui:define name="content">
-		<p:importConstants type="ro.per.online.constantes.NumeroMagic" var="NumeroMagic" />
+		<p:importConstants type="ro.stad.online.gesint.constante.NumarMagic" var="NumeroMagic" />
 
 		<h:form id="searchListUsers">
 			<p:tabView id="tabDatosUsuarios">
@@ -24,13 +24,13 @@
 					<ui:include src="../users/conducereaLocala.xhtml" />	
                   </p:tab>	
                    <p:tab title="Conducerea centrală" id="conducereaCentrala">
-<!-- 					<ui:include src="../users/conducereaCentrala.xhtml" />	 -->
+					<ui:include src="../users/conducereaCentrala.xhtml" />	
                   </p:tab>				
 
 		 </p:tabView>	
 			<p:dialog id="dialog" widgetVar="dialogMessage" header="Información" closable="false">
 				<p:messages for="dialogMessage" autoUpdate="true" showDetail="true" showSummary="true" />
-				<div class="centrarBotonesDialog">
+				<div class="centrareButoaneDialog">
 					<p:button value="Închideţi" outcome="/users/users" />
 				</div>
 			</p:dialog>

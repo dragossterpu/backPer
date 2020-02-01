@@ -5,16 +5,16 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 		
 		
-		 <div class="resultadosFiltro2">
+		 <div class="rezultateFiltru2">
 <!-- 		 <p:chart type="bar" model="#{homeBean.horizontalBarModel}" />       -->
 		  </div>             	
 		  <div class="filtro2">
 		          <p:chart type="bar" model="#{homeBean.barModel}" />
 		       </div>
-		   <div class="resultadosFiltro">            	
-		   <p:dataTable id="tablaTiposUsuarios" class ="tabActividades" value="#{homeBean.listaUsuarios.entrySet().toArray()}" var="entry">				
+		   <div class="rezultateFiltru">            	
+		   <p:dataTable id="tablaTiposUsuarios" class ="tabActividades" value="#{homeBean.listaUtilizatori.entrySet().toArray()}" var="entry">				
 				<f:facet name="header">																																											
-				<span class="subtitulo">MEMBRII NOI ÎNREGISTRAȚI ÎN ULTIMUL AN</span>														
+				<span class="subtitlu">MEMBRII NOI ÎNREGISTRAȚI ÎN ULTIMUL AN</span>														
 				</f:facet>												
 				<p:column headerText="Perioada">													
 					 <strong><h:outputText value="#{entry.key}"/></strong>																																																					
@@ -28,19 +28,19 @@
 			<div class="filtro">
 						  aici vine descrierea
 			 </div>
-		             <div class="resultadosFiltro">
+		             <div class="rezultateFiltru">
 <!-- 		              <p:chart type="pie" id="graficaSex" model="#{homeBean.graficaUserSex}"/> -->
 		               </div>
 						<div class="filtro">
 						  aici vine descriere
 						 </div>
-		              <div class="resultadosFiltro">
+		              <div class="rezultateFiltru">
 		              <p:chart type="pie" id="graficaZona" model="#{homeBean.graficaUserZona}"  />
 						 </div>
 						<div class="filtro">
 						  aici vine descrierea
 						 </div>
-						 <div class="resultadosFiltro">
+						 <div class="rezultateFiltru">
 		<p:chart type="pie" id="grafica" model="#{homeBean.graficaUserUltimMembru}" />
 		 </div>
 		<div class="filtro">

@@ -242,3 +242,9 @@ GROUP BY l.id, l.name, l.locuitori,l.sector , l.membrii_minim, l.voturi_minim OR
 
 
 
+SELECT distinct p.nume,p.sigla,p.id, SUM(rpj.total_voturi_partid) AS voturiPartid ,SUM(rpj.numar_mandate) AS mandatePartid ,
+(SELECT sum(total_voturi_partid) FROM partid_rezultat_judet WHERE an_alegeri= 2016 )AS totalVoturi, 
+(SELECT sum(numar_mandate) FROM partid_rezultat_judet  WHERE an_alegeri= 2016 )AS totalMandate  
+FROM partid_rezultat_judet rpj , partid p WHERE rpj.partid= p.id  AND rpj.an_alegeri= 2016  
+GROUP BY p.nume,p.sigla,p.id ORDER BY  voturiPartid DESC ,p.nume limit 10 offset 0
+

@@ -145,3 +145,82 @@ VALUES (30,'Membru sau simpatizant al partidului','Membru','Conducerea Locală')
 
 update users set team_id = 30 where team_id is null;
 update  pteam set organization='Membru' where id=30;
+
+
+INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3186, 2298, 'Sâniob',3,NULL, false, null, 'COMMUNE', 'BH', 85, 
+            7);
+  INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3187, 1376, 'Costinești',3,NULL, false, null, 'COMMUNE', 'CT', 57, 
+            6);
+INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3188, 971, 'Suhurlui',3,NULL, false, null, 'COMMUNE', 'GL', 47, 
+            5);
+            
+   INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3189, 1532, 'Isvoarele',3,NULL, false, null, 'COMMUNE', 'GR', 134, 
+            9);
+            
+   INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3190, 3785, 'Bărbulești',3,NULL, false, null, 'COMMUNE', 'IL', 312, 
+            27);
+   INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3191, 1074, 'Colelia',3,NULL, false, null, 'COMMUNE', 'IL', 97, 
+            9);
+    INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3192, 1274, 'Ciumești',3,NULL, false, null, 'COMMUNE', 'IL', 27, 
+            3);
+
+    INSERT INTO plocality(
+            id, locuitori, name, nivel, photo, residence, sector, typelocality, 
+            code_province, voturi_minim, membrii_minim)
+    VALUES (3193, 5574, 'Zvoriștea',3,NULL, false, null, 'COMMUNE', 'SV', 131, 
+            12);           
+            
+ update plocality set name = 'Probota' where id = 1914       
+ 
+  update plocality set name = 'Pădina' where id = 2081   
+  
+update users set locality_id = 2632 where locality_id = 2730
+delete from plocality where id = 2730
+
+
+CREATE TABLE partid_rezultat_localitate
+(
+  id bigint NOT NULL,
+  data_alegerilor timestamp without time zone,
+  procentaj_total_voturi real,
+  tip_alegeri character varying(255),
+  total_voturi_judet bigint,
+  id_judet character varying(255),
+  id_localitate bigint,
+  partid bigint,
+  numar_mandate bigint,
+  procentaj_mandate_judet real,
+  an_alegeri integer,
+  total_voturi_partid bigint,
+  CONSTRAINT partid_rezultat_localitate_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_u_partid_loc FOREIGN KEY (partid)
+      REFERENCES partid (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+ CONSTRAINT fk_u_localitate FOREIGN KEY (id_localitate)
+      REFERENCES plocality (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+ CONSTRAINT fk_u_province_loc FOREIGN KEY (id_judet)
+      REFERENCES pprovince (code_province) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)

@@ -6,7 +6,7 @@ xmlns:f="http://xmlns.jcp.org/jsf/core"
 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
             <h:form id="form">
-			<div class="bloqueFormulario">
+			<div class="blocFormular">
 					<p:panel header="Înregistrare nou partid" styleClass="panelModCard">
 						<p:panelGrid>
 							<p:row>
@@ -31,22 +31,19 @@ xmlns:p="http://primefaces.org/ui">
 								<p:column>
 									<b><h:outputLabel for="descripcionOld" value="Numele vechi al partidului:" /></b>
 								</p:column>
-								<p:column>
-									<p:inputText id="descripcionOld" value="#{oldName}" converter="#{trimConverter}" maxlength="100" />
-                					<p:messages for="descripcionOld" autoUpdate="true" closable="true" />
-								</p:column>
+								
                				</p:row>
 					</p:panelGrid>
                 </p:panel>
-                <div class="botonesFormulario">
-                    <p:commandButton actionListener="#{partidBean.altaPartid(numePartid,sigla,oldName)}" value="Crează partid" icon="fa fa-fw fa-save" />
+                <div class="butoaneFormular">
+                    <p:commandButton actionListener="#{partidBean.altaPartid(numePartid,sigla)}" value="Crează partid" icon="fa fa-fw fa-save" />
                     <p:commandButton value="Renunță" icon="fa fa-fw fa-undo" action="/administratie/partide/partide?faces-redirect=true" immediate="true">
                          <p:confirm header="Renunță" message="Sunteți sigur că doriți să anulați această operație?. Datele introduse vor fi pierdute" icon="fa fa-warning-sign" />
                     </p:commandButton>
                 </div>
 
                 <p:confirmDialog global="true">
-                    <div class="centrarBotonesDialog">
+                    <div class="centrareButoaneDialog">
                         <p:button value="Acceptă" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
                         <p:button value="Renunță" styleClass="ui-confirmdialog-no" icon="fa fa-remove" />
                     </div>
@@ -54,7 +51,7 @@ xmlns:p="http://primefaces.org/ui">
                 
                 <p:dialog id="dialog" widgetVar="dialogMessage" header="INFO" closable="false">
                     <p:messages for="dialogMessage" autoUpdate="true" showDetail="true" showSummary="true" />
-                    <div class="centrarBotonesDialog">
+                    <div class="centrareButoaneDialog">
                         <p:button value="Închide" outcome="/administratie/partide/partide" />
                     </div>
                 </p:dialog>

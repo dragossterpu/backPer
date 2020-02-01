@@ -1,5 +1,27 @@
-{"properties": [{
-  "name": "mailSession.debug",
-  "type": "java.lang.String",
-  "description": "A description for 'mailSession.debug'"
-}]}
+{"properties": [
+  {
+    "name": "mailSession.debug",
+    "type": "java.lang.String",
+    "description": "A description for 'mailSession.debug'"
+  },
+  {
+    "name": "servlet.context-path",
+    "type": "java.lang.String",
+    "description": "A description for 'servlet.context-path'"
+  },
+  {
+    "name": "servlet.session.timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'servlet.session.timeout'"
+  },
+  {
+    "name": "server.servlet.session.timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'server.servlet.session.timeout'"
+  },
+  {
+    "name": "server.servlet.context-path",
+    "type": "java.lang.String",
+    "description": "A description for 'server.servlet.context-path'"
+  }
+]}
